@@ -1,0 +1,15 @@
+{
+  "name": "high-vibration",
+  "intervalSeconds": 3,
+  "vehicles": [
+    {
+      "vehicleId": "DT-03",
+      "routeId": "ROUTE-SIM-002",
+      "speedRangeKmh": [20, 30],
+      "engineTempRangeC": [86, 96],
+      "oilPressureRangeBar": [3.2, 4.1],
+      "vibrationRange": [0.58, 0.82],
+      "fuelRateRangeLph": [36, 48]
+    }
+  ]
+}

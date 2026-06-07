@@ -1,0 +1,11 @@
+[
+  {
+    "id": "PLAN-001",
+    "vehicleId": "DT-01",
+    "originNodeId": "DISPATCH-01",
+    "loadingNodeId": "LP-ROTO-S-01",
+    "dumpNodeId": "STOCKPILE-01",
+    "targetLoadTon": 30,
+    "status": "draft"
+  }
+]

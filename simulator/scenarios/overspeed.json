@@ -1,0 +1,15 @@
+{
+  "name": "overspeed",
+  "intervalSeconds": 3,
+  "vehicles": [
+    {
+      "vehicleId": "DT-01",
+      "routeId": "ROUTE-SIM-001",
+      "speedRangeKmh": [43, 52],
+      "engineTempRangeC": [82, 94],
+      "oilPressureRangeBar": [3.7, 4.5],
+      "vibrationRange": [0.18, 0.4],
+      "fuelRateRangeLph": [34, 46]
+    }
+  ]
+}

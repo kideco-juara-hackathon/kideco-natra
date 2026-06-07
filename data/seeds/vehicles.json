@@ -1,0 +1,29 @@
+[
+  {
+    "id": "DT-01",
+    "name": "Dump Truck 01",
+    "type": "dump_truck",
+    "capacityTon": 30,
+    "status": "standby",
+    "healthScore": 86,
+    "currentNodeId": "DISPATCH-01"
+  },
+  {
+    "id": "DT-02",
+    "name": "Dump Truck 02",
+    "type": "dump_truck",
+    "capacityTon": 30,
+    "status": "standby",
+    "healthScore": 74,
+    "currentNodeId": "DISPATCH-01"
+  },
+  {
+    "id": "DT-03",
+    "name": "Dump Truck 03",
+    "type": "dump_truck",
+    "capacityTon": 28,
+    "status": "maintenance_risk",
+    "healthScore": 52,
+    "currentNodeId": "DISPATCH-01"
+  }
+]

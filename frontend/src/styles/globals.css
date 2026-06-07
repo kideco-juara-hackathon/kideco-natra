@@ -1,0 +1,131 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #07090d;
+  background: #f4f6f8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 288px 1fr;
+  min-height: 100vh;
+}
+
+.app-sidebar {
+  border-right: 1px solid #d8dde4;
+  background: #f7f8fb;
+  padding: 24px;
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.brand-mark {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 14px;
+  background: #ed1b2f;
+  color: white;
+  font-weight: 800;
+}
+
+.brand span {
+  display: block;
+  color: #49515c;
+  font-size: 14px;
+}
+
+.sidebar-nav {
+  display: grid;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  padding: 12px 14px;
+  color: #3f4650;
+  text-align: left;
+}
+
+.nav-item:first-child {
+  border-color: #d7dbe2;
+  background: white;
+  color: #ed1b2f;
+}
+
+.app-main {
+  min-width: 0;
+}
+
+.page {
+  padding: 28px 32px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.page-header button {
+  border: 1px solid #cdd3dc;
+  border-radius: 10px;
+  background: white;
+  padding: 10px 16px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+
+.panel {
+  min-height: 220px;
+  border: 1px solid #d8dde4;
+  border-radius: 12px;
+  background: white;
+  padding: 20px;
+}
+
+.map-panel {
+  grid-row: span 2;
+}
+
+.map-placeholder {
+  display: grid;
+  height: 520px;
+  place-items: center;
+  border: 1px dashed #bac3d0;
+  border-radius: 10px;
+  background: #e9edf2;
+  color: #59616c;
+}

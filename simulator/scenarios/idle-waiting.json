@@ -1,0 +1,15 @@
+{
+  "name": "idle-waiting",
+  "intervalSeconds": 3,
+  "vehicles": [
+    {
+      "vehicleId": "DT-02",
+      "routeId": "ROUTE-SIM-003",
+      "speedRangeKmh": [0, 2],
+      "engineTempRangeC": [80, 90],
+      "oilPressureRangeBar": [3.6, 4.4],
+      "vibrationRange": [0.08, 0.18],
+      "fuelRateRangeLph": [6, 12]
+    }
+  ]
+}

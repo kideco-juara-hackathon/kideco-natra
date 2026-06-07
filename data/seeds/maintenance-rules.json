@@ -1,0 +1,18 @@
+{
+  "engineTempC": {
+    "warning": 95,
+    "critical": 105
+  },
+  "oilPressureBar": {
+    "warningBelow": 3.4,
+    "criticalBelow": 2.8
+  },
+  "vibrationLevel": {
+    "warning": 0.55,
+    "critical": 0.75
+  },
+  "speedKmh": {
+    "warningAbove": 40,
+    "criticalAbove": 48
+  }
+}
