@@ -58,3 +58,67 @@ Receives simulated telemetry event.
 `GET /api/telemetry/latest`
 
 Returns latest telemetry by vehicle.
+
+Optional query:
+
+```text
+?assetId=DT-01
+```
+
+`GET /api/telemetry/{assetId}/history`
+
+Returns telemetry history for one vehicle.
+
+## Load Plans
+
+`POST /api/load-plans`
+
+Request:
+
+```json
+{
+  "vehicleId": "DT-01",
+  "originNodeId": "DISPATCH-01",
+  "candidatePitNodeIds": ["PIT-A-01", "PIT-B-01"],
+  "destinationNodeId": "JETTY-01",
+  "targetPayloadTon": 32
+}
+```
+
+Response includes recommended pickup stops and an attached route plan.
+
+## Predictions
+
+`POST /api/predictions/eta`
+
+`POST /api/predictions/fuel`
+
+`POST /api/predictions/health`
+
+All MVP prediction responses include:
+
+```json
+{
+  "modelType": "rule_based_v0"
+}
+```
+
+## Dashboard
+
+`GET /api/dashboard/summary`
+
+Returns asset status counts, average health score, latest telemetry count, and open recommendations.
+
+## Recommendations
+
+`GET /api/recommendations`
+
+Optional query:
+
+```text
+?assetId=DT-01&status=open
+```
+
+`PATCH /api/recommendations/{recommendationId}/resolve`
+
+Marks a recommendation as resolved.
