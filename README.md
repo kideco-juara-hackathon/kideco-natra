@@ -45,6 +45,26 @@ cd simulator
 python telemetry_simulator.py --scenario normal
 ```
 
+## Docker Compose
+
+Run the backend with PostgreSQL from this directory:
+
+```bash
+docker compose up --build
+```
+
+Services:
+
+- Backend API: `http://localhost:8000`
+- Swagger/OpenAPI: `http://localhost:8000/docs`
+- PostgreSQL: `localhost:5432`
+
+If port `8000` is already used:
+
+```bash
+BACKEND_PORT=8002 docker compose up --build
+```
+
 ## Data Policy
 
 Do not commit raw internal mining datasets unless the team has explicit permission. Use `data/seeds` for sanitized simulation data and `data/raw` only for local-only files.

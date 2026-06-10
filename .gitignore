@@ -4,6 +4,7 @@ node_modules/
 venv/
 __pycache__/
 *.pyc
+.pytest_cache/
 
 # Environment
 .env
@@ -26,6 +27,8 @@ ml/reports/*
 
 # Logs
 *.log
+kideco_backend.db
+backend/kideco_backend.db
 
 # OS/editor
 .DS_Store
