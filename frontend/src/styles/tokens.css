@@ -1,0 +1,347 @@
+@font-face {
+  font-family: "Unica77 LL";
+  src:
+    url("/fonts/unica77/Unica77LL.woff2") format("woff2"),
+    url("/fonts/unica77/Unica77LL.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Brand ramp based on KIDECO red. */
+  --kideco-red-25: #fff6f7;
+  --kideco-red-50: #fff1f3;
+  --kideco-red-100: #ffe1e5;
+  --kideco-red-200: #ffc7ce;
+  --kideco-red-300: #ff9ba8;
+  --kideco-red-400: #f95f72;
+  --kideco-red-500: #e81b2d;
+  --kideco-red-600: #cc1324;
+  --kideco-red-700: #a90f1d;
+  --kideco-red-800: #8c111c;
+  --kideco-red-900: #73141c;
+  --kideco-red-950: #43080d;
+
+  /* KIDECO neutral identity. */
+  --graphite-25: #fafafa;
+  --graphite-50: #f4f5f7;
+  --graphite-100: #e5e7eb;
+  --graphite-200: #d1d5db;
+  --graphite-300: #a1a1a2;
+  --graphite-400: #858688;
+  --graphite-500: #646567;
+  --graphite-600: #4b4c4f;
+  --graphite-700: #34363a;
+  --graphite-800: #1f2328;
+  --graphite-900: #111827;
+  --graphite-950: #0d0e0f;
+
+  /* Operational status ramps. */
+  --success-50: #ecfdf3;
+  --success-100: #d1fadf;
+  --success-500: #22c55e;
+  --success-600: #16a34a;
+  --success-700: #15803d;
+
+  --warning-50: #fffbeb;
+  --warning-100: #fef3c7;
+  --warning-500: #fbbf24;
+  --warning-600: #f59e0b;
+  --warning-700: #b45309;
+
+  --danger-50: #fef2f2;
+  --danger-100: #fee2e2;
+  --danger-500: #ef4444;
+  --danger-600: #dc2626;
+  --danger-700: #b91c1c;
+
+  --info-50: #eff6ff;
+  --info-100: #dbeafe;
+  --info-500: #3b82f6;
+  --info-600: #2563eb;
+  --info-700: #1d4ed8;
+
+  --idle-50: #f3f4f6;
+  --idle-100: #e5e7eb;
+  --idle-600: #6b7280;
+  --idle-700: #4b5563;
+
+  /* Data visualization accents. */
+  --chart-blue: #2563eb;
+  --chart-teal: #0f766e;
+  --chart-purple: #7c3aed;
+  --chart-orange: #ea580c;
+  --chart-cyan: #0891b2;
+  --chart-slate: #64748b;
+  --chart-red: #e81b2d;
+
+  --white: #ffffff;
+  --black: #0d0e0f;
+
+  /* Semantic layer. Use these in component CSS. */
+  --brand-primary: var(--kideco-red-500);
+  --brand-primary-hover: var(--kideco-red-600);
+  --brand-primary-subtle: var(--kideco-red-50);
+
+  --bg-default: var(--graphite-50);
+  --bg-app-frame: #eef2f6;
+  --bg-sidebar: #f6f7fb;
+  --bg-surface: var(--white);
+  --bg-subtle: var(--graphite-25);
+  --bg-muted: var(--graphite-100);
+  --bg-inverse: var(--graphite-950);
+  --bg-critical-subtle: var(--kideco-red-50);
+
+  --text-default: var(--graphite-900);
+  --text-subtle: var(--graphite-600);
+  --text-muted: var(--graphite-500);
+  --text-inverse: var(--white);
+  --text-danger: var(--danger-700);
+
+  --border-subtle: var(--graphite-100);
+  --border-default: var(--graphite-200);
+  --border-strong: var(--graphite-300);
+  --border-hairline: var(--border-subtle);
+  --focus-ring: var(--kideco-red-500);
+
+  --status-ready: var(--success-600);
+  --status-active: var(--info-600);
+  --status-monitor: var(--warning-600);
+  --status-critical: var(--danger-600);
+  --status-idle: var(--idle-600);
+
+  /* Typography tokens. */
+  --font-sans: "Unica77 LL", "Neue Haas Unica", "Helvetica Neue", Arial, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans-alt: "Unica77 LL", "IBM Plex Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Unica77 Mono", "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-family-sans: var(--font-sans);
+  --font-family-display: var(--font-sans);
+  --font-family-mono: var(--font-mono);
+
+  --font-size-11: 11px;
+  --font-size-12: 12px;
+  --font-size-13: 13px;
+  --font-size-14: 14px;
+  --font-size-15: 15px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-20: 20px;
+  --font-size-22: 22px;
+  --font-size-24: 24px;
+  --font-size-28: 28px;
+  --font-size-32: 32px;
+  --font-size-36: 36px;
+  --font-size-40: 40px;
+  --font-size-48: 48px;
+  --font-size-56: 56px;
+
+  --line-height-none: 1;
+  --line-height-tight: 1.16;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.45;
+  --line-height-relaxed: 1.57;
+
+  --font-display-md: var(--font-size-36);
+  --font-display-sm: var(--font-size-28);
+  --font-heading-xl: var(--font-size-24);
+  --font-heading-lg: var(--font-size-22);
+  --font-heading-md: var(--font-size-18);
+  --font-heading-sm: var(--font-size-15);
+  --font-body-lg: var(--font-size-16);
+  --font-body-md: var(--font-size-14);
+  --font-body-sm: var(--font-size-13);
+  --font-label: var(--font-size-12);
+  --font-caption: var(--font-size-12);
+  --font-micro: var(--font-size-11);
+  --font-metric-xl: var(--font-size-40);
+  --font-metric-lg: var(--font-size-32);
+  --font-metric-md: var(--font-size-24);
+  --font-metric-sm: var(--font-size-20);
+
+  --line-display-md: 44px;
+  --line-display-sm: 36px;
+  --line-heading-xl: 32px;
+  --line-heading-lg: 30px;
+  --line-heading-md: 26px;
+  --line-heading-sm: 22px;
+  --line-body-lg: 24px;
+  --line-body-md: 22px;
+  --line-body-sm: 20px;
+  --line-label: 16px;
+  --line-caption: 16px;
+  --line-micro: 14px;
+  --line-metric-xl: 44px;
+  --line-metric-lg: 38px;
+  --line-metric-md: 30px;
+  --line-metric-sm: 26px;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 650;
+  --weight-bold: 700;
+  --letter-spacing-default: 0;
+  --letter-spacing-tight: 0;
+  --letter-spacing-wide: 0;
+  --letter-spacing-ui: 0;
+
+  /* Spacing, shapes, elevation, layout. */
+  --space-px: 1px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  --spacing-px: var(--space-px);
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-5: var(--space-5);
+  --spacing-6: var(--space-6);
+  --spacing-7: var(--space-7);
+  --spacing-8: var(--space-8);
+  --spacing-9: var(--space-9);
+  --spacing-10: var(--space-10);
+  --spacing-12: var(--space-12);
+  --spacing-16: var(--space-16);
+  --spacing-20: var(--space-20);
+  --spacing-24: var(--space-24);
+
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-card: var(--radius-lg);
+  --radius-panel: var(--radius-lg);
+  --radius-full: 999px;
+
+  --shadow-xs: 0 1px 2px rgb(17 24 39 / 0.06);
+  --shadow-sm: 0 1px 3px rgb(17 24 39 / 0.08), 0 1px 2px rgb(17 24 39 / 0.04);
+  --shadow-md: 0 10px 24px rgb(17 24 39 / 0.08);
+  --shadow-lg: 0 16px 40px rgb(17 24 39 / 0.10);
+  --shadow-surface: var(--shadow-xs);
+  --shadow-control: var(--shadow-xs);
+  --shadow-popover: var(--shadow-md);
+  --shadow-focus: 0 0 0 3px rgb(232 27 45 / 0.16);
+  --blur-surface: 0px;
+  --surface-glass: var(--bg-surface);
+  --surface-glass-strong: var(--bg-surface);
+  --surface-control: var(--bg-surface);
+  --surface-hover: var(--bg-surface);
+  --surface-soft: var(--bg-subtle);
+  --surface-tint-red: var(--bg-critical-subtle);
+  --surface-tint-success: var(--success-50);
+  --surface-tint-warning: var(--warning-50);
+  --surface-tint-danger: var(--danger-50);
+
+  --sidebar-width: 260px;
+  --topbar-height: 64px;
+  --content-max-width: 1440px;
+  --desktop-canvas: 1440px;
+  --tablet-breakpoint: 1100px;
+  --mobile-breakpoint: 760px;
+  --table-row-height: 44px;
+  --kpi-card-min-height: 128px;
+  --control-height-sm: 32px;
+  --control-height-md: 38px;
+  --control-height-lg: 44px;
+
+  /* Transition aliases for older prototype markup. Prefer semantic tokens above for new CSS. */
+  --brand-red: var(--kideco-red-500);
+  --brand-red-50: var(--kideco-red-50);
+  --brand-red-100: var(--kideco-red-100);
+  --brand-red-200: var(--kideco-red-200);
+  --brand-red-300: var(--kideco-red-300);
+  --brand-red-400: var(--kideco-red-400);
+  --brand-red-500: var(--kideco-red-500);
+  --brand-red-600: var(--kideco-red-600);
+  --brand-red-700: var(--kideco-red-700);
+  --brand-red-800: var(--kideco-red-800);
+  --brand-red-900: var(--kideco-red-900);
+  --brand-black: var(--graphite-950);
+  --brand-graphite: var(--graphite-500);
+  --brand-silver: var(--graphite-300);
+  --brand-mist: var(--graphite-100);
+  --brand-white: var(--white);
+  --neutral-0: var(--white);
+  --neutral-50: var(--graphite-25);
+  --neutral-100: var(--graphite-50);
+  --neutral-200: var(--graphite-100);
+  --neutral-300: var(--graphite-200);
+  --neutral-400: var(--graphite-300);
+  --neutral-500: var(--graphite-500);
+  --neutral-600: var(--graphite-600);
+  --neutral-700: var(--graphite-700);
+  --neutral-800: var(--graphite-800);
+  --neutral-900: var(--graphite-900);
+  --neutral-950: var(--graphite-950);
+  --surface-page: var(--bg-default);
+  --surface-panel: var(--bg-surface);
+  --surface-subtle: var(--bg-subtle);
+  --surface-raised: var(--bg-surface);
+  --surface-inverse: var(--bg-inverse);
+  --surface-red-subtle: var(--bg-critical-subtle);
+  --border-focus: var(--focus-ring);
+  --text-primary: var(--text-default);
+  --text-secondary: var(--text-subtle);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --brand-primary: #ff3b50;
+  --brand-primary-hover: #ff6b7d;
+  --brand-primary-subtle: rgb(255 59 80 / 0.16);
+
+  --bg-default: #0d1321;
+  --bg-app-frame: #090d16;
+  --bg-sidebar: #0b0f19;
+  --bg-surface: #141d30;
+  --bg-subtle: #1b263f;
+  --bg-muted: #263556;
+  --bg-inverse: #ffffff;
+  --bg-critical-subtle: rgb(255 59 80 / 0.14);
+
+  --text-default: #f1f5f9;
+  --text-subtle: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #090d16;
+  --text-danger: #ff6b7d;
+
+  --border-subtle: rgba(148, 163, 184, 0.08);
+  --border-default: rgba(148, 163, 184, 0.15);
+  --border-strong: rgba(148, 163, 184, 0.28);
+  --border-hairline: var(--border-subtle);
+  --focus-ring: #ff3b50;
+
+  --surface-glass: var(--bg-surface);
+  --surface-glass-strong: var(--bg-surface);
+  --surface-control: var(--bg-surface);
+  --surface-hover: var(--bg-subtle);
+  --surface-soft: var(--bg-subtle);
+  --surface-tint-red: var(--bg-critical-subtle);
+  --surface-tint-success: rgba(16, 185, 129, 0.15);
+  --surface-tint-warning: rgba(245, 158, 11, 0.15);
+  --surface-tint-danger: rgba(239, 68, 68, 0.15);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.7);
+  --shadow-focus: 0 0 0 3px rgba(255, 59, 80, 0.2);
+}
+
+

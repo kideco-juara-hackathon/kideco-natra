@@ -1,15 +1,21 @@
+@import "../styles/tokens.css";
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "leaflet/dist/leaflet.css";
+
+@layer base {
+  @import "../styles/components.css";
+}
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
+  --font-heading: var(--font-family-display);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,75 +52,91 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Expose custom semantic tokens for Tailwind v4 utility classes */
+  --color-text-subtle: var(--text-subtle);
+  --color-text-muted: var(--text-muted);
+  --color-brand-primary-subtle: var(--brand-primary-subtle);
+  --color-surface-tint-success: var(--surface-tint-success);
+  --color-surface-tint-warning: var(--surface-tint-warning);
+  --color-surface-tint-danger: var(--surface-tint-danger);
+  --color-status-ready: var(--status-ready);
+  --color-status-active: var(--status-active);
+  --color-status-monitor: var(--status-monitor);
+  --color-status-critical: var(--status-critical);
+  --color-sidebar-bg: var(--bg-sidebar);
+  --color-app-frame: var(--bg-app-frame);
+  --color-text-inverse: var(--text-inverse);
+  --color-bg-inverse: var(--bg-inverse);
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: var(--bg-default);
+  --foreground: var(--text-default);
+  --card: var(--bg-surface);
+  --card-foreground: var(--text-default);
+  --popover: var(--bg-surface);
+  --popover-foreground: var(--text-default);
+  --primary: var(--brand-primary);
+  --primary-foreground: var(--white);
+  --secondary: var(--bg-muted);
+  --secondary-foreground: var(--text-default);
+  --muted: var(--bg-muted);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--brand-primary-subtle);
+  --accent-foreground: var(--brand-primary);
+  --destructive: var(--danger-600);
+  --border: var(--border-default);
+  --input: var(--border-default);
+  --ring: var(--focus-ring);
+  --chart-1: var(--chart-teal);
+  --chart-2: var(--chart-blue);
+  --chart-3: var(--chart-orange);
+  --chart-4: var(--chart-red);
+  --chart-5: var(--chart-slate);
+  --radius: var(--radius-lg);
+  --sidebar: var(--bg-sidebar);
+  --sidebar-foreground: var(--text-subtle);
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-primary-foreground: var(--white);
+  --sidebar-accent: var(--bg-surface);
+  --sidebar-accent-foreground: var(--brand-primary);
+  --sidebar-border: var(--border-default);
+  --sidebar-ring: var(--focus-ring);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: var(--bg-default);
+  --foreground: var(--text-default);
+  --card: var(--bg-surface);
+  --card-foreground: var(--text-default);
+  --popover: var(--bg-surface);
+  --popover-foreground: var(--text-default);
+  --primary: var(--brand-primary);
+  --primary-foreground: var(--white);
+  --secondary: var(--bg-muted);
+  --secondary-foreground: var(--text-default);
+  --muted: var(--bg-muted);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--brand-primary-subtle);
+  --accent-foreground: var(--brand-primary);
+  --destructive: var(--danger-600);
+  --border: var(--border-default);
+  --input: var(--border-default);
+  --ring: var(--focus-ring);
+  --chart-1: var(--chart-teal);
+  --chart-2: var(--chart-blue);
+  --chart-3: var(--chart-orange);
+  --chart-4: var(--chart-red);
+  --chart-5: var(--chart-slate);
+  --sidebar: var(--bg-sidebar);
+  --sidebar-foreground: var(--text-subtle);
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-primary-foreground: var(--white);
+  --sidebar-accent: var(--bg-surface);
+  --sidebar-accent-foreground: var(--brand-primary);
+  --sidebar-border: var(--border-default);
+  --sidebar-ring: var(--focus-ring);
 }
 
 @layer base {
@@ -127,4 +149,238 @@
   html {
     @apply font-sans;
   }
+}
+
+.route-map-shell {
+  min-height: 680px;
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+}
+
+.route-osm-map,
+.route-osm-map .leaflet-container {
+  width: 100%;
+  height: 100%;
+  min-height: 680px;
+  font-family: var(--font-family-sans);
+}
+
+.route-osm-map .leaflet-popup-content-wrapper {
+  border-radius: var(--radius-lg);
+}
+
+.route-osm-map .leaflet-popup-content {
+  margin: 12px 14px;
+  color: var(--text-default);
+  font-size: var(--font-body-sm);
+  line-height: var(--line-body-sm);
+}
+
+.truck-map-marker-wrapper {
+  background: transparent;
+  border: 0;
+}
+
+.truck-map-marker {
+  position: relative;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  color: #ffffff;
+  box-shadow:
+    0 4px 12px rgb(15 23 42 / 24%),
+    0 0 0 1px rgb(15 23 42 / 10%);
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.truck-map-marker.is-dispatch {
+  background: #111827;
+}
+
+.truck-map-marker.is-ready {
+  background: #047857;
+}
+
+.truck-map-marker.is-watch {
+  background: #d97706;
+}
+
+.truck-map-marker.is-risk {
+  background: #dc2626;
+}
+
+.truck-map-marker.is-operational {
+  background: #0f766e;
+}
+
+.truck-map-marker.is-selected {
+  background: var(--brand-primary);
+  box-shadow:
+    0 5px 16px rgb(232 27 45 / 30%),
+    0 0 0 4px rgb(232 27 45 / 18%);
+  transform: scale(1.08);
+}
+
+.truck-map-marker__icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 17h4V5H2v12h3'/%3E%3Cpath d='M14 9h4l4 4v4h-2'/%3E%3Ccircle cx='7.5' cy='17.5' r='2.5'/%3E%3Ccircle cx='17.5' cy='17.5' r='2.5'/%3E%3C/svg%3E");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.truck-map-marker__score {
+  position: absolute;
+  right: -7px;
+  bottom: -5px;
+  display: grid;
+  min-width: 20px;
+  height: 18px;
+  place-items: center;
+  border: 2px solid #ffffff;
+  border-radius: var(--radius-full);
+  background: #111827;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  color: var(--text-subtle);
+  font-size: var(--font-caption);
+}
+
+.map-legend__item {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.map-legend__line,
+.map-legend__dot {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.map-legend__line {
+  width: 28px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--border-strong);
+}
+
+.map-legend__line--active {
+  background: var(--brand-primary);
+}
+
+.map-legend__line--empty {
+  background: var(--chart-blue);
+}
+
+.map-legend__line--loaded {
+  background: var(--brand-primary);
+}
+
+.map-legend__line--terminal {
+  background: var(--chart-teal);
+}
+
+.map-legend__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--chart-teal);
+}
+
+.map-mode-button {
+  min-width: 78px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-subtle);
+  font-size: var(--font-caption);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.map-mode-button.is-active {
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+}
+
+.map-mode-icon-button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-subtle);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.map-mode-icon-button:hover {
+  background: var(--bg-subtle);
+  color: var(--text-default);
+}
+
+.map-mode-icon-button.is-active {
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+}
+
+/* Custom Map Tooltips resembling vehicle pins */
+.custom-map-tooltip {
+  background: white !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgb(15 23 42 / 12%) !important;
+  padding: 4px 8px !important;
+  font-family: var(--font-family-sans) !important;
+  font-size: 11px !important;
+  line-height: 1.25 !important;
+  color: var(--text-default) !important;
+  pointer-events: none;
+}
+.custom-map-tooltip::before {
+  display: none !important;
+}
+
+@keyframes danger-pulse {
+  0%, 100% {
+    border-color: rgba(239, 68, 68, 0.3);
+    box-shadow: 0 0 4px rgba(239, 68, 68, 0.1);
+  }
+  50% {
+    border-color: rgba(239, 68, 68, 0.8);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.45);
+  }
+}
+
+.animate-danger-pulse {
+  animation: danger-pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.route-osm-map.shift-controls-left .leaflet-top.leaflet-right {
+  right: 462px !important;
+  transition: right 200ms ease;
 }
