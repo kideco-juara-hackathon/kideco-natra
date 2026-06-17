@@ -1,0 +1,256 @@
+{
+  "metadata": {
+    "source": "Data Road Segmen.xlsx - Front Utara - Fase 7.csv",
+    "generatedFromRows": 67664,
+    "uniqueSourceWaypoints": 317,
+    "uniqueHaulers": 106,
+    "selectedHaulers": [
+      "CO4544",
+      "CO4587",
+      "CO4602",
+      "CO4440",
+      "CO4583"
+    ],
+    "selectedLoaders": [
+      "CE6155",
+      "CE5255",
+      "CE6170",
+      "CE5242"
+    ],
+    "dominantDisposalSink": "OPD_SP20",
+    "note": "MVP seed uses dataset-derived metrics with rebased/simulated visual coordinates around the KIDECO demo map."
+  },
+  "nodes": [
+    {
+      "id": "DISPATCH-01",
+      "code": "DISPATCH-01",
+      "name": "Dispatch / Parking Area",
+      "type": "dispatch",
+      "visualLat": -1.8907,
+      "visualLng": 115.8721,
+      "sourceWaypointId": "Begin.Travelling.Empty"
+    },
+    {
+      "id": "CP-JOGJA-1400",
+      "code": "JOGJA-1400",
+      "name": "Jogja STA 1400",
+      "type": "checkpoint",
+      "visualLat": -1.8955,
+      "visualLng": 115.8668,
+      "sourceWaypointId": "Jl_Jogja_STA1400"
+    },
+    {
+      "id": "CP-JOGJA-1100",
+      "code": "JOGJA-1100",
+      "name": "Jogja STA 1100",
+      "type": "checkpoint",
+      "visualLat": -1.8986,
+      "visualLng": 115.8643,
+      "sourceWaypointId": "Jl_Jogja_STA1100"
+    },
+    {
+      "id": "CP-JOGJA-1000",
+      "code": "JOGJA-1000",
+      "name": "Jogja STA 1000",
+      "type": "checkpoint",
+      "visualLat": -1.9012,
+      "visualLng": 115.8612,
+      "sourceWaypointId": "Jl_Jogja_STA1000"
+    },
+    {
+      "id": "CP-JOGJA-900",
+      "code": "JOGJA-900",
+      "name": "Jogja STA 900",
+      "type": "checkpoint",
+      "visualLat": -1.9038,
+      "visualLng": 115.8588,
+      "sourceWaypointId": "Jl_Jogja_STA900"
+    },
+    {
+      "id": "CP-JOGJA-800",
+      "code": "JOGJA-800",
+      "name": "Jogja STA 800",
+      "type": "checkpoint",
+      "visualLat": -1.9062,
+      "visualLng": 115.8563,
+      "sourceWaypointId": "Jl_Jogja_STA800"
+    },
+    {
+      "id": "PIT-A",
+      "code": "PIT-A",
+      "name": "Pit A - CE6155 Front",
+      "type": "pit",
+      "visualLat": -1.9088,
+      "visualLng": 115.8548,
+      "sourceWaypointId": "SRC_CE6155",
+      "sourceLoaderId": "CE6155"
+    },
+    {
+      "id": "LP-A1",
+      "code": "LP-A1",
+      "name": "Loading Point A1",
+      "type": "loading_point",
+      "visualLat": -1.9107,
+      "visualLng": 115.8528,
+      "sourceWaypointId": "SRC_CE6155",
+      "sourceLoaderId": "CE6155"
+    },
+    {
+      "id": "CP-KB4-200",
+      "code": "KB4-200",
+      "name": "KB4 Front STA 200",
+      "type": "checkpoint",
+      "visualLat": -1.899,
+      "visualLng": 115.8516,
+      "sourceWaypointId": "Akses_Front_Jl_KB4_STA200"
+    },
+    {
+      "id": "CP-KB4-400",
+      "code": "KB4-400",
+      "name": "KB4 Front STA 400",
+      "type": "checkpoint",
+      "visualLat": -1.8942,
+      "visualLng": 115.8479,
+      "sourceWaypointId": "Akses_Front_Jl_KB4_STA_400"
+    },
+    {
+      "id": "PIT-B",
+      "code": "PIT-B",
+      "name": "Pit B - CE5255 Front",
+      "type": "pit",
+      "visualLat": -1.8883,
+      "visualLng": 115.8442,
+      "sourceWaypointId": "SRC_CE5255",
+      "sourceLoaderId": "CE5255"
+    },
+    {
+      "id": "LP-B1",
+      "code": "LP-B1",
+      "name": "Loading Point B1",
+      "type": "loading_point",
+      "visualLat": -1.8859,
+      "visualLng": 115.8414,
+      "sourceWaypointId": "SRC_CE5255",
+      "sourceLoaderId": "CE5255"
+    },
+    {
+      "id": "CP-KB4-700",
+      "code": "KB4-700",
+      "name": "KB4 Front STA 700",
+      "type": "checkpoint",
+      "visualLat": -1.8819,
+      "visualLng": 115.8497,
+      "sourceWaypointId": "Akses_Front_Jl_KB4_STA700"
+    },
+    {
+      "id": "PIT-C",
+      "code": "PIT-C",
+      "name": "Pit C - CE6170 Front",
+      "type": "pit",
+      "visualLat": -1.8786,
+      "visualLng": 115.8577,
+      "sourceWaypointId": "SRC_CE6170",
+      "sourceLoaderId": "CE6170"
+    },
+    {
+      "id": "LP-C1",
+      "code": "LP-C1",
+      "name": "Loading Point C1",
+      "type": "loading_point",
+      "visualLat": -1.8755,
+      "visualLng": 115.8612,
+      "sourceWaypointId": "SRC_CE6170",
+      "sourceLoaderId": "CE6170"
+    },
+    {
+      "id": "CP-PELAIHARI-800",
+      "code": "PELAIHARI-800",
+      "name": "Pelaihari STA 800",
+      "type": "checkpoint",
+      "visualLat": -1.8838,
+      "visualLng": 115.8806,
+      "sourceWaypointId": "Jl_Pelaihari_STA800"
+    },
+    {
+      "id": "CP-PELAIHARI-600",
+      "code": "PELAIHARI-600",
+      "name": "Pelaihari STA 600",
+      "type": "checkpoint",
+      "visualLat": -1.8807,
+      "visualLng": 115.8873,
+      "sourceWaypointId": "Jl_Pelaihari_STA600"
+    },
+    {
+      "id": "CP-PELAIHARI-500",
+      "code": "PELAIHARI-500",
+      "name": "Pelaihari STA 500",
+      "type": "checkpoint",
+      "visualLat": -1.8782,
+      "visualLng": 115.8929,
+      "sourceWaypointId": "Jl_Pelaihari_STA500"
+    },
+    {
+      "id": "CP-PELAIHARI-400",
+      "code": "PELAIHARI-400",
+      "name": "Pelaihari STA 400",
+      "type": "checkpoint",
+      "visualLat": -1.8752,
+      "visualLng": 115.8985,
+      "sourceWaypointId": "Jl_Pelaihari_STA400"
+    },
+    {
+      "id": "CP-BARCELONA",
+      "code": "BARCELONA",
+      "name": "Simpang Barcelona",
+      "type": "checkpoint",
+      "visualLat": -1.8722,
+      "visualLng": 115.9029,
+      "sourceWaypointId": "Jl_Simpang_Barcelona"
+    },
+    {
+      "id": "CP-OPK-0",
+      "code": "OPK-0",
+      "name": "OPK STA 0",
+      "type": "checkpoint",
+      "visualLat": -1.8693,
+      "visualLng": 115.9067,
+      "sourceWaypointId": "Jl_OPK_STA0"
+    },
+    {
+      "id": "CP-OPK-100",
+      "code": "OPK-100",
+      "name": "OPK STA 100",
+      "type": "checkpoint",
+      "visualLat": -1.8668,
+      "visualLng": 115.9103,
+      "sourceWaypointId": "Jl_OPK_STA100"
+    },
+    {
+      "id": "CP-DISP-300",
+      "code": "DISP-300",
+      "name": "Disposal Access STA 300",
+      "type": "checkpoint",
+      "visualLat": -1.8639,
+      "visualLng": 115.9146,
+      "sourceWaypointId": "Akses_Disposal_Jl_OPK_STA300"
+    },
+    {
+      "id": "CP-DISP-500",
+      "code": "DISP-500",
+      "name": "Disposal Access STA 500",
+      "type": "checkpoint",
+      "visualLat": -1.8616,
+      "visualLng": 115.9182,
+      "sourceWaypointId": "Akses_Disposal_Jl_OPK_STA500"
+    },
+    {
+      "id": "STOCKPILE-01",
+      "code": "STOCKPILE-01",
+      "name": "OPD SP20 / Stockpile",
+      "type": "dump_point",
+      "visualLat": -1.8593,
+      "visualLng": 115.9217,
+      "sourceWaypointId": "OPD_SP20"
+    }
+  ]
+}

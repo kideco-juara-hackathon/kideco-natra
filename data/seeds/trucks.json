@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "source": "Data Road Segmen.xlsx - Front Utara - Fase 7.csv",
+    "generatedFromRows": 67664,
+    "uniqueSourceWaypoints": 317,
+    "uniqueHaulers": 106,
+    "selectedHaulers": [
+      "CO4544",
+      "CO4587",
+      "CO4602",
+      "CO4440",
+      "CO4583"
+    ],
+    "selectedLoaders": [
+      "CE6155",
+      "CE5255",
+      "CE6170",
+      "CE5242"
+    ],
+    "dominantDisposalSink": "OPD_SP20",
+    "note": "MVP seed uses dataset-derived metrics with rebased/simulated visual coordinates around the KIDECO demo map."
+  },
+  "trucks": [
+    {
+      "id": "DT-01",
+      "code": "DT-01",
+      "sourceHaulerId": "CO4544",
+      "capacityTon": 60,
+      "currentPayloadTon": 0,
+      "currentNodeId": "DISPATCH-01",
+      "fuelLevelPercent": 82,
+      "healthScore": 91,
+      "lastSeenAt": "2026-06-15T07:58:00+08:00",
+      "loadState": "empty",
+      "status": "idle",
+      "position": {
+        "lat": -1.8878,
+        "lng": 115.8692
+      },
+      "datasetRows": 2124
+    },
+    {
+      "id": "DT-02",
+      "code": "DT-02",
+      "sourceHaulerId": "CO4587",
+      "capacityTon": 80,
+      "currentPayloadTon": 0,
+      "currentNodeId": "DISPATCH-01",
+      "fuelLevelPercent": 76,
+      "healthScore": 87,
+      "lastSeenAt": "2026-06-15T07:58:00+08:00",
+      "loadState": "empty",
+      "status": "idle",
+      "position": {
+        "lat": -1.8893,
+        "lng": 115.8758
+      },
+      "datasetRows": 2004
+    },
+    {
+      "id": "DT-03",
+      "code": "DT-03",
+      "sourceHaulerId": "CO4602",
+      "capacityTon": 60,
+      "currentPayloadTon": 60,
+      "currentNodeId": "LP-A1",
+      "fuelLevelPercent": 68,
+      "healthScore": 84,
+      "lastSeenAt": "2026-06-15T07:58:00+08:00",
+      "loadState": "loaded",
+      "status": "active",
+      "position": {
+        "lat": -1.892,
+        "lng": 115.8704
+      },
+      "datasetRows": 1952
+    },
+    {
+      "id": "DT-04",
+      "code": "DT-04",
+      "sourceHaulerId": "CO4440",
+      "capacityTon": 60,
+      "currentPayloadTon": 60,
+      "currentNodeId": "LP-B1",
+      "fuelLevelPercent": 64,
+      "healthScore": 76,
+      "lastSeenAt": "2026-06-15T07:58:00+08:00",
+      "loadState": "loaded",
+      "status": "active",
+      "position": {
+        "lat": -1.8917,
+        "lng": 115.8741
+      },
+      "datasetRows": 1824
+    },
+    {
+      "id": "DT-05",
+      "code": "DT-05",
+      "sourceHaulerId": "CO4583",
+      "capacityTon": 60,
+      "currentPayloadTon": 60,
+      "currentNodeId": "LP-C1",
+      "fuelLevelPercent": 58,
+      "healthScore": 72,
+      "lastSeenAt": "2026-06-15T07:58:00+08:00",
+      "loadState": "loaded",
+      "status": "active",
+      "position": {
+        "lat": -1.8888,
+        "lng": 115.8722
+      },
+      "datasetRows": 1741
+    }
+  ]
+}

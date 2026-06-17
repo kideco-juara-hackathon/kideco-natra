@@ -1,0 +1,479 @@
+{
+  "metadata": {
+    "source": "Data Road Segmen.xlsx - Front Utara - Fase 7.csv",
+    "generatedFromRows": 67664,
+    "uniqueSourceWaypoints": 317,
+    "uniqueHaulers": 106,
+    "selectedHaulers": [
+      "CO4544",
+      "CO4587",
+      "CO4602",
+      "CO4440",
+      "CO4583"
+    ],
+    "selectedLoaders": [
+      "CE6155",
+      "CE5255",
+      "CE6170",
+      "CE5242"
+    ],
+    "dominantDisposalSink": "OPD_SP20",
+    "note": "MVP seed uses dataset-derived metrics with rebased/simulated visual coordinates around the KIDECO demo map."
+  },
+  "edges": [
+    {
+      "id": "E-DISPATCH-JOGJA1400",
+      "fromNodeId": "DISPATCH-01",
+      "toNodeId": "CP-JOGJA-1400",
+      "type": "empty_haul",
+      "distanceMeter": 109,
+      "avgSpeedKmh": 16.0,
+      "historicalEtaSec": 26,
+      "etaHistoricalMin": 0.4,
+      "sampleCount": 842,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-DISPATCH-JOGJA1400",
+      "sourceEdges": [
+        "Begin.Travelling.Empty->Supply_Pelaihari",
+        "Supply_Pelaihari->Jl_Jogja_STA1400"
+      ]
+    },
+    {
+      "id": "E-JOGJA1400-JOGJA1100",
+      "fromNodeId": "CP-JOGJA-1400",
+      "toNodeId": "CP-JOGJA-1100",
+      "type": "empty_haul",
+      "distanceMeter": 356,
+      "avgSpeedKmh": 37.3,
+      "historicalEtaSec": 34,
+      "etaHistoricalMin": 0.6,
+      "sampleCount": 2041,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-JOGJA1400-JOGJA1100",
+      "sourceEdges": [
+        "Jl_Jogja_STA1400->Supply_Pelaihari",
+        "Supply_Pelaihari->Jl_Simpang_Bayern_Munich",
+        "Jl_Simpang_Bayern_Munich->Jl_Jogja_STA1100"
+      ]
+    },
+    {
+      "id": "E-JOGJA1100-JOGJA1000",
+      "fromNodeId": "CP-JOGJA-1100",
+      "toNodeId": "CP-JOGJA-1000",
+      "type": "empty_haul",
+      "distanceMeter": 193,
+      "avgSpeedKmh": 41.5,
+      "historicalEtaSec": 17,
+      "etaHistoricalMin": 0.3,
+      "sampleCount": 780,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-JOGJA1100-JOGJA1000",
+      "sourceEdges": [
+        "Jl_Jogja_STA1100->Jl_Jogja_STA1000"
+      ]
+    },
+    {
+      "id": "E-JOGJA1000-JOGJA900",
+      "fromNodeId": "CP-JOGJA-1000",
+      "toNodeId": "CP-JOGJA-900",
+      "type": "empty_haul",
+      "distanceMeter": 179,
+      "avgSpeedKmh": 41.3,
+      "historicalEtaSec": 16,
+      "etaHistoricalMin": 0.3,
+      "sampleCount": 719,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-JOGJA1000-JOGJA900",
+      "sourceEdges": [
+        "Jl_Jogja_STA1000->Jl_Jogja_STA900"
+      ]
+    },
+    {
+      "id": "E-JOGJA900-JOGJA800",
+      "fromNodeId": "CP-JOGJA-900",
+      "toNodeId": "CP-JOGJA-800",
+      "type": "empty_haul",
+      "distanceMeter": 283,
+      "avgSpeedKmh": 37.7,
+      "historicalEtaSec": 27,
+      "etaHistoricalMin": 0.5,
+      "sampleCount": 736,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-JOGJA900-JOGJA800",
+      "sourceEdges": [
+        "Jl_Jogja_STA900->Jl_Jogja_STA800"
+      ]
+    },
+    {
+      "id": "E-JOGJA800-PITA",
+      "fromNodeId": "CP-JOGJA-800",
+      "toNodeId": "PIT-A",
+      "type": "empty_haul",
+      "distanceMeter": 87,
+      "avgSpeedKmh": 17.9,
+      "historicalEtaSec": 18,
+      "etaHistoricalMin": 0.3,
+      "sampleCount": 172,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-JOGJA800-PITA",
+      "sourceEdges": [
+        "Akses_Front_Jl_KB4_STA200->SRC_CE6155"
+      ]
+    },
+    {
+      "id": "E-PITA-LPA1",
+      "fromNodeId": "PIT-A",
+      "toNodeId": "LP-A1",
+      "type": "connector",
+      "distanceMeter": 72,
+      "avgSpeedKmh": 1.0,
+      "historicalEtaSec": 254,
+      "etaHistoricalMin": 4.2,
+      "sampleCount": 325,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-PITA-LPA1",
+      "sourceEdges": [
+        "SRC_CE6155->Begin.Loading"
+      ]
+    },
+    {
+      "id": "E-JOGJA800-KB4200",
+      "fromNodeId": "CP-JOGJA-800",
+      "toNodeId": "CP-KB4-200",
+      "type": "empty_haul",
+      "distanceMeter": 579,
+      "avgSpeedKmh": 29.9,
+      "historicalEtaSec": 70,
+      "etaHistoricalMin": 1.2,
+      "sampleCount": 1216,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-JOGJA800-KB4200",
+      "sourceEdges": [
+        "Jl_Jogja_STA800->Jl_KB4_New_STA0",
+        "Jl_KB4_New_STA0->Jl_KB4_New_STA100"
+      ]
+    },
+    {
+      "id": "E-KB4200-KB4400",
+      "fromNodeId": "CP-KB4-200",
+      "toNodeId": "CP-KB4-400",
+      "type": "connector",
+      "distanceMeter": 104,
+      "avgSpeedKmh": 22.5,
+      "historicalEtaSec": 17,
+      "etaHistoricalMin": 0.3,
+      "sampleCount": 181,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-KB4200-KB4400",
+      "sourceEdges": [
+        "Akses_Front_Jl_KB4_STA200->Akses_Front_Jl_KB4_STA_400"
+      ]
+    },
+    {
+      "id": "E-KB4400-PITB",
+      "fromNodeId": "CP-KB4-400",
+      "toNodeId": "PIT-B",
+      "type": "empty_haul",
+      "distanceMeter": 60,
+      "avgSpeedKmh": 23.5,
+      "historicalEtaSec": 9,
+      "etaHistoricalMin": 0.1,
+      "sampleCount": 235,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-KB4400-PITB",
+      "sourceEdges": [
+        "Akses_Front_Jl_KB4_STA_400->SRC_CE5255"
+      ]
+    },
+    {
+      "id": "E-PITB-LPB1",
+      "fromNodeId": "PIT-B",
+      "toNodeId": "LP-B1",
+      "type": "connector",
+      "distanceMeter": 99,
+      "avgSpeedKmh": 1.3,
+      "historicalEtaSec": 282,
+      "etaHistoricalMin": 4.7,
+      "sampleCount": 263,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-PITB-LPB1",
+      "sourceEdges": [
+        "SRC_CE5255->Begin.Loading"
+      ]
+    },
+    {
+      "id": "E-KB4200-KB4700",
+      "fromNodeId": "CP-KB4-200",
+      "toNodeId": "CP-KB4-700",
+      "type": "empty_haul",
+      "distanceMeter": 133,
+      "avgSpeedKmh": 25.0,
+      "historicalEtaSec": 19,
+      "etaHistoricalMin": 0.3,
+      "sampleCount": 3887,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-KB4200-KB4700",
+      "sourceEdges": [
+        "fallback:Akses_Front_Jl_KB4_STA200->Akses_Front_Jl_KB4_STA700"
+      ]
+    },
+    {
+      "id": "E-KB4700-PITC",
+      "fromNodeId": "CP-KB4-700",
+      "toNodeId": "PIT-C",
+      "type": "empty_haul",
+      "distanceMeter": 196,
+      "avgSpeedKmh": 24.5,
+      "historicalEtaSec": 29,
+      "etaHistoricalMin": 0.5,
+      "sampleCount": 368,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-KB4700-PITC",
+      "sourceEdges": [
+        "Akses_Front_Jl_KB4_STA700->Akses_Front_Jl_Sudan_STA200",
+        "Akses_Front_Jl_Sudan_STA200->SRC_CE6170"
+      ]
+    },
+    {
+      "id": "E-PITC-LPC1",
+      "fromNodeId": "PIT-C",
+      "toNodeId": "LP-C1",
+      "type": "connector",
+      "distanceMeter": 75,
+      "avgSpeedKmh": 1.1,
+      "historicalEtaSec": 243,
+      "etaHistoricalMin": 4.0,
+      "sampleCount": 105,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-PITC-LPC1",
+      "sourceEdges": [
+        "SRC_CE6170->Begin.Loading"
+      ]
+    },
+    {
+      "id": "E-LPA1-PELAIHARI800",
+      "fromNodeId": "LP-A1",
+      "toNodeId": "CP-PELAIHARI-800",
+      "type": "loaded_haul",
+      "distanceMeter": 193,
+      "avgSpeedKmh": 23.6,
+      "historicalEtaSec": 154,
+      "etaHistoricalMin": 2.6,
+      "sampleCount": 1153,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-LPA1-PELAIHARI800",
+      "sourceEdges": [
+        "Begin.Loading->Begin.Travelling.Full",
+        "Jl_Jogja_STA1400->Jl_Pelaihari_STA800"
+      ]
+    },
+    {
+      "id": "E-LPB1-PELAIHARI800",
+      "fromNodeId": "LP-B1",
+      "toNodeId": "CP-PELAIHARI-800",
+      "type": "loaded_haul",
+      "distanceMeter": 260,
+      "avgSpeedKmh": 18.7,
+      "historicalEtaSec": 132,
+      "etaHistoricalMin": 2.2,
+      "sampleCount": 1164,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-LPB1-PELAIHARI800",
+      "sourceEdges": [
+        "Begin.Loading->SRC_CE5255",
+        "Jl_Jogja_STA1400->Jl_Pelaihari_STA800"
+      ]
+    },
+    {
+      "id": "E-LPC1-PELAIHARI800",
+      "fromNodeId": "LP-C1",
+      "toNodeId": "CP-PELAIHARI-800",
+      "type": "loaded_haul",
+      "distanceMeter": 246,
+      "avgSpeedKmh": 19.6,
+      "historicalEtaSec": 111,
+      "etaHistoricalMin": 1.9,
+      "sampleCount": 1061,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-LPC1-PELAIHARI800",
+      "sourceEdges": [
+        "Begin.Loading->SRC_CE6170",
+        "Jl_Jogja_STA1400->Jl_Pelaihari_STA800"
+      ]
+    },
+    {
+      "id": "E-PELAIHARI800-600",
+      "fromNodeId": "CP-PELAIHARI-800",
+      "toNodeId": "CP-PELAIHARI-600",
+      "type": "loaded_haul",
+      "distanceMeter": 142,
+      "avgSpeedKmh": 25.8,
+      "historicalEtaSec": 20,
+      "etaHistoricalMin": 0.3,
+      "sampleCount": 976,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-PELAIHARI800-600",
+      "sourceEdges": [
+        "Jl_Pelaihari_STA800->Jl_Pelaihari_STA600"
+      ]
+    },
+    {
+      "id": "E-PELAIHARI600-500",
+      "fromNodeId": "CP-PELAIHARI-600",
+      "toNodeId": "CP-PELAIHARI-500",
+      "type": "loaded_haul",
+      "distanceMeter": 120,
+      "avgSpeedKmh": 26.4,
+      "historicalEtaSec": 16,
+      "etaHistoricalMin": 0.3,
+      "sampleCount": 1021,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-PELAIHARI600-500",
+      "sourceEdges": [
+        "Jl_Pelaihari_STA600->Jl_Pelaihari_STA500"
+      ]
+    },
+    {
+      "id": "E-PELAIHARI500-400",
+      "fromNodeId": "CP-PELAIHARI-500",
+      "toNodeId": "CP-PELAIHARI-400",
+      "type": "loaded_haul",
+      "distanceMeter": 172,
+      "avgSpeedKmh": 33.0,
+      "historicalEtaSec": 19,
+      "etaHistoricalMin": 0.3,
+      "sampleCount": 1023,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-PELAIHARI500-400",
+      "sourceEdges": [
+        "Jl_Pelaihari_STA500->Jl_Pelaihari_STA400"
+      ]
+    },
+    {
+      "id": "E-PELAIHARI400-BARCELONA",
+      "fromNodeId": "CP-PELAIHARI-400",
+      "toNodeId": "CP-BARCELONA",
+      "type": "loaded_haul",
+      "distanceMeter": 156,
+      "avgSpeedKmh": 30.2,
+      "historicalEtaSec": 19,
+      "etaHistoricalMin": 0.3,
+      "sampleCount": 922,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-PELAIHARI400-BARCELONA",
+      "sourceEdges": [
+        "Jl_Pelaihari_STA400->Jl_Simpang_Barcelona"
+      ]
+    },
+    {
+      "id": "E-BARCELONA-OPK0",
+      "fromNodeId": "CP-BARCELONA",
+      "toNodeId": "CP-OPK-0",
+      "type": "loaded_haul",
+      "distanceMeter": 392,
+      "avgSpeedKmh": 32.3,
+      "historicalEtaSec": 44,
+      "etaHistoricalMin": 0.7,
+      "sampleCount": 1947,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-BARCELONA-OPK0",
+      "sourceEdges": [
+        "Jl_Simpang_Barcelona->Jl_Pelaihari_STA100",
+        "Jl_Pelaihari_STA100->Jl_OPK_STA0"
+      ]
+    },
+    {
+      "id": "E-OPK0-OPK100",
+      "fromNodeId": "CP-OPK-0",
+      "toNodeId": "CP-OPK-100",
+      "type": "loaded_haul",
+      "distanceMeter": 232,
+      "avgSpeedKmh": 17.7,
+      "historicalEtaSec": 47,
+      "etaHistoricalMin": 0.8,
+      "sampleCount": 926,
+      "roadCondition": "good",
+      "riskLevel": "low",
+      "sourceSegmentId": "DATASET-E-OPK0-OPK100",
+      "sourceEdges": [
+        "Jl_OPK_STA0->Jl_OPK_STA100"
+      ]
+    },
+    {
+      "id": "E-OPK100-DISP300",
+      "fromNodeId": "CP-OPK-100",
+      "toNodeId": "CP-DISP-300",
+      "type": "loaded_haul",
+      "distanceMeter": 591,
+      "avgSpeedKmh": 25.5,
+      "historicalEtaSec": 84,
+      "etaHistoricalMin": 1.4,
+      "sampleCount": 2756,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-OPK100-DISP300",
+      "sourceEdges": [
+        "Jl_OPK_STA100->Akses_Disposal_Jl_OPK_STA100",
+        "Akses_Disposal_Jl_OPK_STA100->Akses_Disposal_Jl_OPK_STA200",
+        "Akses_Disposal_Jl_OPK_STA200->Akses_Disposal_Jl_OPK_STA300"
+      ]
+    },
+    {
+      "id": "E-DISP300-DISP500",
+      "fromNodeId": "CP-DISP-300",
+      "toNodeId": "CP-DISP-500",
+      "type": "loaded_haul",
+      "distanceMeter": 339,
+      "avgSpeedKmh": 27.6,
+      "historicalEtaSec": 45,
+      "etaHistoricalMin": 0.8,
+      "sampleCount": 1024,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-DISP300-DISP500",
+      "sourceEdges": [
+        "Akses_Disposal_Jl_OPK_STA300->Akses_Disposal_Jl_OPK_STA400",
+        "Akses_Disposal_Jl_OPK_STA400->Akses_Disposal_Jl_OPK_STA500"
+      ]
+    },
+    {
+      "id": "E-DISP500-STOCKPILE",
+      "fromNodeId": "CP-DISP-500",
+      "toNodeId": "STOCKPILE-01",
+      "type": "loaded_haul",
+      "distanceMeter": 170,
+      "avgSpeedKmh": 32.4,
+      "historicalEtaSec": 19,
+      "etaHistoricalMin": 0.3,
+      "sampleCount": 426,
+      "roadCondition": "medium",
+      "riskLevel": "medium",
+      "sourceSegmentId": "DATASET-E-DISP500-STOCKPILE",
+      "sourceEdges": [
+        "Akses_Disposal_Jl_OPK_STA500->OPD_SP20"
+      ]
+    }
+  ]
+}
