@@ -17,23 +17,48 @@ from app.db.models import (
 from app.db.session import get_db
 from app.schemas import (
     DashboardSummary,
+    DispatchRequest,
+    DispatchResponse,
     EdgeResponse,
     HealthResponse,
     LoadPlanRequest,
     LoadPlanResponse,
     NodeResponse,
+    OperationStateResponse,
     PredictionRequest,
     PredictionResponse,
     RecommendationResponse,
+    RouteRecommendationRequest,
+    RouteRecommendationResponse,
     RoutePlanRequest,
     RoutePlanResponse,
+    ShiftResponse,
+    ShiftStartRequest,
     TelemetryEvent,
     TelemetryResponse,
+    TripProgressRequest,
+    TruckResponse,
     VehicleResponse,
 )
 from app.services.load_optimizer import create_load_plan
+from app.services.operation_state import (
+    OperationStateError,
+    dispatch_operation_truck,
+    get_operation_state,
+    get_shift,
+    list_active_trips,
+    list_operation_trucks,
+    start_shift,
+    update_trip_progress,
+)
 from app.services.prediction import assess_health, estimate_route_eta_seconds, estimate_route_fuel_liter
 from app.services.route_engine import RouteNotFoundError, create_route_plan
+from app.services.seed_route_engine import (
+    SeedRouteError,
+    create_recommendations,
+    list_seed_edges,
+    list_seed_nodes,
+)
 from app.services.telemetry import ingest_telemetry
 
 
@@ -54,48 +79,74 @@ def health() -> HealthResponse:
 
 
 @router.get("/api/nodes", response_model=list[NodeResponse])
-def list_nodes(db: Session = Depends(get_db)) -> list[NodeResponse]:
-    nodes = db.scalars(select(Waypoint).where(Waypoint.deleted_at.is_(None)).order_by(Waypoint.waypoint_code)).all()
+def list_nodes() -> list[NodeResponse]:
+    nodes = list_seed_nodes()
+    type_map = {
+        "dispatch": "dispatch_point",
+        "dump_point": "stockpile",
+    }
     return [
         NodeResponse(
-            id=node.waypoint_code,
-            name=node.name,
-            type=node.waypoint_type,
-            lat=node.latitude,
-            lng=node.longitude,
-            stockpileTon=node.stockpile_ton,
+            id=node["id"],
+            name=node["name"],
+            type=type_map.get(node["type"], node["type"]),
+            lat=node["visualLat"],
+            lng=node["visualLng"],
+            stockpileTon=0.0,
         )
         for node in nodes
     ]
 
 
 @router.get("/api/edges", response_model=list[EdgeResponse])
-def list_edges(db: Session = Depends(get_db)) -> list[EdgeResponse]:
-    rows = db.execute(
-        select(RouteSegment, Route, Waypoint.waypoint_code)
-        .join(Route, Route.id == RouteSegment.route_id)
-        .join(Waypoint, Waypoint.id == RouteSegment.start_waypoint_id)
-        .where(RouteSegment.deleted_at.is_(None), Route.deleted_at.is_(None))
-    ).all()
-
-    response: list[EdgeResponse] = []
-    for segment, route, from_code in rows:
-        to_code = db.scalar(select(Waypoint.waypoint_code).where(Waypoint.id == segment.end_waypoint_id))
-        response.append(
+def list_edges() -> list[EdgeResponse]:
+    return [
             EdgeResponse(
-                id=route.route_code,
-                routeId=route.route_code,
-                **{"from": from_code},
-                to=to_code,
-                distanceM=int((segment.distance_km or 0) * 1000),
-                speedLimitKmh=segment.speed_limit_kmh,
-                roadCondition=segment.road_condition,
-                slopeLevel=segment.slope_level,
-                trafficLevel=segment.traffic_level,
-                riskLevel=segment.risk_level,
+                id=edge["id"],
+                routeId=edge["id"],
+                **{"from": edge["fromNodeId"]},
+                to=edge["toNodeId"],
+                distanceM=edge["distanceMeter"],
+                speedLimitKmh=edge["avgSpeedKmh"],
+                roadCondition=edge["roadCondition"],
+                slopeLevel="medium" if edge["roadCondition"] == "medium" else "low",
+                trafficLevel="normal",
+                riskLevel=edge["riskLevel"],
             )
+        for edge in list_seed_edges()
+    ]
+
+
+@router.get("/api/trucks", response_model=list[TruckResponse])
+def list_trucks() -> list[TruckResponse]:
+    return list_operation_trucks()
+
+
+@router.get("/api/shift/current", response_model=ShiftResponse)
+def shift_current() -> ShiftResponse:
+    return get_shift()
+
+
+@router.post("/api/shift/start", response_model=ShiftResponse)
+def shift_start(payload: ShiftStartRequest) -> ShiftResponse:
+    try:
+        return start_shift(
+            target_ton=payload.target_ton,
+            dump_point_id=payload.dump_point_id,
+            objective=payload.objective,
         )
-    return response
+    except SeedRouteError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@router.get("/api/operation-state", response_model=OperationStateResponse)
+def operation_state() -> OperationStateResponse:
+    return get_operation_state()
+
+
+@router.get("/api/trips/active", response_model=list[DispatchResponse])
+def active_trips() -> list[DispatchResponse]:
+    return list_active_trips()
 
 
 @router.get("/api/vehicles", response_model=list[VehicleResponse])
@@ -137,6 +188,46 @@ def route_plan(payload: RoutePlanRequest, db: Session = Depends(get_db)) -> Rout
             payload_ton=payload.payload_ton,
         )
     except RouteNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@router.post("/api/route-recommendations", response_model=RouteRecommendationResponse)
+def route_recommendations(payload: RouteRecommendationRequest) -> RouteRecommendationResponse:
+    try:
+        return create_recommendations(
+            truck_id=payload.truck_id,
+            origin_node_id=payload.origin_node_id,
+            candidate_loading_point_ids=payload.candidate_loading_point_ids,
+            dump_point_id=payload.dump_point_id,
+            target_payload_ton=payload.target_payload_ton,
+            objective=payload.objective,
+        )
+    except SeedRouteError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@router.post("/api/dispatch", response_model=DispatchResponse)
+def dispatch(payload: DispatchRequest) -> DispatchResponse:
+    try:
+        return dispatch_operation_truck(
+            truck_id=payload.truck_id,
+            route_option_id=payload.route_option_id,
+            loading_point_id=payload.loading_point_id,
+            origin_node_id=payload.origin_node_id,
+            dump_point_id=payload.dump_point_id,
+            selection_mode=payload.selection_mode,
+        )
+    except SeedRouteError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except OperationStateError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.patch("/api/trips/{trip_id}/progress", response_model=DispatchResponse)
+def trip_progress(trip_id: str, payload: TripProgressRequest) -> DispatchResponse:
+    try:
+        return update_trip_progress(trip_id=trip_id, progress=payload.progress)
+    except OperationStateError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 

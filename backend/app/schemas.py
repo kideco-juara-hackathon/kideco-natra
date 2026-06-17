@@ -50,6 +50,22 @@ class VehicleResponse(ApiSchema):
     lng: float | None = None
 
 
+class TruckResponse(ApiSchema):
+    id: str
+    code: str
+    source_hauler_id: str | None = Field(alias="sourceHaulerId", default=None)
+    capacity_ton: float = Field(alias="capacityTon")
+    current_payload_ton: float = Field(alias="currentPayloadTon")
+    current_node_id: str = Field(alias="currentNodeId")
+    fuel_level_percent: float = Field(alias="fuelLevelPercent")
+    health_score: float = Field(alias="healthScore")
+    last_seen_at: str = Field(alias="lastSeenAt")
+    load_state: str = Field(alias="loadState")
+    status: str
+    position: dict[str, float]
+    dataset_rows: int | None = Field(alias="datasetRows", default=None)
+
+
 class RoutePlanRequest(ApiSchema):
     vehicle_id: str = Field(alias="vehicleId")
     origin_node_id: str = Field(alias="originNodeId")
@@ -75,6 +91,104 @@ class RoutePlanResponse(RouteAlternative):
     model_type: str = Field(alias="modelType", default="rule_based_v0")
     comparison_vs_default: dict[str, Any] = Field(alias="comparisonVsDefault")
     alternatives: list[RouteAlternative] = []
+
+
+class RouteLegResponse(ApiSchema):
+    route_nodes: list[str] = Field(alias="routeNodes")
+    distance_meter: int = Field(alias="distanceMeter")
+    eta_min: int = Field(alias="etaMin")
+    fuel_liter: int = Field(alias="fuelLiter")
+    source_edge_ids: list[str] = Field(alias="sourceEdgeIds", default_factory=list)
+
+
+class RouteRecommendationItem(ApiSchema):
+    id: str
+    label: str
+    origin_node_id: str = Field(alias="originNodeId")
+    loading_point_id: str = Field(alias="loadingPointId")
+    dump_point_id: str = Field(alias="dumpPointId")
+    empty_route: RouteLegResponse = Field(alias="emptyRoute")
+    loaded_route: RouteLegResponse = Field(alias="loadedRoute")
+    loading_time_min: int = Field(alias="loadingTimeMin")
+    route_nodes: list[str] = Field(alias="routeNodes")
+    eta_min: int = Field(alias="etaMin")
+    fuel_liter: int = Field(alias="fuelLiter")
+    coal_ton: float = Field(alias="coalTon")
+    fulfillment: int
+    score: int
+    reason: str
+    risk_level: str = Field(alias="riskLevel")
+
+
+class RouteRecommendationRequest(ApiSchema):
+    truck_id: str = Field(alias="truckId")
+    origin_node_id: str | None = Field(alias="originNodeId", default=None)
+    candidate_loading_point_ids: list[str] | None = Field(alias="candidateLoadingPointIds", default=None)
+    dump_point_id: str | None = Field(alias="dumpPointId", default=None)
+    target_payload_ton: float | None = Field(alias="targetPayloadTon", default=None)
+    objective: str = "balanced"
+
+
+class RouteRecommendationResponse(ApiSchema):
+    truck_id: str = Field(alias="truckId")
+    origin_node_id: str = Field(alias="originNodeId")
+    dump_point_id: str = Field(alias="dumpPointId")
+    model_type: str = Field(alias="modelType", default="dijkstra_seed_v1")
+    recommendations: list[RouteRecommendationItem]
+
+
+class DispatchRequest(ApiSchema):
+    truck_id: str = Field(alias="truckId")
+    route_option_id: str = Field(alias="routeOptionId")
+    loading_point_id: str = Field(alias="loadingPointId")
+    origin_node_id: str | None = Field(alias="originNodeId", default=None)
+    dump_point_id: str | None = Field(alias="dumpPointId", default=None)
+    selection_mode: str = Field(alias="selectionMode", default="recommended")
+
+
+class DispatchResponse(ApiSchema):
+    trip_id: str = Field(alias="tripId")
+    truck_id: str = Field(alias="truckId")
+    origin_node_id: str = Field(alias="originNodeId")
+    loading_point_id: str = Field(alias="loadingPointId")
+    dump_point_id: str = Field(alias="dumpPointId")
+    route_option_id: str = Field(alias="routeOptionId")
+    route_label: str = Field(alias="routeLabel")
+    selection_mode: str = Field(alias="selectionMode")
+    empty_route: RouteLegResponse = Field(alias="emptyRoute")
+    loaded_route: RouteLegResponse = Field(alias="loadedRoute")
+    route_nodes: list[str] = Field(alias="routeNodes")
+    eta_min: int = Field(alias="etaMin")
+    fuel_liter: int = Field(alias="fuelLiter")
+    coal_ton: float = Field(alias="coalTon")
+    status: str
+    progress: int
+
+
+class ShiftStartRequest(ApiSchema):
+    target_ton: float = Field(alias="targetTon", default=2500)
+    dump_point_id: str = Field(alias="dumpPointId", default="DUMP-STOCKPILE-01")
+    objective: str = "balanced"
+
+
+class ShiftResponse(ApiSchema):
+    status: str
+    target_ton: float = Field(alias="targetTon")
+    dump_point_id: str = Field(alias="dumpPointId")
+    dump_point_name: str = Field(alias="dumpPointName")
+    objective: str
+    hauled_ton: float = Field(alias="hauledTon")
+    started_at: str | None = Field(alias="startedAt", default=None)
+
+
+class TripProgressRequest(ApiSchema):
+    progress: int
+
+
+class OperationStateResponse(ApiSchema):
+    shift: ShiftResponse
+    trucks: list[TruckResponse]
+    active_trips: list[DispatchResponse] = Field(alias="activeTrips")
 
 
 class LoadPlanRequest(ApiSchema):
