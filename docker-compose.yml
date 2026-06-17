@@ -1,4 +1,50 @@
 services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: kideco-rabbitmq
+    restart: unless-stopped
+    cpus: 1.5
+    mem_limit: 2g
+    mem_reservation: 512m
+    ports:
+      - "${RABBITMQ_AMQP_PORT:-7256}:5672"     # AMQP port
+      - "${RABBITMQ_MGMT_PORT:-15672}:15672"   # Management UI
+      - "${RABBITMQ_MQTT_PORT:-6743}:1883"     # MQTT port
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-kideco}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-kideco}
+      RABBITMQ_NODENAME: rabbit@rabbitmq
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "+S 2:2 +sbwt none +sbwtdcpu none +sbwtdio none"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+    command: >
+      bash -c "
+        rabbitmq-plugins enable --offline rabbitmq_mqtt &&
+        rabbitmq-server
+      "
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: kideco-mosquitto
+    restart: unless-stopped
+    ports:
+      - "${MOSQUITTO_PORT:-1884}:1883"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_logs:/mosquitto/log
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_pub -h localhost -t healthcheck -m ok -q 0 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   postgres:
     image: postgres:16-alpine
     container_name: kideco-postgres
@@ -38,4 +84,7 @@ services:
     restart: unless-stopped
 
 volumes:
+  rabbitmq_data:
+  mosquitto_data:
+  mosquitto_logs:
   postgres_data:
