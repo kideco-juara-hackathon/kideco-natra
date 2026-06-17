@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { Cell, Line, LineChart as RechartsLineChart, Pie, PieChart, ResponsiveContainer } from "recharts";
 import {
@@ -220,6 +220,7 @@ export function HaulingOverviewScreen({
   const [resolvingId, setResolvingId] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
+  const pollCountRef = useRef(0);
   const fetchData = useCallback(async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
     try {
@@ -235,38 +236,41 @@ export function HaulingOverviewScreen({
       setError(null);
       setLastUpdated(new Date());
 
-      const histories = await Promise.all(
-        cc.trucks.map((truck) => {
-          const assignment = cc.assignments.find((item) => item.truckId === truck.id);
-          return api
-            .getTelemetryHistory(truck.id, 12)
-            .then((items) => items.length > 0 ? items : syntheticTelemetryHistory(truck, assignment, 12))
-            .catch(() => syntheticTelemetryHistory(truck, assignment, 12));
-        }),
-      );
-      const nonEmpty = histories.filter((h) => h.length > 0);
-      const minLen = nonEmpty.length > 0 ? Math.min(...nonEmpty.map((h) => h.length)) : 0;
-      const fuelSeries: { i: number; v: number }[] = [];
-      const speedSeries: { i: number; v: number }[] = [];
+      pollCountRef.current += 1;
+      if (pollCountRef.current % 5 === 1) {
+        const histories = await Promise.all(
+          cc.trucks.map((truck) => {
+            const assignment = cc.assignments.find((item) => item.truckId === truck.id);
+            return api
+              .getTelemetryHistory(truck.id, 12)
+              .then((items) => items.length > 0 ? items : syntheticTelemetryHistory(truck, assignment, 12))
+              .catch(() => syntheticTelemetryHistory(truck, assignment, 12));
+          }),
+        );
+        const nonEmpty = histories.filter((h) => h.length > 0);
+        const minLen = nonEmpty.length > 0 ? Math.min(...nonEmpty.map((h) => h.length)) : 0;
+        const fuelSeries: { i: number; v: number }[] = [];
+        const speedSeries: { i: number; v: number }[] = [];
 
-      for (let i = 0; i < minLen; i += 1) {
-        const fuelVals = nonEmpty
-          .map((h) => h[i].fuelRateLph)
-          .filter((v): v is number => v !== null);
-        const speedVals = nonEmpty
-          .map((h) => h[i].speedKmh)
-          .filter((v): v is number => v !== null);
+        for (let i = 0; i < minLen; i += 1) {
+          const fuelVals = nonEmpty
+            .map((h) => h[i].fuelRateLph)
+            .filter((v): v is number => v !== null);
+          const speedVals = nonEmpty
+            .map((h) => h[i].speedKmh)
+            .filter((v): v is number => v !== null);
 
-        if (fuelVals.length > 0) {
-          fuelSeries.push({ i, v: fuelVals.reduce((sum, v) => sum + v, 0) / fuelVals.length });
+          if (fuelVals.length > 0) {
+            fuelSeries.push({ i, v: fuelVals.reduce((sum, v) => sum + v, 0) / fuelVals.length });
+          }
+          if (speedVals.length > 0) {
+            speedSeries.push({ i, v: speedVals.reduce((sum, v) => sum + v, 0) / speedVals.length });
+          }
         }
-        if (speedVals.length > 0) {
-          speedSeries.push({ i, v: speedVals.reduce((sum, v) => sum + v, 0) / speedVals.length });
-        }
+
+        setFuelSpark(fuelSeries);
+        setSpeedSpark(speedSeries);
       }
-
-      setFuelSpark(fuelSeries);
-      setSpeedSpark(speedSeries);
     } catch {
       setError("Gagal terhubung ke backend. Pastikan server berjalan di port 8000.");
     } finally {
@@ -278,7 +282,7 @@ export function HaulingOverviewScreen({
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchData();
-    const interval = setInterval(() => fetchData(), 5000);
+    const interval = setInterval(() => fetchData(), 2000);
     return () => clearInterval(interval);
   }, [fetchData]);
 

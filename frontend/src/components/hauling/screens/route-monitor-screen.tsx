@@ -84,7 +84,7 @@ export function HaulingRouteMonitorScreen() {
     const initialTimer = window.setTimeout(() => {
       void fetchData();
     }, 0);
-    const interval = window.setInterval(fetchData, 30_000);
+    const interval = window.setInterval(fetchData, 2_000);
     return () => {
       window.clearTimeout(initialTimer);
       window.clearInterval(interval);

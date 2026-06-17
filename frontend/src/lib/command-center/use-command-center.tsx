@@ -32,8 +32,6 @@ import {
 } from "./events";
 import { useNotifications } from "./notifications-context";
 
-const TICK_MS = 1500;
-const PROGRESS_PER_TICK = 4;
 const SHIFT_TARGET_TON = 2500;
 const SHIFT_DUMP_POINT = "OPD SP20 / Stockpile";
 const SHIFT_OBJECTIVE = "balanced";
@@ -151,6 +149,7 @@ function useCommandCenterState() {
   // Refs mirror state so the interval reads the latest without re-subscribing.
   const trucksRef = useRef(trucks);
   const assignmentsRef = useRef(assignments);
+  const prevTripIdsRef = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     trucksRef.current = trucks;
@@ -206,69 +205,36 @@ function useCommandCenterState() {
     );
   }, [push, shiftStatus]);
 
-  // Simulation loop: advance active trucks, complete cycles, fire ready events.
+  // Poll operation state every 2s to keep fleet status and trip progress live.
+  const POLL_MS = 2000;
   useEffect(() => {
-    const interval = window.setInterval(() => {
-      if (shiftStatus !== "active") return;
+    if (shiftStatus !== "active") return;
 
-      const currentAssignments = assignmentsRef.current;
-      if (currentAssignments.length === 0) return;
+    const poll = () => {
+      api
+        .getOperationState()
+        .then((response) => {
+          const newState = toPersistedState(response);
+          const newTripIds = new Set(newState.assignments.map((a) => a.tripId));
+          const prevTripIds = prevTripIdsRef.current;
 
-      const completed: RouteAssignment[] = [];
-      const stillRunning: RouteAssignment[] = [];
+          // Detect trips that completed since the last poll
+          for (const prevId of prevTripIds) {
+            if (!newTripIds.has(prevId)) {
+              const completed = assignmentsRef.current.find((a) => a.tripId === prevId);
+              if (completed) push(truckReadyEvent(completed.truckId));
+            }
+          }
 
-      for (const assignment of currentAssignments) {
-        const nextProgress = assignment.progress + PROGRESS_PER_TICK;
-        void api
-          .updateTripProgress(assignment.tripId, Math.min(100, nextProgress))
-          .catch(() => undefined);
-        if (nextProgress >= 100) {
-          completed.push({ ...assignment, progress: 100 });
-        } else {
-          stillRunning.push({ ...assignment, progress: nextProgress });
-        }
-      }
+          prevTripIdsRef.current = newTripIds;
+          applyOperationState(newState);
+        })
+        .catch(() => undefined);
+    };
 
-      if (completed.length === 0) {
-        setAssignments(stillRunning);
-        return;
-      }
-
-      // Completed trucks become available at the dump/stockpile. They do not
-      // return to dispatch until the end-of-shift flow exists.
-      const completedTruckIds = new Set(completed.map((assignment) => assignment.truckId));
-      const destinationByTruck = new Map(
-        completed.map((assignment) => [
-          assignment.truckId,
-          assignment.loadedRoute.routeNodes.at(-1) ?? STOCKPILE_NODE_ID,
-        ]),
-      );
-
-      setTrucks((current) =>
-        current.map((truck) => {
-          if (!completedTruckIds.has(truck.id)) return truck;
-          const destinationNodeId = destinationByTruck.get(truck.id) ?? STOCKPILE_NODE_ID;
-          return {
-            ...truck,
-            currentNodeId: destinationNodeId,
-            currentPayloadTon: 0,
-            loadState: "empty",
-            position: nodePosition(destinationNodeId),
-            status: "idle",
-          };
-        }),
-      );
-      setAssignments(stillRunning);
-      setHauledTon((current) =>
-        current + completed.reduce((sum, assignment) => sum + assignment.coalTon, 0),
-      );
-      for (const assignment of completed) {
-        push(truckReadyEvent(assignment.truckId));
-      }
-    }, TICK_MS);
-
+    const interval = window.setInterval(poll, POLL_MS);
     return () => window.clearInterval(interval);
-  }, [push, shiftStatus]);
+  }, [applyOperationState, push, shiftStatus]);
 
   const idleTrucks = useMemo(() => trucks.filter((truck) => truck.status === "idle"), [trucks]);
   const activeTrucks = useMemo(() => trucks.filter((truck) => truck.status === "active"), [trucks]);

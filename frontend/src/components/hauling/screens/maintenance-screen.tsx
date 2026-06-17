@@ -1573,7 +1573,7 @@ export function HaulingMaintenanceScreen({
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchData();
-    const interval = window.setInterval(fetchData, 30_000);
+    const interval = window.setInterval(fetchData, 2_000);
     return () => window.clearInterval(interval);
   }, [fetchData]);
 
