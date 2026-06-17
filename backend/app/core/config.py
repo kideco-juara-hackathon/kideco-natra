@@ -12,6 +12,7 @@ class Settings(BaseModel):
     fuel_price_per_liter: float
     default_loading_time_seconds: int
     default_eta_threshold_seconds: int
+    wear_multiplier: float  # scales engine-hour accumulation per telemetry tick
 
     @property
     def cors_origins(self) -> list[str]:
@@ -35,4 +36,5 @@ def get_settings() -> Settings:
         fuel_price_per_liter=float(getenv("FUEL_PRICE_PER_LITER", "15000")),
         default_loading_time_seconds=int(getenv("DEFAULT_LOADING_TIME_SECONDS", "420")),
         default_eta_threshold_seconds=int(getenv("DEFAULT_ETA_THRESHOLD_SECONDS", "600")),
+        wear_multiplier=float(getenv("WEAR_MULTIPLIER", "1.0")),
     )

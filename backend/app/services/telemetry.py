@@ -2,8 +2,10 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
+from sqlalchemy import desc, select
 from sqlalchemy.orm import Session
 
+from app.core.config import get_settings
 from app.db.models import Asset, PredictionResult, Recommendation, TelemetryRecord
 from app.schemas import TelemetryEvent, TelemetryResponse
 from app.services.prediction import assess_health
@@ -32,6 +34,26 @@ def ingest_telemetry(db: Session, asset: Asset, payload: TelemetryEvent) -> Tele
     )
     db.add(record)
     db.flush()
+
+    # --- Engine hour accumulation ---
+    # Find the previous telemetry record for this asset to compute elapsed time.
+    prev_record = db.scalar(
+        select(TelemetryRecord)
+        .where(
+            TelemetryRecord.asset_id == asset.id,
+            TelemetryRecord.id != record.id,
+        )
+        .order_by(desc(TelemetryRecord.recorded_at))
+        .limit(1)
+    )
+    if prev_record is not None and prev_record.recorded_at is not None:
+        elapsed_s = (recorded_at - prev_record.recorded_at).total_seconds()
+        # Cap at 5 minutes to ignore stale gaps from simulator restarts
+        elapsed_s = max(0.0, min(elapsed_s, 300.0))
+        settings = get_settings()
+        asset.engine_hour = (asset.engine_hour or 0.0) + elapsed_s * settings.wear_multiplier / 3600.0
+        # Update the just-flushed record to reflect the new accumulated value
+        record.engine_hour = asset.engine_hour
 
     if payload.lat is not None:
         asset.last_latitude = payload.lat
