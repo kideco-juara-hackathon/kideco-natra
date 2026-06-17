@@ -16,13 +16,57 @@ Returns simulation map nodes.
 
 Returns simulation graph edges.
 
+`GET /api/trucks`
+
+Returns the current in-memory operational truck state for the 5 demo hauling
+trucks used by the route dispatch MVP.
+
 `GET /api/vehicles`
 
-Returns hauling vehicles.
+Returns legacy database-backed vehicles.
+
+## Operational State
+
+`GET /api/shift/current`
+
+Returns current shift status, target tonnage, dump point, objective, and hauled
+tonnage.
+
+`POST /api/shift/start`
+
+Starts or resets the current in-memory shift state. This resets all demo trucks
+to idle at Dispatch Point and clears active trips.
+
+Request:
+
+```json
+{
+  "targetTon": 2500,
+  "dumpPointId": "DUMP-STOCKPILE-01",
+  "objective": "balanced"
+}
+```
+
+`GET /api/operation-state`
+
+Returns the current shift, trucks, and active trips in one payload. Frontend
+Command Center uses this as the primary hydration endpoint.
+
+`GET /api/trips/active`
+
+Returns active dispatch assignments.
+
+`PATCH /api/trips/{tripId}/progress`
+
+Updates active trip progress. When progress reaches `100`, the trip is removed
+from active trips, the truck becomes idle at the stockpile/dump point, and
+hauled tonnage is incremented.
 
 ## Route Plans
 
 `POST /api/route-plans`
+
+Legacy route plan endpoint backed by database seed data.
 
 Request:
 
@@ -48,6 +92,73 @@ Response:
   "riskLevel": "low"
 }
 ```
+
+## Route Recommendations
+
+`POST /api/route-recommendations`
+
+Main route dispatch endpoint for the MVP. The backend reads `data/seeds/nodes.json`,
+`data/seeds/edges.json`, `data/seeds/trucks.json`, and `data/seeds/route_scenarios.json`,
+then ranks candidate loading points using Dijkstra over the seed graph.
+
+Request:
+
+```json
+{
+  "truckId": "DT-01",
+  "originNodeId": "DISPATCH-01",
+  "candidateLoadingPointIds": ["LP-A1", "LP-B1", "LP-C1"],
+  "dumpPointId": "DUMP-STOCKPILE-01",
+  "targetPayloadTon": 60,
+  "objective": "balanced"
+}
+```
+
+Response:
+
+```json
+{
+  "truckId": "DT-01",
+  "originNodeId": "DISPATCH-01",
+  "dumpPointId": "DUMP-STOCKPILE-01",
+  "modelType": "dijkstra_seed_v1",
+  "recommendations": [
+    {
+      "id": "REKOMENDASI-OPTIMAL-LP-A1",
+      "label": "Rekomendasi Optimal",
+      "loadingPointId": "LP-A1",
+      "etaMin": 23,
+      "fuelLiter": 15,
+      "coalTon": 60,
+      "fulfillment": 100,
+      "score": 82,
+      "riskLevel": "medium"
+    }
+  ]
+}
+```
+
+## Dispatch
+
+`POST /api/dispatch`
+
+Creates an active dispatch assignment in backend in-memory operational state.
+The shift must already be active, and the selected truck must be idle.
+
+Request:
+
+```json
+{
+  "truckId": "DT-01",
+  "routeOptionId": "REKOMENDASI-OPTIMAL-LP-A1",
+  "loadingPointId": "LP-A1",
+  "originNodeId": "DISPATCH-01",
+  "dumpPointId": "DUMP-STOCKPILE-01",
+  "selectionMode": "recommended"
+}
+```
+
+Response includes `tripId`, empty route, loaded route, ETA, fuel, coal payload, and route nodes.
 
 ## Telemetry
 
