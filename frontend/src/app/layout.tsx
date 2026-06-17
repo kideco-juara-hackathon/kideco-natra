@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Kideco Logistics Control",
-  description: "Dispatcher dashboard for mining logistics route intelligence.",
+  description: "Dashboard dispatcher untuk kecerdasan rute logistik pertambangan.",
 };
 
 export default function RootLayout({
@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="id" className="h-full antialiased">
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
