@@ -1,23 +1,32 @@
+import sys
 import time
 import json
 import asyncio
 import aiomqtt
+import random
 
-MQTT_HOST = "103.000.000.000"
-MQTT_PORT = "6743"
-MQTT_USERNAME = "admin"
-MQTT_PASSWORD = "admin"
-MQTT_TOPIC = "test.data"
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
-data = {
-    "pressure": "10",
-    "vibration": "5",
-    "heading": "10",
-}
+MQTT_HOST = "localhost"
+MQTT_PORT = 6743
+MQTT_USERNAME = "kideco"
+MQTT_PASSWORD = "kideco"
+MQTT_TOPIC = "test.data.queue"
+
+PUBLISH_INTERVAL = 10  # detik
 
 
 def scale(x, x1, x2, y1, y2):
     return (x-x1)*(y2-y1)/(x2-x1)+y1
+
+
+def generate_data():
+    return {
+        "pressure": random.randint(1, 100),
+        "vibration": random.randint(1, 100),
+        "heading": random.randint(1, 100),
+    }
 
 
 async def main():
@@ -28,16 +37,14 @@ async def main():
                 port=MQTT_PORT,
                 username=MQTT_USERNAME,
                 password=MQTT_PASSWORD,
-            )as mqtt_client:
-                print("Terhubung dengan MQRabbit Via MQTT")
+            ) as mqtt_client:
+                print("Terhubung dengan MQRabbit Via MQTT", flush=True)
                 while True:
-                    readData = data
-                    if readData is not None:
-                        payload = json.dumps(readData)
-                        await mqtt_client.publish(MQTT_TOPIC, payload, qos=1, retain=True)
-                        print(f"Published ke Topic {MQTT_TOPIC}: {payload}")
-
-                    await asyncio.sleep(120)
+                    payload = json.dumps(generate_data())
+                    await mqtt_client.publish(MQTT_TOPIC, payload, qos=1, retain=True)
+                    print(
+                        f"Published ke Topic {MQTT_TOPIC}: {payload}", flush=True)
+                    await asyncio.sleep(PUBLISH_INTERVAL)
 
         except Exception as e:
             print(f"Koneksi MQTT Error: {e}")

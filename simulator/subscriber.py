@@ -1,15 +1,15 @@
 import pika
 import json
 
-RABBITMQ_HOST = "100.000.000.000"
-RABBITMQ_PORT = "7256"
-RABBITMQ_USERNAME = "admin"
-RABBTIMQ_PASSWORD = "admin"
+RABBITMQ_HOST = "localhost"
+RABBITMQ_PORT = 7256
+RABBITMQ_USERNAME = "kideco"
+RABBTIMQ_PASSWORD = "kideco"
 RABBITMQ_VHOST = "/"
 
 EXCHANGE_NAME = "amq.topic"
-ROUTING_KEY = "test.data"
-QUEUE_NAME = "test.data"
+ROUTING_KEY = "test.data.queue"
+QUEUE_NAME = "test_data_queue"
 
 
 def message(ch, method, properties, body):
