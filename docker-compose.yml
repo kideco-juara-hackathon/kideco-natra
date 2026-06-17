@@ -7,11 +7,11 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-kideco}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-kideco}
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - '${POSTGRES_PORT:-5432}:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-kideco} -d ${POSTGRES_DB:-kideco}"]
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-kideco} -d ${POSTGRES_DB:-kideco}']
       interval: 5s
       timeout: 5s
       retries: 10
@@ -30,7 +30,7 @@ services:
       DEFAULT_LOADING_TIME_SECONDS: ${DEFAULT_LOADING_TIME_SECONDS:-420}
       DEFAULT_ETA_THRESHOLD_SECONDS: ${DEFAULT_ETA_THRESHOLD_SECONDS:-600}
     ports:
-      - "${BACKEND_PORT:-8000}:8000"
+      - '${BACKEND_PORT:-8000}:8000'
     depends_on:
       postgres:
         condition: service_healthy
