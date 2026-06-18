@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   Activity,
@@ -1537,6 +1537,11 @@ export function HaulingMaintenanceScreen({
   const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(initialSelectedId);
 
+  const ccTrucksRef = useRef(cc.trucks);
+  const ccAssignmentsRef = useRef(cc.assignments);
+  useEffect(() => { ccTrucksRef.current = cc.trucks; }, [cc.trucks]);
+  useEffect(() => { ccAssignmentsRef.current = cc.assignments; }, [cc.assignments]);
+
   const fetchData = useCallback(async () => {
     try {
       const [telemetryRes, recsRes] = await Promise.all([
@@ -1544,7 +1549,7 @@ export function HaulingMaintenanceScreen({
         api.getRecommendations(undefined, "open"),
       ]);
 
-      const rows: VehicleRow[] = cc.trucks
+      const rows: VehicleRow[] = ccTrucksRef.current
         .map((truck) => ({
           id: truck.id,
           name: truck.code,
@@ -1555,7 +1560,7 @@ export function HaulingMaintenanceScreen({
           currentNodeId: truck.currentNodeId,
           lat: truck.position.lat,
           lng: truck.position.lng,
-          telemetry: telemetryForTruck(telemetryRes, truck, cc.assignments),
+          telemetry: telemetryForTruck(telemetryRes, truck, ccAssignmentsRef.current),
           recs: recommendationsForTruck(recsRes, truck.id)
             .sort((a, b) => priorityOrder(a.priority) - priorityOrder(b.priority)),
         }))
@@ -1568,12 +1573,12 @@ export function HaulingMaintenanceScreen({
     } finally {
       setLoading(false);
     }
-  }, [cc.assignments, cc.trucks]);
+  }, []);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchData();
-    const interval = window.setInterval(fetchData, 2_000);
+    const interval = window.setInterval(fetchData, 5_000);
     return () => window.clearInterval(interval);
   }, [fetchData]);
 

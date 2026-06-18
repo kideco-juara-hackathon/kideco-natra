@@ -220,6 +220,11 @@ export function HaulingOverviewScreen({
   const [resolvingId, setResolvingId] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
+  const ccTrucksRef = useRef(cc.trucks);
+  const ccAssignmentsRef = useRef(cc.assignments);
+  useEffect(() => { ccTrucksRef.current = cc.trucks; }, [cc.trucks]);
+  useEffect(() => { ccAssignmentsRef.current = cc.assignments; }, [cc.assignments]);
+
   const pollCountRef = useRef(0);
   const fetchData = useCallback(async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
@@ -232,15 +237,15 @@ export function HaulingOverviewScreen({
 
       setRecommendations(recData);
       setNodes(nodeData);
-      setLatestTelemetry(telemetryByTruck(telemetryData, cc.trucks, cc.assignments));
+      setLatestTelemetry(telemetryByTruck(telemetryData, ccTrucksRef.current, ccAssignmentsRef.current));
       setError(null);
       setLastUpdated(new Date());
 
       pollCountRef.current += 1;
       if (pollCountRef.current % 5 === 1) {
         const histories = await Promise.all(
-          cc.trucks.map((truck) => {
-            const assignment = cc.assignments.find((item) => item.truckId === truck.id);
+          ccTrucksRef.current.map((truck) => {
+            const assignment = ccAssignmentsRef.current.find((item) => item.truckId === truck.id);
             return api
               .getTelemetryHistory(truck.id, 12)
               .then((items) => items.length > 0 ? items : syntheticTelemetryHistory(truck, assignment, 12))
@@ -277,7 +282,7 @@ export function HaulingOverviewScreen({
       setLoading(false);
       setRefreshing(false);
     }
-  }, [cc.assignments, cc.trucks]);
+  }, []);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

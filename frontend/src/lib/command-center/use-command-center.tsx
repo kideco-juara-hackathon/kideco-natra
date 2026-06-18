@@ -255,6 +255,7 @@ function useCommandCenterState() {
   // --- Actions -------------------------------------------------------------
 
   const startShift = useCallback(() => {
+    prevTripIdsRef.current = new Set();
     seededRef.current = false;
     const localState: PersistedCommandCenterState = {
       shiftStatus: "active",

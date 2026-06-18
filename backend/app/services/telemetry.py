@@ -13,6 +13,8 @@ from app.services.prediction import assess_health
 
 def ingest_telemetry(db: Session, asset: Asset, payload: TelemetryEvent) -> TelemetryResponse:
     recorded_at = payload.timestamp or datetime.now(UTC)
+    if recorded_at.tzinfo is None:
+        recorded_at = recorded_at.replace(tzinfo=UTC)
     record = TelemetryRecord(
         site_id=asset.site_id,
         asset_id=asset.id,
