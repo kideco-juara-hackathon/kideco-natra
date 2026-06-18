@@ -26,8 +26,8 @@
       "code": "DISPATCH-01",
       "name": "Dispatch / Parking Area",
       "type": "dispatch",
-      "visualLat": -1.8907,
-      "visualLng": 115.8721,
+      "visualLat": -1.8670,
+      "visualLng": 115.8700,
       "sourceWaypointId": "Begin.Travelling.Empty"
     },
     {
@@ -35,8 +35,8 @@
       "code": "JOGJA-1400",
       "name": "Jogja STA 1400",
       "type": "checkpoint",
-      "visualLat": -1.8955,
-      "visualLng": 115.8668,
+      "visualLat": -1.8730,
+      "visualLng": 115.8690,
       "sourceWaypointId": "Jl_Jogja_STA1400"
     },
     {
@@ -44,8 +44,8 @@
       "code": "JOGJA-1100",
       "name": "Jogja STA 1100",
       "type": "checkpoint",
-      "visualLat": -1.8986,
-      "visualLng": 115.8643,
+      "visualLat": -1.8790,
+      "visualLng": 115.8680,
       "sourceWaypointId": "Jl_Jogja_STA1100"
     },
     {
@@ -53,8 +53,8 @@
       "code": "JOGJA-1000",
       "name": "Jogja STA 1000",
       "type": "checkpoint",
-      "visualLat": -1.9012,
-      "visualLng": 115.8612,
+      "visualLat": -1.8840,
+      "visualLng": 115.8670,
       "sourceWaypointId": "Jl_Jogja_STA1000"
     },
     {
@@ -62,8 +62,8 @@
       "code": "JOGJA-900",
       "name": "Jogja STA 900",
       "type": "checkpoint",
-      "visualLat": -1.9038,
-      "visualLng": 115.8588,
+      "visualLat": -1.8890,
+      "visualLng": 115.8670,
       "sourceWaypointId": "Jl_Jogja_STA900"
     },
     {
@@ -71,8 +71,8 @@
       "code": "JOGJA-800",
       "name": "Jogja STA 800",
       "type": "checkpoint",
-      "visualLat": -1.9062,
-      "visualLng": 115.8563,
+      "visualLat": -1.8940,
+      "visualLng": 115.8660,
       "sourceWaypointId": "Jl_Jogja_STA800"
     },
     {
@@ -80,8 +80,8 @@
       "code": "PIT-A",
       "name": "Pit A - CE6155 Front",
       "type": "pit",
-      "visualLat": -1.9088,
-      "visualLng": 115.8548,
+      "visualLat": -1.8980,
+      "visualLng": 115.8640,
       "sourceWaypointId": "SRC_CE6155",
       "sourceLoaderId": "CE6155"
     },
@@ -90,8 +90,8 @@
       "code": "LP-A1",
       "name": "Loading Point A1",
       "type": "loading_point",
-      "visualLat": -1.9107,
-      "visualLng": 115.8528,
+      "visualLat": -1.9010,
+      "visualLng": 115.8620,
       "sourceWaypointId": "SRC_CE6155",
       "sourceLoaderId": "CE6155"
     },
@@ -100,8 +100,8 @@
       "code": "KB4-200",
       "name": "KB4 Front STA 200",
       "type": "checkpoint",
-      "visualLat": -1.899,
-      "visualLng": 115.8516,
+      "visualLat": -1.8930,
+      "visualLng": 115.8560,
       "sourceWaypointId": "Akses_Front_Jl_KB4_STA200"
     },
     {
@@ -109,8 +109,8 @@
       "code": "KB4-400",
       "name": "KB4 Front STA 400",
       "type": "checkpoint",
-      "visualLat": -1.8942,
-      "visualLng": 115.8479,
+      "visualLat": -1.8920,
+      "visualLng": 115.8500,
       "sourceWaypointId": "Akses_Front_Jl_KB4_STA_400"
     },
     {
@@ -118,8 +118,8 @@
       "code": "PIT-B",
       "name": "Pit B - CE5255 Front",
       "type": "pit",
-      "visualLat": -1.8883,
-      "visualLng": 115.8442,
+      "visualLat": -1.8950,
+      "visualLng": 115.8470,
       "sourceWaypointId": "SRC_CE5255",
       "sourceLoaderId": "CE5255"
     },
@@ -128,8 +128,8 @@
       "code": "LP-B1",
       "name": "Loading Point B1",
       "type": "loading_point",
-      "visualLat": -1.8859,
-      "visualLng": 115.8414,
+      "visualLat": -1.8970,
+      "visualLng": 115.8440,
       "sourceWaypointId": "SRC_CE5255",
       "sourceLoaderId": "CE5255"
     },
@@ -138,8 +138,8 @@
       "code": "KB4-700",
       "name": "KB4 Front STA 700",
       "type": "checkpoint",
-      "visualLat": -1.8819,
-      "visualLng": 115.8497,
+      "visualLat": -1.8920,
+      "visualLng": 115.8580,
       "sourceWaypointId": "Akses_Front_Jl_KB4_STA700"
     },
     {
@@ -147,8 +147,8 @@
       "code": "PIT-C",
       "name": "Pit C - CE6170 Front",
       "type": "pit",
-      "visualLat": -1.8786,
-      "visualLng": 115.8577,
+      "visualLat": -1.8950,
+      "visualLng": 115.8550,
       "sourceWaypointId": "SRC_CE6170",
       "sourceLoaderId": "CE6170"
     },
@@ -157,8 +157,8 @@
       "code": "LP-C1",
       "name": "Loading Point C1",
       "type": "loading_point",
-      "visualLat": -1.8755,
-      "visualLng": 115.8612,
+      "visualLat": -1.8970,
+      "visualLng": 115.8520,
       "sourceWaypointId": "SRC_CE6170",
       "sourceLoaderId": "CE6170"
     },
@@ -167,8 +167,8 @@
       "code": "PELAIHARI-800",
       "name": "Pelaihari STA 800",
       "type": "checkpoint",
-      "visualLat": -1.8838,
-      "visualLng": 115.8806,
+      "visualLat": -1.9010,
+      "visualLng": 115.8750,
       "sourceWaypointId": "Jl_Pelaihari_STA800"
     },
     {
@@ -176,8 +176,8 @@
       "code": "PELAIHARI-600",
       "name": "Pelaihari STA 600",
       "type": "checkpoint",
-      "visualLat": -1.8807,
-      "visualLng": 115.8873,
+      "visualLat": -1.8960,
+      "visualLng": 115.8780,
       "sourceWaypointId": "Jl_Pelaihari_STA600"
     },
     {
@@ -185,8 +185,8 @@
       "code": "PELAIHARI-500",
       "name": "Pelaihari STA 500",
       "type": "checkpoint",
-      "visualLat": -1.8782,
-      "visualLng": 115.8929,
+      "visualLat": -1.8900,
+      "visualLng": 115.8810,
       "sourceWaypointId": "Jl_Pelaihari_STA500"
     },
     {
@@ -194,8 +194,8 @@
       "code": "PELAIHARI-400",
       "name": "Pelaihari STA 400",
       "type": "checkpoint",
-      "visualLat": -1.8752,
-      "visualLng": 115.8985,
+      "visualLat": -1.8850,
+      "visualLng": 115.8840,
       "sourceWaypointId": "Jl_Pelaihari_STA400"
     },
     {
@@ -203,8 +203,8 @@
       "code": "BARCELONA",
       "name": "Simpang Barcelona",
       "type": "checkpoint",
-      "visualLat": -1.8722,
-      "visualLng": 115.9029,
+      "visualLat": -1.8790,
+      "visualLng": 115.8870,
       "sourceWaypointId": "Jl_Simpang_Barcelona"
     },
     {
@@ -212,8 +212,8 @@
       "code": "OPK-0",
       "name": "OPK STA 0",
       "type": "checkpoint",
-      "visualLat": -1.8693,
-      "visualLng": 115.9067,
+      "visualLat": -1.8740,
+      "visualLng": 115.8900,
       "sourceWaypointId": "Jl_OPK_STA0"
     },
     {
@@ -221,8 +221,8 @@
       "code": "OPK-100",
       "name": "OPK STA 100",
       "type": "checkpoint",
-      "visualLat": -1.8668,
-      "visualLng": 115.9103,
+      "visualLat": -1.8690,
+      "visualLng": 115.8930,
       "sourceWaypointId": "Jl_OPK_STA100"
     },
     {
@@ -230,8 +230,8 @@
       "code": "DISP-300",
       "name": "Disposal Access STA 300",
       "type": "checkpoint",
-      "visualLat": -1.8639,
-      "visualLng": 115.9146,
+      "visualLat": -1.8630,
+      "visualLng": 115.8960,
       "sourceWaypointId": "Akses_Disposal_Jl_OPK_STA300"
     },
     {
@@ -239,8 +239,8 @@
       "code": "DISP-500",
       "name": "Disposal Access STA 500",
       "type": "checkpoint",
-      "visualLat": -1.8616,
-      "visualLng": 115.9182,
+      "visualLat": -1.8580,
+      "visualLng": 115.8990,
       "sourceWaypointId": "Akses_Disposal_Jl_OPK_STA500"
     },
     {
@@ -248,8 +248,8 @@
       "code": "STOCKPILE-01",
       "name": "OPD SP20 / Stockpile",
       "type": "dump_point",
-      "visualLat": -1.8593,
-      "visualLng": 115.9217,
+      "visualLat": -1.8520,
+      "visualLng": 115.9030,
       "sourceWaypointId": "OPD_SP20"
     }
   ]
