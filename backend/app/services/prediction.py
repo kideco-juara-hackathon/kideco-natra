@@ -3,6 +3,7 @@ from __future__ import annotations
 from app.core.config import get_settings
 from app.db.models import Asset, RouteSegment, TelemetryRecord
 from app.services.scoring import ROAD_MULTIPLIER, SLOPE_MULTIPLIER, TRAFFIC_MULTIPLIER, clamp, normalize_risk
+from app.ml.loader import predict_segment_eta_seconds as _ml_eta, predict_segment_fuel_liter as _ml_fuel
 
 
 def payload_ratio(asset: Asset, payload_ton: float | None, load_state: str | None = None) -> float:
@@ -26,18 +27,59 @@ def estimate_segment_eta_seconds(segment: RouteSegment, load_ratio: float) -> in
     return int(base_seconds * multiplier)
 
 
-def estimate_route_eta_seconds(segments: list[RouteSegment], asset: Asset, load_state: str, payload_ton: float | None) -> int:
+def estimate_route_eta_seconds(
+    segments: list[RouteSegment],
+    asset: Asset,
+    load_state: str,
+    payload_ton: float | None,
+    waypoint_codes: list[str] | None = None,
+) -> int:
     settings = get_settings()
     ratio = payload_ratio(asset, payload_ton, load_state)
-    travel_seconds = sum(estimate_segment_eta_seconds(segment, ratio) for segment in segments)
+    travel_seconds = 0.0
+    for i, segment in enumerate(segments):
+        # Use ML prediction when waypoint codes are provided
+        if waypoint_codes and i + 1 < len(waypoint_codes):
+            slope_m = float((segment.slope_distance or (segment.distance_km or 0.0) * 1000))
+            ml_secs = _ml_eta(
+                start_wp=waypoint_codes[i],
+                end_wp=waypoint_codes[i + 1],
+                load_state=load_state,
+                slope_dist_m=slope_m,
+                truck_id=asset.asset_code,
+            )
+            if ml_secs is not None:
+                travel_seconds += ml_secs
+                continue
+        travel_seconds += estimate_segment_eta_seconds(segment, ratio)
     loading_seconds = settings.default_loading_time_seconds if load_state.lower() == "full" or ratio > 0 else 0
     return int(travel_seconds + loading_seconds + settings.default_eta_threshold_seconds)
 
 
-def estimate_route_fuel_liter(segments: list[RouteSegment], asset: Asset, load_state: str, payload_ton: float | None) -> float:
+def estimate_route_fuel_liter(
+    segments: list[RouteSegment],
+    asset: Asset,
+    load_state: str,
+    payload_ton: float | None,
+    waypoint_codes: list[str] | None = None,
+) -> float:
     ratio = payload_ratio(asset, payload_ton, load_state)
     total = 0.0
-    for segment in segments:
+    for i, segment in enumerate(segments):
+        # Use ML prediction when waypoint codes are provided
+        if waypoint_codes and i + 1 < len(waypoint_codes):
+            slope_m = float((segment.slope_distance or (segment.distance_km or 0.0) * 1000))
+            ml_lit = _ml_fuel(
+                start_wp=waypoint_codes[i],
+                end_wp=waypoint_codes[i + 1],
+                load_state=load_state,
+                slope_dist_m=slope_m,
+                slope_grade_pct=segment.slope_grade_pct,
+                truck_id=asset.asset_code,
+            )
+            if ml_lit is not None:
+                total += ml_lit
+                continue
         distance_km = segment.distance_km or 0.0
         total += (
             distance_km

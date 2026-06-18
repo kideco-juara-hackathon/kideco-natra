@@ -7,8 +7,10 @@ from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.db.models import Asset, PredictionResult, Recommendation, TelemetryRecord
+from app.ml.loader import predict_maintenance
 from app.schemas import TelemetryEvent, TelemetryResponse
 from app.services.prediction import assess_health
+from app.services.scoring import normalize_risk
 
 
 def ingest_telemetry(db: Session, asset: Asset, payload: TelemetryEvent) -> TelemetryResponse:
@@ -29,6 +31,10 @@ def ingest_telemetry(db: Session, asset: Asset, payload: TelemetryEvent) -> Tele
         engine_temp_c=payload.engine_temp_c,
         oil_pressure_bar=payload.oil_pressure_bar,
         vibration_g=payload.vibration_level,
+        coolant_temp_c=payload.coolant_temp_c,
+        lub_oil_temp_c=payload.lub_oil_temp_c,
+        fuel_pressure_bar=payload.fuel_pressure_bar,
+        coolant_pressure_bar=payload.coolant_pressure_bar,
         load_ton=payload.load_ton,
         load_state=payload.load_state,
         data_source="dummy_simulator",
@@ -38,7 +44,6 @@ def ingest_telemetry(db: Session, asset: Asset, payload: TelemetryEvent) -> Tele
     db.flush()
 
     # --- Engine hour accumulation ---
-    # Find the previous telemetry record for this asset to compute elapsed time.
     prev_record = db.scalar(
         select(TelemetryRecord)
         .where(
@@ -49,23 +54,60 @@ def ingest_telemetry(db: Session, asset: Asset, payload: TelemetryEvent) -> Tele
         .limit(1)
     )
     if prev_record is not None and prev_record.recorded_at is not None:
-        elapsed_s = (recorded_at - prev_record.recorded_at).total_seconds()
-        # Cap at 5 minutes to ignore stale gaps from simulator restarts
+        prev_at = prev_record.recorded_at
+        if prev_at.tzinfo is None:
+            prev_at = prev_at.replace(tzinfo=UTC)
+        elapsed_s = (recorded_at - prev_at).total_seconds()
         elapsed_s = max(0.0, min(elapsed_s, 300.0))
         settings = get_settings()
         asset.engine_hour = (asset.engine_hour or 0.0) + elapsed_s * settings.wear_multiplier / 3600.0
-        # Update the just-flushed record to reflect the new accumulated value
         record.engine_hour = asset.engine_hour
 
     if payload.lat is not None:
         asset.last_latitude = payload.lat
     if payload.lng is not None:
         asset.last_longitude = payload.lng
+
+    model_type = "rule_based_v0"
+
     if payload.engine_temp_c or payload.oil_pressure_bar or payload.vibration_level:
-        health_score, risk_level, components, action = assess_health(asset, record)
-        asset.health_score = health_score
+        # Prefer ML maintenance model when all 6 sensor fields are present
+        ml_score: float | None = None
+        if all(
+            v is not None
+            for v in [
+                payload.rpm,
+                payload.oil_pressure_bar,
+                payload.coolant_temp_c,
+                payload.fuel_pressure_bar,
+                payload.coolant_pressure_bar,
+                payload.lub_oil_temp_c,
+            ]
+        ):
+            ml_score = predict_maintenance(
+                rpm=payload.rpm,  # type: ignore[arg-type]
+                lub_oil_pressure=payload.oil_pressure_bar,  # type: ignore[arg-type]
+                coolant_temp=payload.coolant_temp_c,  # type: ignore[arg-type]
+                fuel_pressure=payload.fuel_pressure_bar,  # type: ignore[arg-type]
+                coolant_pressure=payload.coolant_pressure_bar,  # type: ignore[arg-type]
+                lub_oil_temp=payload.lub_oil_temp_c,  # type: ignore[arg-type]
+            )
+
+        if ml_score is not None:
+            health_score = ml_score
+            risk_level = normalize_risk(health_score)
+            components: list[str] = []
+            action = _action_for_risk(risk_level)
+            asset.health_score = health_score
+            model_type = "ml_maintenance_v1"
+        else:
+            health_score, risk_level, components, action = assess_health(asset, record)
+            asset.health_score = health_score
     else:
-        health_score, risk_level, components, action = asset.health_score, "low", [], "Telemetry tersimpan."
+        health_score = asset.health_score
+        risk_level = "low"
+        components = []
+        action = "Telemetry tersimpan."
 
     recommendations: list[str] = []
     if risk_level in {"medium", "high", "critical"}:
@@ -73,7 +115,7 @@ def ingest_telemetry(db: Session, asset: Asset, payload: TelemetryEvent) -> Tele
             site_id=asset.site_id,
             asset_id=asset.id,
             prediction_type="health",
-            model_type="rule_based_v0",
+            model_type=model_type,
             health_score=health_score,
             risk_category=risk_level,
             reason=action,
@@ -113,4 +155,15 @@ def ingest_telemetry(db: Session, asset: Asset, payload: TelemetryEvent) -> Tele
         healthScore=health_score,
         riskLevel=risk_level,
         recommendations=recommendations,
+        modelType=model_type,
     )
+
+
+def _action_for_risk(risk: str) -> str:
+    if risk == "low":
+        return "Unit layak operasi. Pantau telemetry normal."
+    if risk == "medium":
+        return "Lanjut operasi dengan monitoring lebih ketat."
+    if risk == "high":
+        return "Jadwalkan inspeksi sebelum dispatch berikutnya."
+    return "Stop sementara dan arahkan ke maintenance."

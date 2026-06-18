@@ -175,7 +175,22 @@ uvicorn app.main:app --reload
 
 ```bash
 cd simulator
+pip install -r requirements.txt
+
+# Skenario normal — semua truck sehat, trip berjalan mulus
 python telemetry_simulator.py --scenario normal
+
+# Skenario degraded — DT-03 menunjukkan kenaikan suhu mesin & getaran bertahap
+python telemetry_simulator.py --scenario degraded
+
+# Skenario breakdown — DT-03 health score jatuh kritis, memicu alert darurat
+python telemetry_simulator.py --scenario breakdown
+
+# Auto-dispatch: mulai shift & dispatch truck idle otomatis jika belum ada trip aktif
+python telemetry_simulator.py --scenario normal --auto-dispatch
+
+# Custom interval & backend URL
+python telemetry_simulator.py --scenario degraded --interval 3 --backend http://localhost:8000
 ```
 
 ---

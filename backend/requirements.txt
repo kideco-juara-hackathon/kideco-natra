@@ -5,3 +5,9 @@ psycopg[binary]==3.2.3
 alembic==1.14.0
 pytest==8.3.4
 httpx==0.28.1
+# ML inference dependencies
+joblib>=1.4
+scikit-learn>=1.9
+xgboost>=2.0
+numpy>=1.26
+pandas>=2.1

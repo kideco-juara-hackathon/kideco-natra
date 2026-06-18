@@ -228,6 +228,11 @@ class TelemetryEvent(ApiSchema):
     fuel_rate_lph: float | None = Field(alias="fuelRateLph", default=None)
     fuel_level_percent: float | None = Field(alias="fuelLevelPercent", default=None)
     rpm: float | None = None
+    # Extended sensor fields for ML maintenance model
+    lub_oil_temp_c: float | None = Field(alias="lubOilTempC", default=None)
+    coolant_temp_c: float | None = Field(alias="coolantTempC", default=None)
+    fuel_pressure_bar: float | None = Field(alias="fuelPressureBar", default=None)
+    coolant_pressure_bar: float | None = Field(alias="coolantPressureBar", default=None)
     raw_payload: dict[str, Any] | None = Field(alias="rawPayload", default=None)
 
 

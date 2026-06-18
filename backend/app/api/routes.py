@@ -329,13 +329,15 @@ def telemetry_history(asset_id: str, limit: int = 50, db: Session = Depends(get_
 def predict_eta(payload: PredictionRequest, db: Session = Depends(get_db)) -> PredictionResponse:
     asset = get_asset_by_code(db, payload.vehicle_id)
     segments = _segments_from_path_or_distance(db, payload.route_path, payload.distance_m)
-    eta_seconds = estimate_route_eta_seconds(segments, asset, payload.load_state, payload.payload_ton)
+    eta_seconds = estimate_route_eta_seconds(
+        segments, asset, payload.load_state, payload.payload_ton, payload.route_path
+    )
     return PredictionResponse(
         vehicleId=asset.asset_code,
         predictionType="eta",
         etaSeconds=eta_seconds,
         riskLevel="low",
-        reason="ETA dihitung dari waktu tempuh segmen, loading time, dan threshold operasional.",
+        reason="ETA dihitung dari model ML per segmen (fallback: waktu tempuh berbasis aturan).",
     )
 
 
@@ -343,13 +345,15 @@ def predict_eta(payload: PredictionRequest, db: Session = Depends(get_db)) -> Pr
 def predict_fuel(payload: PredictionRequest, db: Session = Depends(get_db)) -> PredictionResponse:
     asset = get_asset_by_code(db, payload.vehicle_id)
     segments = _segments_from_path_or_distance(db, payload.route_path, payload.distance_m)
-    fuel = estimate_route_fuel_liter(segments, asset, payload.load_state, payload.payload_ton)
+    fuel = estimate_route_fuel_liter(
+        segments, asset, payload.load_state, payload.payload_ton, payload.route_path
+    )
     return PredictionResponse(
         vehicleId=asset.asset_code,
         predictionType="fuel",
         fuelEstimateLiter=fuel,
         riskLevel="low",
-        reason="Fuel dihitung dari jarak, base fuel unit, load state, slope, road condition, dan traffic.",
+        reason="Fuel dihitung dari model ML per segmen (fallback: konsumsi berbasis fisika).",
     )
 
 

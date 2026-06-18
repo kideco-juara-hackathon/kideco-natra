@@ -114,6 +114,12 @@ def generate_telemetry(
     rpm = round(1200 + (idn % 3) * 80 + (200 if is_active else -200) + math.sin(tick) * 40)
     fuel_level = max(5.0, 82.0 - tick * 0.4 - idn * 0.2)
 
+    # Extended sensor fields for ML maintenance model
+    lub_oil_temp = round(engine_temp - 7 + (idn % 3) * 0.5 + random.uniform(-2.0, 2.0), 1)
+    coolant_temp = round(engine_temp - 4 + random.uniform(-2.0, 2.0), 1)
+    fuel_pressure = round(max(2.5, 4.8 + (rpm - 1300) * 0.0008 - penalty * 0.010), 2)
+    coolant_pressure = round(max(0.5, 1.4 - penalty * 0.005 + random.uniform(-0.08, 0.08)), 2)
+
     # --- Scenario modifiers ---
     degrading = (scenario in ("degraded", "breakdown")) and truck_id == scenario_truck
     if degrading:
@@ -123,11 +129,14 @@ def generate_telemetry(
             vibration = round(vibration + tick * 0.015, 2)
             oil_pressure = round(max(1.8, oil_pressure - tick * 0.05), 1)
             health_score = max(50.0, health_score - tick * 0.8)
+            coolant_temp += round(tick * 2.0)
+            fuel_pressure = round(max(2.0, fuel_pressure - tick * 0.03), 2)
         elif scenario == "breakdown":
             if tick < 8:
                 # Early: slight rise
                 engine_temp += round(tick * 2.5)
                 vibration = round(vibration + tick * 0.01, 2)
+                coolant_temp += round(tick * 2.0)
             else:
                 # Critical: sharp degradation
                 engine_temp += round(8 * 2.5 + (tick - 8) * 6)
@@ -135,6 +144,12 @@ def generate_telemetry(
                 oil_pressure = round(max(1.2, oil_pressure - (tick - 4) * 0.08), 1)
                 health_score = max(20.0, health_score - (tick - 6) * 5)
                 fuel_rate = round(fuel_rate * 1.3, 1)
+                coolant_temp += round(8 * 2.0 + (tick - 8) * 5)
+                fuel_pressure = round(max(1.5, fuel_pressure - (tick - 4) * 0.06), 2)
+                coolant_pressure = round(max(0.4, coolant_pressure - (tick - 4) * 0.02), 2)
+
+    lub_oil_temp = round(max(60.0, lub_oil_temp), 1)
+    coolant_temp = round(max(60.0, coolant_temp), 1)
 
     recommendations = []
     if engine_temp > 100:
@@ -156,6 +171,10 @@ def generate_telemetry(
         "fuelRateLph": float(fuel_rate),
         "fuelLevelPercent": round(fuel_level, 1),
         "rpm": float(rpm),
+        "lubOilTempC": float(lub_oil_temp),
+        "coolantTempC": float(coolant_temp),
+        "fuelPressureBar": float(fuel_pressure),
+        "coolantPressureBar": float(coolant_pressure),
         "_health_score": round(health_score, 1),  # internal use, stripped before POST
         "_recommendations": recommendations,        # internal use
     }
