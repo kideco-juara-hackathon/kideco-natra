@@ -29,8 +29,8 @@ export const dispatchSeedNodes = [
     "code": "DISPATCH-01",
     "name": "Dispatch / Parking Area",
     "type": "dispatch",
-    "visualLat": -1.8670,
-    "visualLng": 115.8700,
+    "visualLat": -1.8649,
+    "visualLng": 115.8864,
     "sourceWaypointId": "Begin.Travelling.Empty"
   },
   {
@@ -38,8 +38,8 @@ export const dispatchSeedNodes = [
     "code": "JOGJA-1400",
     "name": "Jogja STA 1400",
     "type": "checkpoint",
-    "visualLat": -1.8730,
-    "visualLng": 115.8690,
+    "visualLat": -1.8704,
+    "visualLng": 115.8856,
     "sourceWaypointId": "Jl_Jogja_STA1400"
   },
   {
@@ -47,8 +47,8 @@ export const dispatchSeedNodes = [
     "code": "JOGJA-1100",
     "name": "Jogja STA 1100",
     "type": "checkpoint",
-    "visualLat": -1.8790,
-    "visualLng": 115.8680,
+    "visualLat": -1.8759,
+    "visualLng": 115.8847,
     "sourceWaypointId": "Jl_Jogja_STA1100"
   },
   {
@@ -56,8 +56,8 @@ export const dispatchSeedNodes = [
     "code": "JOGJA-1000",
     "name": "Jogja STA 1000",
     "type": "checkpoint",
-    "visualLat": -1.8840,
-    "visualLng": 115.8670,
+    "visualLat": -1.8813,
+    "visualLng": 115.8840,
     "sourceWaypointId": "Jl_Jogja_STA1000"
   },
   {
@@ -65,8 +65,8 @@ export const dispatchSeedNodes = [
     "code": "JOGJA-900",
     "name": "Jogja STA 900",
     "type": "checkpoint",
-    "visualLat": -1.8890,
-    "visualLng": 115.8670,
+    "visualLat": -1.8862,
+    "visualLng": 115.8835,
     "sourceWaypointId": "Jl_Jogja_STA900"
   },
   {
@@ -74,8 +74,8 @@ export const dispatchSeedNodes = [
     "code": "JOGJA-800",
     "name": "Jogja STA 800",
     "type": "checkpoint",
-    "visualLat": -1.8940,
-    "visualLng": 115.8660,
+    "visualLat": -1.8905,
+    "visualLng": 115.8826,
     "sourceWaypointId": "Jl_Jogja_STA800"
   },
   {
@@ -83,8 +83,8 @@ export const dispatchSeedNodes = [
     "code": "PIT-A",
     "name": "Pit A - CE6155 Front",
     "type": "pit",
-    "visualLat": -1.8980,
-    "visualLng": 115.8640,
+    "visualLat": -1.8921,
+    "visualLng": 115.8714,
     "sourceWaypointId": "SRC_CE6155",
     "sourceLoaderId": "CE6155"
   },
@@ -93,8 +93,8 @@ export const dispatchSeedNodes = [
     "code": "LP-A1",
     "name": "Loading Point A1",
     "type": "loading_point",
-    "visualLat": -1.9010,
-    "visualLng": 115.8620,
+    "visualLat": -1.8937,
+    "visualLng": 115.8648,
     "sourceWaypointId": "SRC_CE6155",
     "sourceLoaderId": "CE6155"
   },
@@ -103,8 +103,8 @@ export const dispatchSeedNodes = [
     "code": "KB4-200",
     "name": "KB4 Front STA 200",
     "type": "checkpoint",
-    "visualLat": -1.8930,
-    "visualLng": 115.8560,
+    "visualLat": -1.8901,
+    "visualLng": 115.8768,
     "sourceWaypointId": "Akses_Front_Jl_KB4_STA200"
   },
   {
@@ -112,8 +112,8 @@ export const dispatchSeedNodes = [
     "code": "KB4-400",
     "name": "KB4 Front STA 400",
     "type": "checkpoint",
-    "visualLat": -1.8920,
-    "visualLng": 115.8500,
+    "visualLat": -1.8921,
+    "visualLng": 115.8732,
     "sourceWaypointId": "Akses_Front_Jl_KB4_STA_400"
   },
   {
@@ -121,8 +121,8 @@ export const dispatchSeedNodes = [
     "code": "PIT-B",
     "name": "Pit B - CE5255 Front",
     "type": "pit",
-    "visualLat": -1.8950,
-    "visualLng": 115.8470,
+    "visualLat": -1.8934,
+    "visualLng": 115.8702,
     "sourceWaypointId": "SRC_CE5255",
     "sourceLoaderId": "CE5255"
   },
@@ -131,8 +131,8 @@ export const dispatchSeedNodes = [
     "code": "LP-B1",
     "name": "Loading Point B1",
     "type": "loading_point",
-    "visualLat": -1.8970,
-    "visualLng": 115.8440,
+    "visualLat": -1.8963,
+    "visualLng": 115.8702,
     "sourceWaypointId": "SRC_CE5255",
     "sourceLoaderId": "CE5255"
   },
@@ -141,8 +141,8 @@ export const dispatchSeedNodes = [
     "code": "KB4-700",
     "name": "KB4 Front STA 700",
     "type": "checkpoint",
-    "visualLat": -1.8920,
-    "visualLng": 115.8580,
+    "visualLat": -1.8912,
+    "visualLng": 115.8744,
     "sourceWaypointId": "Akses_Front_Jl_KB4_STA700"
   },
   {
@@ -150,8 +150,8 @@ export const dispatchSeedNodes = [
     "code": "PIT-C",
     "name": "Pit C - CE6170 Front",
     "type": "pit",
-    "visualLat": -1.8950,
-    "visualLng": 115.8550,
+    "visualLat": -1.8947,
+    "visualLng": 115.8790,
     "sourceWaypointId": "SRC_CE6170",
     "sourceLoaderId": "CE6170"
   },
@@ -160,8 +160,8 @@ export const dispatchSeedNodes = [
     "code": "LP-C1",
     "name": "Loading Point C1",
     "type": "loading_point",
-    "visualLat": -1.8970,
-    "visualLng": 115.8520,
+    "visualLat": -1.8974,
+    "visualLng": 115.8798,
     "sourceWaypointId": "SRC_CE6170",
     "sourceLoaderId": "CE6170"
   },
@@ -170,8 +170,8 @@ export const dispatchSeedNodes = [
     "code": "PELAIHARI-800",
     "name": "Pelaihari STA 800",
     "type": "checkpoint",
-    "visualLat": -1.9010,
-    "visualLng": 115.8750,
+    "visualLat": -1.8974,
+    "visualLng": 115.8906,
     "sourceWaypointId": "Jl_Pelaihari_STA800"
   },
   {
@@ -179,8 +179,8 @@ export const dispatchSeedNodes = [
     "code": "PELAIHARI-600",
     "name": "Pelaihari STA 600",
     "type": "checkpoint",
-    "visualLat": -1.8960,
-    "visualLng": 115.8780,
+    "visualLat": -1.8921,
+    "visualLng": 115.8942,
     "sourceWaypointId": "Jl_Pelaihari_STA600"
   },
   {
@@ -188,8 +188,8 @@ export const dispatchSeedNodes = [
     "code": "PELAIHARI-500",
     "name": "Pelaihari STA 500",
     "type": "checkpoint",
-    "visualLat": -1.8900,
-    "visualLng": 115.8810,
+    "visualLat": -1.8862,
+    "visualLng": 115.8978,
     "sourceWaypointId": "Jl_Pelaihari_STA500"
   },
   {
@@ -197,8 +197,8 @@ export const dispatchSeedNodes = [
     "code": "PELAIHARI-400",
     "name": "Pelaihari STA 400",
     "type": "checkpoint",
-    "visualLat": -1.8850,
-    "visualLng": 115.8840,
+    "visualLat": -1.8803,
+    "visualLng": 115.9014,
     "sourceWaypointId": "Jl_Pelaihari_STA400"
   },
   {
@@ -206,8 +206,8 @@ export const dispatchSeedNodes = [
     "code": "BARCELONA",
     "name": "Simpang Barcelona",
     "type": "checkpoint",
-    "visualLat": -1.8790,
-    "visualLng": 115.8870,
+    "visualLat": -1.8743,
+    "visualLng": 115.9050,
     "sourceWaypointId": "Jl_Simpang_Barcelona"
   },
   {
@@ -215,8 +215,8 @@ export const dispatchSeedNodes = [
     "code": "OPK-0",
     "name": "OPK STA 0",
     "type": "checkpoint",
-    "visualLat": -1.8740,
-    "visualLng": 115.8900,
+    "visualLat": -1.8682,
+    "visualLng": 115.9086,
     "sourceWaypointId": "Jl_OPK_STA0"
   },
   {
@@ -224,8 +224,8 @@ export const dispatchSeedNodes = [
     "code": "OPK-100",
     "name": "OPK STA 100",
     "type": "checkpoint",
-    "visualLat": -1.8690,
-    "visualLng": 115.8930,
+    "visualLat": -1.8618,
+    "visualLng": 115.9122,
     "sourceWaypointId": "Jl_OPK_STA100"
   },
   {
@@ -233,8 +233,8 @@ export const dispatchSeedNodes = [
     "code": "DISP-300",
     "name": "Disposal Access STA 300",
     "type": "checkpoint",
-    "visualLat": -1.8630,
-    "visualLng": 115.8960,
+    "visualLat": -1.8557,
+    "visualLng": 115.9158,
     "sourceWaypointId": "Akses_Disposal_Jl_OPK_STA300"
   },
   {
@@ -242,8 +242,8 @@ export const dispatchSeedNodes = [
     "code": "DISP-500",
     "name": "Disposal Access STA 500",
     "type": "checkpoint",
-    "visualLat": -1.8580,
-    "visualLng": 115.8990,
+    "visualLat": -1.8497,
+    "visualLng": 115.9194,
     "sourceWaypointId": "Akses_Disposal_Jl_OPK_STA500"
   },
   {
@@ -251,8 +251,8 @@ export const dispatchSeedNodes = [
     "code": "STOCKPILE-01",
     "name": "OPD SP20 / Stockpile",
     "type": "dump_point",
-    "visualLat": -1.8520,
-    "visualLng": 115.9030,
+    "visualLat": -1.8438,
+    "visualLng": 115.9230,
     "sourceWaypointId": "OPD_SP20"
   }
 ] as const;
@@ -728,8 +728,8 @@ export const truckSeeds = [
     "loadState": "empty",
     "status": "idle",
     "position": {
-      "lat": -1.8675,
-      "lng": 115.8705
+      "lat": -1.8651,
+      "lng": 115.8866
     },
     "datasetRows": 2124
   },
@@ -746,8 +746,8 @@ export const truckSeeds = [
     "loadState": "empty",
     "status": "idle",
     "position": {
-      "lat": -1.8665,
-      "lng": 115.8695
+      "lat": -1.8647,
+      "lng": 115.8862
     },
     "datasetRows": 2004
   },
@@ -764,8 +764,8 @@ export const truckSeeds = [
     "loadState": "loaded",
     "status": "active",
     "position": {
-      "lat": -1.9012,
-      "lng": 115.8622
+      "lat": -1.8937,
+      "lng": 115.8650
     },
     "datasetRows": 1952
   },
@@ -782,8 +782,8 @@ export const truckSeeds = [
     "loadState": "loaded",
     "status": "active",
     "position": {
-      "lat": -1.8972,
-      "lng": 115.8442
+      "lat": -1.8963,
+      "lng": 115.8704
     },
     "datasetRows": 1824
   },
@@ -800,8 +800,8 @@ export const truckSeeds = [
     "loadState": "loaded",
     "status": "active",
     "position": {
-      "lat": -1.8972,
-      "lng": 115.8522
+      "lat": -1.8974,
+      "lng": 115.8800
     },
     "datasetRows": 1741
   }
