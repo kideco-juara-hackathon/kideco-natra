@@ -7,9 +7,9 @@ services:
     mem_limit: 2g
     mem_reservation: 512m
     ports:
-      - "${RABBITMQ_AMQP_PORT:-7256}:5672"     # AMQP port
-      - "${RABBITMQ_MGMT_PORT:-15672}:15672"   # Management UI
-      - "${RABBITMQ_MQTT_PORT:-6743}:1883"     # MQTT port
+      - "127.0.0.1:${RABBITMQ_AMQP_PORT:-7256}:5672"     # AMQP port
+      - "127.0.0.1:${RABBITMQ_MGMT_PORT:-15672}:15672"   # Management UI
+      - "127.0.0.1:${RABBITMQ_MQTT_PORT:-6743}:1883"     # MQTT port
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-kideco}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-kideco}
@@ -34,7 +34,7 @@ services:
     container_name: kideco-mosquitto
     restart: unless-stopped
     ports:
-      - "${MOSQUITTO_PORT:-1884}:1883"
+      - "127.0.0.1:${MOSQUITTO_PORT:-1884}:1883"
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
       - mosquitto_data:/mosquitto/data
@@ -53,7 +53,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-kideco}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-kideco}
     ports:
-      - '${POSTGRES_PORT:-5432}:5432'
+      - '127.0.0.1:${POSTGRES_PORT:-5432}:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -79,15 +79,41 @@ services:
       ML_FUEL_DIR: /ml_models/fuel
       ML_MAINTENANCE_DIR: /ml_models/maintenance
     volumes:
+      - ./data:/data:ro
       - ../kideco-ml-eta/results:/ml_models/eta:ro
       - ../kideco-ml-fuel/results:/ml_models/fuel:ro
       - ../kideco-ml-maintenance/results:/ml_models/maintenance:ro
     ports:
-      - '${BACKEND_PORT:-8000}:8000'
+      - '127.0.0.1:${BACKEND_PORT:-8001}:8000'
     depends_on:
       postgres:
         condition: service_healthy
     command: sh -c "python scripts/wait_for_db.py && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: kideco-frontend
+    ports:
+      - "127.0.0.1:${FRONTEND_PORT:-3001}:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8001}
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  simulator:
+    build:
+      context: ./simulator
+      dockerfile: Dockerfile
+    container_name: kideco-simulator
+    depends_on:
+      - backend
     restart: unless-stopped
 
 volumes:
