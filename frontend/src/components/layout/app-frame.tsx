@@ -3,6 +3,7 @@
 import Image from "next/image";
 import {
   useEffect,
+  useRef,
   useState,
   useSyncExternalStore,
   type ReactNode,
@@ -24,6 +25,15 @@ import {
   Truck,
   Wrench,
 } from "lucide-react";
+
+export type SearchResult = {
+  id: string;
+  icon: LucideIcon;
+  label: string;
+  sublabel?: string;
+  badge?: string;
+  badgeClass?: string;
+};
 
 import { createPortal } from "react-dom";
 
@@ -313,6 +323,10 @@ export function AppFrame({
   canGoForward,
   children,
   contentClassName = "space-y-4 p-4",
+  searchQuery = "",
+  onSearchChange,
+  searchResults = [],
+  onSearchSelect,
 }: {
   title: string;
   eyebrow?: string;
@@ -326,6 +340,10 @@ export function AppFrame({
   canGoForward?: boolean;
   children: ReactNode;
   contentClassName?: string;
+  searchQuery?: string;
+  onSearchChange?: (q: string) => void;
+  searchResults?: SearchResult[];
+  onSearchSelect?: (id: string) => void;
 }) {
   const darkMode = useSyncExternalStore(
     subscribeToColorScheme,
@@ -334,7 +352,22 @@ export function AppFrame({
   );
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
+  const searchBlurTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { unreadCount } = useNotifications();
+
+  const showDropdown = searchFocused && searchQuery.trim().length > 0 && searchResults.length > 0;
+
+  function handleSearchBlur() {
+    searchBlurTimer.current = setTimeout(() => setSearchFocused(false), 150);
+  }
+
+  function handleResultClick(id: string) {
+    if (searchBlurTimer.current) clearTimeout(searchBlurTimer.current);
+    onSearchSelect?.(id);
+    onSearchChange?.("");
+    setSearchFocused(false);
+  }
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
@@ -405,12 +438,54 @@ export function AppFrame({
               ) : null}
 
               <div className="relative hidden w-[260px] md:block">
-                <Search className="absolute left-3 top-2.5 size-4 text-muted-foreground" />
+                <Search className="absolute left-3 top-2.5 size-4 text-muted-foreground pointer-events-none z-10" />
                 <input
                   className="h-10 w-full rounded-xl border border-border bg-muted/50 pl-9 pr-3 text-[14px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                   placeholder="Cari unit, rute, lokasi..."
                   type="search"
+                  value={searchQuery}
+                  onChange={(e) => onSearchChange?.(e.target.value)}
+                  onFocus={() => setSearchFocused(true)}
+                  onBlur={handleSearchBlur}
                 />
+                {showDropdown && (
+                  <div className="absolute left-0 right-0 top-full mt-1.5 z-[1900] overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-lg)]">
+                    {searchResults.map((result, idx) => {
+                      const Icon = result.icon;
+                      return (
+                        <button
+                          key={result.id}
+                          type="button"
+                          className={cn(
+                            "flex w-full items-center gap-3 px-3 py-2.5 text-left transition hover:bg-muted/60",
+                            idx > 0 && "border-t border-border/60",
+                          )}
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => handleResultClick(result.id)}
+                        >
+                          <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-muted text-text-subtle">
+                            <Icon className="size-3.5" />
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-[13px] font-medium text-foreground">
+                              {result.label}
+                            </span>
+                            {result.sublabel && (
+                              <span className="block truncate text-[11px] text-muted-foreground">
+                                {result.sublabel}
+                              </span>
+                            )}
+                          </span>
+                          {result.badge && (
+                            <span className={cn("shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-semibold", result.badgeClass ?? "bg-muted text-muted-foreground")}>
+                              {result.badge}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
               <button

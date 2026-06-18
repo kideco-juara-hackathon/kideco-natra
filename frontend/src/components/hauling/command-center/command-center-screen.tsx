@@ -118,42 +118,45 @@ export function CommandCenterScreen({ onOpenOverview }: { onOpenOverview?: () =>
           shiftTargetTon={cc.shiftTargetTon}
         />
 
-        {/* Bottom: Map Container Card */}
-        <div className="flex-1 min-h-0 relative rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] shadow-[var(--shadow-sm)] overflow-hidden">
-          <RebasedRouteMapShell
-            assignments={mapAssignments}
-            mode="operational"
-            onTruckSelect={selectTruck}
-            selectedTruckId={cc.selectedTruckId}
-            showInfoLabel={false}
-            trucks={cc.trucks}
-            shiftControlsLeft={dispatchOpen}
-          />
-
-          {/* Bottom Center Info Banner (Visible during Standby) */}
-          {!isShiftActive && (
-            <div className="absolute bottom-4 left-1/2 z-[500] -translate-x-1/2 flex items-start gap-3 w-[calc(100%-2rem)] max-w-[620px] rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-3.5 shadow-[var(--shadow-md)]">
-              <span className="flex size-6 shrink-0 place-items-center justify-center rounded-full bg-[#111827] text-white">
-                <span className="text-[12px] font-bold">i</span>
-              </span>
-              <p className="text-body-sm text-[var(--text-default)] leading-normal font-medium">
-                Semua dump truck dalam status <strong className="font-bold text-[var(--text-default)]">Idle / Ready</strong>. Menunggu perintah dispatch. Tidak ada pergerakan aktif.
-              </p>
-            </div>
-          )}
-
-          {/* Start Shift Overlay floats centered over the map */}
-          {!isShiftActive && (
-            <StartShiftOverlay
-              dumpPoint={cc.shiftDumpPoint}
-              idleCount={cc.idleTrucks.length}
-              objective={cc.shiftObjective}
-              onStart={cc.startShift}
-              shiftTargetTon={cc.shiftTargetTon}
+        {/* Bottom: Map + Dispatch Panel side-by-side */}
+        <div className="flex flex-1 min-h-0 gap-4">
+          {/* Map — never covered by the panel */}
+          <div className="relative flex-1 min-w-0 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] shadow-[var(--shadow-sm)] overflow-hidden">
+            <RebasedRouteMapShell
+              assignments={mapAssignments}
+              mode="operational"
+              onTruckSelect={selectTruck}
+              selectedTruckId={cc.selectedTruckId}
+              showInfoLabel={false}
+              trucks={cc.trucks}
+              shiftControlsLeft={false}
             />
-          )}
 
-          {/* Dispatch Panel floats on the right side of the map */}
+            {/* Bottom Center Info Banner (Visible during Standby) */}
+            {!isShiftActive && (
+              <div className="absolute bottom-4 left-1/2 z-[500] -translate-x-1/2 flex items-start gap-3 w-[calc(100%-2rem)] max-w-[620px] rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-3.5 shadow-[var(--shadow-md)]">
+                <span className="flex size-6 shrink-0 place-items-center justify-center rounded-full bg-[#111827] text-white">
+                  <span className="text-[12px] font-bold">i</span>
+                </span>
+                <p className="text-body-sm text-[var(--text-default)] leading-normal font-medium">
+                  Semua dump truck dalam status <strong className="font-bold text-[var(--text-default)]">Idle / Ready</strong>. Menunggu perintah dispatch. Tidak ada pergerakan aktif.
+                </p>
+              </div>
+            )}
+
+            {/* Start Shift Overlay floats centered over the map */}
+            {!isShiftActive && (
+              <StartShiftOverlay
+                dumpPoint={cc.shiftDumpPoint}
+                idleCount={cc.idleTrucks.length}
+                objective={cc.shiftObjective}
+                onStart={cc.startShift}
+                shiftTargetTon={cc.shiftTargetTon}
+              />
+            )}
+          </div>
+
+          {/* Dispatch Panel — proper column beside the map */}
           {dispatchOpen && cc.selectedTruck && (
             <DispatchPanel
               dispatchStage={cc.dispatchStage}

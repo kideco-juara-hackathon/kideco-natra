@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AlertTriangle, Eye, Fuel, Leaf, TrendingDown } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -123,8 +124,20 @@ export function FuelLens({
                       onClick={() => onSelect(v.id)}
                     >
                       <TableCell>
-                        <div className="font-semibold">{v.id}</div>
-                        <div className="text-xs text-muted-foreground">{v.type}</div>
+                        <div className="flex items-center gap-2.5">
+                          <div className="relative h-10 w-14 shrink-0 overflow-hidden rounded-lg border">
+                            <Image
+                              alt="Hauling Truck"
+                              src="/hauling_truck.png"
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <div>
+                            <div className="font-semibold">{v.id}</div>
+                            <div className="text-xs text-muted-foreground">{v.type}</div>
+                          </div>
+                        </div>
                       </TableCell>
                       <TableCell className={`tabular-nums font-semibold ${tone.text}`}>
                         {fmtLph(v.telemetry?.fuelRateLph ?? null)}

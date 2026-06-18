@@ -120,7 +120,7 @@ export function DispatchPanel({
   }
 
   return (
-    <aside className="absolute bottom-4 right-4 top-4 z-[600] flex w-[min(430px,calc(100%-32px))] flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border-default)] bg-[var(--bg-surface)] shadow-[var(--shadow-lg)]">
+    <aside className="flex h-full w-[360px] shrink-0 flex-col overflow-hidden rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] shadow-[var(--shadow-lg)]">
       <div className="flex items-center justify-between gap-3 border-b border-[var(--border-default)] p-4">
         <div className="flex items-center gap-3">
           {dispatchStage !== "truck" && dispatchStage !== "done" ? (

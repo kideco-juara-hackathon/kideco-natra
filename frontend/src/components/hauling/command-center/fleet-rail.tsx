@@ -113,7 +113,7 @@ export function FleetRail({
   });
 
   return (
-    <aside className="pointer-events-auto flex h-full w-[280px] flex-col overflow-hidden rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] shadow-[var(--shadow-sm)]">
+    <aside className="pointer-events-auto flex h-full w-[256px] flex-col overflow-hidden rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] shadow-[var(--shadow-sm)]">
       {/* Header */}
       <header className="flex items-center justify-between border-b border-[var(--border-default)] px-4 py-3 shrink-0">
         <span className="text-[12px] font-bold uppercase tracking-wider text-[var(--text-default)]">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AlertTriangle, CheckCircle2, Eye, Timer, Truck } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -54,7 +55,7 @@ export function ETALens({
   }).length;
 
   const etaMins = vehicles
-    .map((v) => deriveEtaMin(v.telemetry))
+    .map((v) => deriveEtaMin(v.telemetry, v.progress, v.etaMin))
     .filter((m): m is number => m !== null);
   const avgEta = etaMins.length > 0
     ? `${Math.round(etaMins.reduce((a, b) => a + b, 0) / etaMins.length)}m`
@@ -97,7 +98,7 @@ export function ETALens({
               </TableHeader>
               <TableBody>
                 {rows.map((v) => {
-                  const etaMin = deriveEtaMin(v.telemetry);
+                  const etaMin = deriveEtaMin(v.telemetry, v.progress, v.etaMin);
                   const delay = deriveDelay(v.telemetry);
                   const tone = delayTone(delay);
                   const tier = healthTier(v.healthScore);
@@ -110,8 +111,20 @@ export function ETALens({
                       onClick={() => onSelect(v.id)}
                     >
                       <TableCell>
-                        <div className="font-semibold">{v.id}</div>
-                        <div className="text-xs text-muted-foreground">{v.type}</div>
+                        <div className="flex items-center gap-2.5">
+                          <div className="relative h-10 w-14 shrink-0 overflow-hidden rounded-lg border">
+                            <Image
+                              alt="Hauling Truck"
+                              src="/hauling_truck.png"
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <div>
+                            <div className="font-semibold">{v.id}</div>
+                            <div className="text-xs text-muted-foreground">{v.type}</div>
+                          </div>
+                        </div>
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline">{statusLabel(v.status)}</Badge>

@@ -315,14 +315,14 @@ function MaintenanceListScreen({
       {/* Middle Analytics Widgets Row */}
       <section className="grid gap-4 md:grid-cols-3">
         {/* Distribusi Health Score */}
-        <Card className="rounded-xl shadow-none p-5 flex flex-col justify-between">
+        <Card className="rounded-xl shadow-none p-5 flex flex-col">
           <div className="flex items-center justify-between pb-2.5 border-b">
             <div className="flex items-center gap-2">
               <span className="font-bold text-base text-foreground">Distribusi Health Score</span>
               <Info className="size-4 text-muted-foreground/60 cursor-pointer" />
             </div>
           </div>
-          <div className="flex items-center justify-between gap-5 py-5">
+          <div className="flex flex-1 items-center justify-between gap-5 py-5">
             <div className="relative flex items-center justify-center size-28 shrink-0">
               <svg className="size-full -rotate-90" viewBox="0 0 36 36">
                 {/* Background circle */}
@@ -403,14 +403,14 @@ function MaintenanceListScreen({
         </Card>
 
         {/* Ringkasan Maintenance Readiness */}
-        <Card className="rounded-xl shadow-none p-5 flex flex-col justify-between">
+        <Card className="rounded-xl shadow-none p-5 flex flex-col">
           <div className="flex items-center justify-between pb-2.5 border-b">
             <div className="flex items-center gap-2">
               <span className="font-bold text-base text-foreground">Ringkasan Maintenance Readiness</span>
               <Info className="size-4 text-muted-foreground/60 cursor-pointer" />
             </div>
           </div>
-          <div className="flex flex-col gap-4 py-4 justify-center h-full">
+          <div className="flex flex-1 flex-col gap-4 justify-center py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center size-10 rounded-full bg-emerald-50 text-emerald-600">
@@ -451,14 +451,14 @@ function MaintenanceListScreen({
         </Card>
 
         {/* Top Perhatian */}
-        <Card className="rounded-xl shadow-none p-5 flex flex-col justify-between">
+        <Card className="rounded-xl shadow-none p-5 flex flex-col">
           <div className="flex items-center justify-between pb-2.5 border-b">
             <div className="flex items-center gap-2">
               <span className="font-bold text-base text-foreground">Top Perhatian</span>
               <Info className="size-4 text-muted-foreground/60 cursor-pointer" />
             </div>
           </div>
-          <div className="flex flex-col gap-3 py-3 justify-center h-full">
+          <div className="flex flex-1 flex-col gap-3 justify-center py-3">
             {topPerhatianVehicles.map((v) => {
               const level = healthLevel(v.healthScore);
               const tone = healthTone(level);

@@ -2,8 +2,9 @@
 
 import { Suspense, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Gauge, Route, Truck, Wrench } from "lucide-react";
 
-import { AppFrame } from "@/components/layout/app-frame";
+import { AppFrame, type SearchResult } from "@/components/layout/app-frame";
 import {
   CommandCenterProvider,
   useCommandCenter,
@@ -104,6 +105,84 @@ function HaulingWorkspaceFrame({
     [cc.assignments, cc.draftAssignments],
   );
 
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const searchResults = useMemo((): SearchResult[] => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return [];
+
+    const results: SearchResult[] = [];
+
+    // Trucks
+    for (const truck of cc.trucks) {
+      if (truck.id.toLowerCase().includes(q) || truck.code.toLowerCase().includes(q)) {
+        const isActive = truck.status === "active";
+        results.push({
+          id: `truck:${truck.id}`,
+          icon: Truck,
+          label: truck.id,
+          sublabel: isActive ? "Sedang beroperasi" : "Standby",
+          badge: `Health ${truck.healthScore}`,
+          badgeClass:
+            truck.healthScore >= 85
+              ? "bg-[var(--success-50)] text-[var(--success-700)]"
+              : truck.healthScore >= 70
+                ? "bg-[var(--warning-50)] text-[var(--warning-700)]"
+                : "bg-[var(--danger-50)] text-[var(--danger-700)]",
+        });
+      }
+    }
+
+    // Active trips
+    for (const a of cc.assignments) {
+      if (
+        a.truckId.toLowerCase().includes(q) ||
+        a.routeLabel.toLowerCase().includes(q) ||
+        "trip".includes(q) ||
+        "aktif".includes(q)
+      ) {
+        results.push({
+          id: `trip:${a.tripId}`,
+          icon: Route,
+          label: `${a.truckId} — ${a.routeLabel}`,
+          sublabel: `Progress ${a.progress ?? 0}%`,
+          badge: "Trip Aktif",
+          badgeClass: "bg-sky-50 text-sky-700",
+        });
+      }
+    }
+
+    // Screens
+    const screens: SearchResult[] = [
+      { id: "screen:hauling-overview",       icon: Gauge,  label: "Overview",        sublabel: "Hauling Darat" },
+      { id: "screen:hauling-command-center", icon: Truck,  label: "Command Center",  sublabel: "Route Intelligence" },
+      { id: "screen:hauling-route-monitor",  icon: Route,  label: "Route Monitor",   sublabel: "Route Intelligence" },
+      { id: "screen:hauling-maintenance",    icon: Wrench, label: "Maintenance",     sublabel: "Hauling Darat" },
+    ];
+    for (const s of screens) {
+      if (
+        s.label.toLowerCase().includes(q) ||
+        (s.sublabel ?? "").toLowerCase().includes(q) ||
+        s.id.includes(q)
+      ) {
+        results.push(s);
+      }
+    }
+
+    return results.slice(0, 7);
+  }, [searchQuery, cc.trucks, cc.assignments]);
+
+  function handleSearchSelect(id: string) {
+    if (id.startsWith("truck:")) {
+      const truckId = id.slice("truck:".length);
+      onOpenMaintenance(truckId);
+    } else if (id.startsWith("trip:")) {
+      onNavigate("hauling-route-monitor");
+    } else if (id.startsWith("screen:")) {
+      onNavigate(id.slice("screen:".length));
+    }
+  }
+
   return (
     <AppFrame
       activeKey={activeKey}
@@ -122,6 +201,10 @@ function HaulingWorkspaceFrame({
         router.replace("/login");
       }}
       onNavigate={onNavigate}
+      searchQuery={searchQuery}
+      onSearchChange={setSearchQuery}
+      searchResults={searchResults}
+      onSearchSelect={handleSearchSelect}
       title={title}
     >
       {activeKey === "hauling-command-center" ? (

@@ -30,6 +30,8 @@ import type {
 export type VehicleRow = VehicleResponse & {
   telemetry: TelemetryResponse | null;
   recs: RecommendationResponse[];
+  progress?: number;  // 0-100 from cc.assignments
+  etaMin?: number;    // total route ETA from cc.assignments
 };
 
 export type DelayStatus = "Terlambat" | "Monitor" | "Normal" | "—";
@@ -75,7 +77,16 @@ export function healthBarClass(tier: "ready" | "monitor" | "critical"): string {
 
 // ─── ETA derivations ──────────────────────────────────────────────────────────
 
-export function deriveEtaMin(t: TelemetryResponse | null): number | null {
+export function deriveEtaMin(
+  t: TelemetryResponse | null,
+  progress?: number,
+  etaMin?: number,
+): number | null {
+  // Prefer backend ETA scaled by remaining trip progress
+  if (progress != null && etaMin != null && progress < 100) {
+    return Math.max(0, Math.round(etaMin * (1 - progress / 100)));
+  }
+  // Fallback: speed-based estimate using average corridor distance
   if (!t) return null;
   const speedMs = n(t.speedKmh) / 3.6;
   if (speedMs < 0.5) return null;
@@ -213,7 +224,7 @@ export function RecommendationList({ recs }: { recs: RecommendationResponse[] })
 
 export function ETADetailPanel({ vehicle }: { vehicle: VehicleRow }) {
   const t = vehicle.telemetry;
-  const etaMin = deriveEtaMin(t);
+  const etaMin = deriveEtaMin(t, vehicle.progress, vehicle.etaMin);
   const delay = deriveDelay(t);
   const tone = delayTone(delay);
 
@@ -399,7 +410,7 @@ export function FuelDetailPanel({
 
 export function OverviewDetailPanel({ vehicle }: { vehicle: VehicleRow }) {
   const t = vehicle.telemetry;
-  const etaMin = deriveEtaMin(t);
+  const etaMin = deriveEtaMin(t, vehicle.progress, vehicle.etaMin);
   const delay = deriveDelay(t);
   const dTone = delayTone(delay);
   const fuelStatus = deriveFuelStatus(t);

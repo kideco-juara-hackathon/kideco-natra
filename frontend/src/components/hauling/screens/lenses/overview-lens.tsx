@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Activity, CheckCircle2, Eye, Timer, Truck } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -95,7 +96,7 @@ export function OverviewLens({
               </TableHeader>
               <TableBody>
                 {rows.map((v) => {
-                  const etaMin = deriveEtaMin(v.telemetry);
+                  const etaMin = deriveEtaMin(v.telemetry, v.progress, v.etaMin);
                   const delay = deriveDelay(v.telemetry);
                   const dTone = delayTone(delay);
                   const fTone = fuelStatusTone(deriveFuelStatus(v.telemetry));
@@ -109,8 +110,20 @@ export function OverviewLens({
                       onClick={() => onSelect(v.id)}
                     >
                       <TableCell>
-                        <div className="font-semibold">{v.id}</div>
-                        <div className="text-xs text-muted-foreground">{v.type}</div>
+                        <div className="flex items-center gap-2.5">
+                          <div className="relative h-10 w-14 shrink-0 overflow-hidden rounded-lg border">
+                            <Image
+                              alt="Hauling Truck"
+                              src="/hauling_truck.png"
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <div>
+                            <div className="font-semibold">{v.id}</div>
+                            <div className="text-xs text-muted-foreground">{v.type}</div>
+                          </div>
+                        </div>
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline">{statusLabel(v.status)}</Badge>
