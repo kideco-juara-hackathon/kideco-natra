@@ -19,6 +19,10 @@ import { HaulingOverviewScreen } from "./screens/overview-screen";
 import { PlaceholderScreen } from "./screens/placeholder-screen";
 import { HaulingRouteMonitorScreen } from "./screens/route-monitor-screen";
 import { RoutePlanScreen } from "./screens/route-plan-screen";
+import { ShipCommandCenterScreen } from "./screens/ship-command-center-screen";
+import { ShipMaintenanceScreen } from "./screens/ship-maintenance-screen";
+import { ShipOverviewScreen } from "./screens/ship-overview-screen";
+import { ShipRouteMonitorScreen } from "./screens/ship-route-monitor-screen";
 import type { ScreenKey } from "./types";
 
 function HaulingWorkspaceContent() {
@@ -237,6 +241,17 @@ function HaulingWorkspaceFrame({
         <HaulingMaintenanceScreen initialSelectedId={selectedMaintenanceTruckId} />
       ) : activeKey === "hauling-route-monitor" ? (
         <HaulingRouteMonitorScreen />
+      ) : activeKey === "marine-overview" ? (
+        <ShipOverviewScreen
+          onOpenRouteIntelligence={() => setActiveKey("marine-command-center")}
+          onOpenMaintenance={(id) => setActiveKey("marine-maintenance")}
+        />
+      ) : activeKey === "marine-command-center" ? (
+        <ShipCommandCenterScreen onOpenOverview={() => setActiveKey("marine-overview")} />
+      ) : activeKey === "marine-route-monitor" ? (
+        <ShipRouteMonitorScreen />
+      ) : activeKey === "marine-maintenance" ? (
+        <ShipMaintenanceScreen />
       ) : (
         <PlaceholderScreen title={title} />
       )}
@@ -245,7 +260,11 @@ function HaulingWorkspaceFrame({
 }
 
 function isMapScreen(activeKey: ScreenKey) {
-  return activeKey === "hauling-route-plan" || activeKey === "hauling-command-center";
+  return (
+    activeKey === "hauling-route-plan" ||
+    activeKey === "hauling-command-center" ||
+    activeKey === "marine-command-center"
+  );
 }
 
 export function HaulingWorkspace() {
