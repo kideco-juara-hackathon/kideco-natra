@@ -169,7 +169,7 @@ function SnapshotCard({
   onDetail?: () => void;
 }) {
   return (
-    <Card className="gap-0 rounded-xl py-0 shadow-none bg-white border border-[var(--border-default)] flex flex-col justify-between h-full min-w-0">
+    <Card className="gap-0 rounded-xl py-0 shadow-none flex flex-col justify-between h-full min-w-0">
       <CardHeader className="px-4 pb-1 pt-3">
         <CardDescription className="flex items-center gap-2 text-[13px] font-semibold text-foreground">
           {icon}
@@ -501,7 +501,7 @@ export function HaulingOverviewScreen({
   return (
     <div className="flex flex-col gap-1.5">
       {/* AI Recommendation Banner */}
-      <Card className="gap-0 rounded-xl py-0 shadow-none bg-white border border-[var(--border-default)]">
+      <Card className="gap-0 rounded-xl py-0 shadow-none">
         <CardContent className="flex min-h-[56px] items-center gap-3 px-4 py-2.5">
           <span className="grid size-9 shrink-0 place-items-center rounded-full bg-slate-100 text-slate-600">
             <Bot className="size-5" />
@@ -596,7 +596,7 @@ export function HaulingOverviewScreen({
       <section className="grid gap-1.5 lg:grid-cols-12">
         {/* Left column: Live Tracking Map Card */}
         <div className="lg:col-span-5 flex flex-col">
-          <Card className="gap-0 overflow-hidden rounded-xl py-0 shadow-none bg-white border border-[var(--border-default)] flex-1 flex flex-col justify-between">
+          <Card className="gap-0 overflow-hidden rounded-xl py-0 shadow-none flex-1 flex flex-col justify-between">
             <CardHeader className="flex flex-row items-center justify-between gap-3 px-3 pb-2 pt-3">
               <div>
                 <CardTitle className="text-[14px] font-bold text-foreground">Live Tracking - Hauling Darat</CardTitle>
@@ -711,7 +711,7 @@ export function HaulingOverviewScreen({
               </div>
             </SnapshotCard>
 
-            <Card className="gap-0 rounded-xl py-0 shadow-none bg-white border border-[var(--border-default)] flex flex-col justify-between h-full">
+            <Card className="gap-0 rounded-xl py-0 shadow-none flex flex-col justify-between h-full">
               <CardHeader className="px-3 pb-1 pt-3">
                 <CardDescription className="flex items-center gap-2 text-[13px] font-semibold text-foreground">
                   <FleetIcon className="size-4 text-[var(--brand-primary)]" />
@@ -773,7 +773,7 @@ export function HaulingOverviewScreen({
         {/* Right column: Critical Maintenance & Active Recommendations */}
         <div className="lg:col-span-3 flex flex-col gap-1.5">
           {/* Critical Maintenance Watch */}
-          <Card className="gap-0 rounded-xl border py-0 shadow-none bg-white flex flex-col flex-1 animate-danger-pulse">
+          <Card className="gap-0 rounded-xl border py-0 shadow-none flex flex-col flex-1 animate-danger-pulse">
             <CardHeader className="flex flex-row items-center justify-between px-4 pb-1 pt-3">
               <CardTitle className="text-[13px] font-bold text-[var(--danger-700)] flex items-center gap-1.5">
                 Pantau Maintenance Kritis
@@ -831,7 +831,7 @@ export function HaulingOverviewScreen({
           </Card>
 
           {/* Active Recommendations */}
-          <Card className="gap-0 rounded-xl py-0 shadow-none bg-white border border-[var(--border-default)] flex flex-col flex-1">
+          <Card className="gap-0 rounded-xl py-0 shadow-none flex flex-col flex-1">
             <CardHeader className="px-4 pb-1 pt-3">
               <CardTitle className="flex items-center gap-2 text-[13px] font-bold">
                 <Sparkles className="size-4 text-[var(--info-600)]" />
@@ -839,7 +839,7 @@ export function HaulingOverviewScreen({
               </CardTitle>
             </CardHeader>
             <CardContent className="px-4 pb-3 flex-1 flex flex-col justify-center">
-              <div className="flex items-center justify-between gap-3 p-3 rounded-lg border bg-white">
+              <div className="flex items-center justify-between gap-3 p-3 rounded-lg border bg-card">
                 <div className="flex-1 text-xs text-muted-foreground leading-relaxed">
                   Tidak ada rekomendasi aktif saat ini. Sistem akan memberikan rekomendasi jika terdapat potensi peningkatan.
                 </div>
@@ -857,7 +857,7 @@ export function HaulingOverviewScreen({
       <section className="grid gap-1.5 lg:grid-cols-12">
         {/* Left Column: Active Units Table */}
         <div className="lg:col-span-9 flex flex-col">
-          <Card className="gap-0 rounded-xl py-0 shadow-none bg-white border border-[var(--border-default)] flex-1 flex flex-col justify-between">
+          <Card className="gap-0 rounded-xl py-0 shadow-none flex-1 flex flex-col justify-between">
             <CardHeader className="flex flex-row items-center justify-between px-3 pb-2 pt-3">
               <div>
                 <CardTitle className="text-[14px] font-bold">Unit Aktif Hari Ini</CardTitle>
@@ -1008,7 +1008,7 @@ export function HaulingOverviewScreen({
 
         {/* Right Column: Activity Feed Card */}
         <div className="lg:col-span-3 flex flex-col">
-          <Card className="gap-0 rounded-xl py-0 shadow-none bg-white border border-[var(--border-default)] flex-1 flex flex-col justify-between">
+          <Card className="gap-0 rounded-xl py-0 shadow-none flex-1 flex flex-col justify-between">
             <CardHeader className="px-4 pb-1 pt-3">
               <CardTitle className="text-[13px] font-bold">Aktivitas Sistem Terbaru</CardTitle>
             </CardHeader>
