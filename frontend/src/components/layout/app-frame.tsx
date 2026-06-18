@@ -89,9 +89,8 @@ const navSections: NavSection[] = [
         icon: Route,
         label: "Route Intelligence",
         children: [
-          { key: "marine-route-plan", label: "Rencana Rute" },
-          { key: "marine-eta", label: "Prediksi ETA" },
-          { key: "marine-fuel", label: "Konsumsi BBM" },
+          { key: "marine-command-center", label: "Command Center" },
+          { key: "marine-route-monitor", label: "Route Monitor" },
         ],
       },
       { key: "marine-maintenance", icon: Wrench, label: "Maintenance" },
