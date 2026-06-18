@@ -34,8 +34,8 @@
       "loadState": "empty",
       "status": "idle",
       "position": {
-        "lat": -1.8675,
-        "lng": 115.8705
+        "lat": -1.8651,
+        "lng": 115.8866
       },
       "datasetRows": 2124
     },
@@ -52,8 +52,8 @@
       "loadState": "empty",
       "status": "idle",
       "position": {
-        "lat": -1.8665,
-        "lng": 115.8695
+        "lat": -1.8647,
+        "lng": 115.8862
       },
       "datasetRows": 2004
     },
@@ -70,8 +70,8 @@
       "loadState": "loaded",
       "status": "active",
       "position": {
-        "lat": -1.9012,
-        "lng": 115.8622
+        "lat": -1.8937,
+        "lng": 115.8650
       },
       "datasetRows": 1952
     },
@@ -88,8 +88,8 @@
       "loadState": "loaded",
       "status": "active",
       "position": {
-        "lat": -1.8972,
-        "lng": 115.8442
+        "lat": -1.8963,
+        "lng": 115.8704
       },
       "datasetRows": 1824
     },
@@ -106,8 +106,8 @@
       "loadState": "loaded",
       "status": "active",
       "position": {
-        "lat": -1.8972,
-        "lng": 115.8522
+        "lat": -1.8974,
+        "lng": 115.8800
       },
       "datasetRows": 1741
     }
