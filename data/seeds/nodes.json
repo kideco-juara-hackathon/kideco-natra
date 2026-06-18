@@ -26,8 +26,8 @@
       "code": "DISPATCH-01",
       "name": "Dispatch / Parking Area",
       "type": "dispatch",
-      "visualLat": -1.8649,
-      "visualLng": 115.8864,
+      "visualLat": -1.8637,
+      "visualLng": 115.8665,
       "sourceWaypointId": "Begin.Travelling.Empty"
     },
     {
@@ -35,8 +35,8 @@
       "code": "JOGJA-1400",
       "name": "Jogja STA 1400",
       "type": "checkpoint",
-      "visualLat": -1.8704,
-      "visualLng": 115.8856,
+      "visualLat": -1.8692,
+      "visualLng": 115.8762,
       "sourceWaypointId": "Jl_Jogja_STA1400"
     },
     {
@@ -44,8 +44,8 @@
       "code": "JOGJA-1100",
       "name": "Jogja STA 1100",
       "type": "checkpoint",
-      "visualLat": -1.8759,
-      "visualLng": 115.8847,
+      "visualLat": -1.8741,
+      "visualLng": 115.8792,
       "sourceWaypointId": "Jl_Jogja_STA1100"
     },
     {
@@ -53,8 +53,8 @@
       "code": "JOGJA-1000",
       "name": "Jogja STA 1000",
       "type": "checkpoint",
-      "visualLat": -1.8813,
-      "visualLng": 115.8840,
+      "visualLat": -1.8801,
+      "visualLng": 115.8804,
       "sourceWaypointId": "Jl_Jogja_STA1000"
     },
     {
@@ -62,8 +62,8 @@
       "code": "JOGJA-900",
       "name": "Jogja STA 900",
       "type": "checkpoint",
-      "visualLat": -1.8862,
-      "visualLng": 115.8835,
+      "visualLat": -1.8836,
+      "visualLng": 115.8762,
       "sourceWaypointId": "Jl_Jogja_STA900"
     },
     {
@@ -71,8 +71,8 @@
       "code": "JOGJA-800",
       "name": "Jogja STA 800",
       "type": "checkpoint",
-      "visualLat": -1.8905,
-      "visualLng": 115.8826,
+      "visualLat": -1.8848,
+      "visualLng": 115.8706,
       "sourceWaypointId": "Jl_Jogja_STA800"
     },
     {
@@ -80,8 +80,8 @@
       "code": "PIT-A",
       "name": "Pit A - CE6155 Front",
       "type": "pit",
-      "visualLat": -1.8921,
-      "visualLng": 115.8714,
+      "visualLat": -1.8912,
+      "visualLng": 115.8587,
       "sourceWaypointId": "SRC_CE6155",
       "sourceLoaderId": "CE6155"
     },
@@ -90,8 +90,8 @@
       "code": "LP-A1",
       "name": "Loading Point A1",
       "type": "loading_point",
-      "visualLat": -1.8937,
-      "visualLng": 115.8648,
+      "visualLat": -1.8958,
+      "visualLng": 115.8580,
       "sourceWaypointId": "SRC_CE6155",
       "sourceLoaderId": "CE6155"
     },
@@ -100,8 +100,8 @@
       "code": "KB4-200",
       "name": "KB4 Front STA 200",
       "type": "checkpoint",
-      "visualLat": -1.8901,
-      "visualLng": 115.8768,
+      "visualLat": -1.8924,
+      "visualLng": 115.8735,
       "sourceWaypointId": "Akses_Front_Jl_KB4_STA200"
     },
     {
@@ -109,8 +109,8 @@
       "code": "KB4-400",
       "name": "KB4 Front STA 400",
       "type": "checkpoint",
-      "visualLat": -1.8921,
-      "visualLng": 115.8732,
+      "visualLat": -1.8990,
+      "visualLng": 115.8719,
       "sourceWaypointId": "Akses_Front_Jl_KB4_STA_400"
     },
     {
@@ -118,8 +118,8 @@
       "code": "PIT-B",
       "name": "Pit B - CE5255 Front",
       "type": "pit",
-      "visualLat": -1.8934,
-      "visualLng": 115.8702,
+      "visualLat": -1.9025,
+      "visualLng": 115.8723,
       "sourceWaypointId": "SRC_CE5255",
       "sourceLoaderId": "CE5255"
     },
@@ -128,8 +128,8 @@
       "code": "LP-B1",
       "name": "Loading Point B1",
       "type": "loading_point",
-      "visualLat": -1.8963,
-      "visualLng": 115.8702,
+      "visualLat": -1.9054,
+      "visualLng": 115.8754,
       "sourceWaypointId": "SRC_CE5255",
       "sourceLoaderId": "CE5255"
     },
@@ -139,7 +139,7 @@
       "name": "KB4 Front STA 700",
       "type": "checkpoint",
       "visualLat": -1.8912,
-      "visualLng": 115.8744,
+      "visualLng": 115.8796,
       "sourceWaypointId": "Akses_Front_Jl_KB4_STA700"
     },
     {
@@ -147,8 +147,8 @@
       "code": "PIT-C",
       "name": "Pit C - CE6170 Front",
       "type": "pit",
-      "visualLat": -1.8947,
-      "visualLng": 115.8790,
+      "visualLat": -1.8893,
+      "visualLng": 115.8822,
       "sourceWaypointId": "SRC_CE6170",
       "sourceLoaderId": "CE6170"
     },
@@ -157,8 +157,8 @@
       "code": "LP-C1",
       "name": "Loading Point C1",
       "type": "loading_point",
-      "visualLat": -1.8974,
-      "visualLng": 115.8798,
+      "visualLat": -1.8879,
+      "visualLng": 115.8854,
       "sourceWaypointId": "SRC_CE6170",
       "sourceLoaderId": "CE6170"
     },
