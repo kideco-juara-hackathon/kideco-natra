@@ -3,8 +3,8 @@ services:
     image: rabbitmq:4-management
     container_name: kideco-rabbitmq
     restart: unless-stopped
-    mem_limit: 2g
-    mem_reservation: 512m
+    mem_limit: 256m
+    mem_reservation: 128m
     ports:
       - "127.0.0.1:${RABBITMQ_AMQP_PORT:-7256}:5672"     # AMQP port
       - "127.0.0.1:${RABBITMQ_MGMT_PORT:-15672}:15672"   # Management UI
@@ -66,6 +66,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: kideco-backend
+    mem_limit: 512m
     environment:
       APP_NAME: KIDECO Backend
       ENVIRONMENT: docker
@@ -98,6 +99,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: kideco-frontend
+    mem_limit: 512m
     ports:
       - "127.0.0.1:${FRONTEND_PORT:-3001}:3000"
     networks:
