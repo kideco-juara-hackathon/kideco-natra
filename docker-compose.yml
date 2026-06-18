@@ -3,7 +3,6 @@ services:
     image: rabbitmq:4-management
     container_name: kideco-rabbitmq
     restart: unless-stopped
-    cpus: 1.5
     mem_limit: 2g
     mem_reservation: 512m
     ports:
