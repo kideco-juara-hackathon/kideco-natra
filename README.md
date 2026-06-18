@@ -7,7 +7,7 @@
   <br/>
   <strong>NATRA</strong> &mdash; <em>Navigation, Asset, Transport, Routing & Analytics</em>
   <br/>
-  Real-time hauling logistics decision support for modern mining operations.
+  Platform pendukung keputusan logistik hauling secara real-time untuk operasi tambang modern.
   <br/><br/>
 </p>
 
@@ -23,111 +23,113 @@
 
 ---
 
+## Apa itu NATRA?
+
+NATRA adalah platform kendali logistik hauling terpadu yang dirancang khusus untuk kebutuhan dispatcher tambang batubara. Di balik layar dasbornya yang sederhana, NATRA menyatukan tiga pilar teknologi utama: optimasi rute berbasis algoritma Dijkstra, prediksi ETA dan konsumsi bahan bakar menggunakan model machine learning (RandomForest & XGBoost), serta pemantauan kesehatan armada secara real-time dengan deteksi anomali IsolationForest.
+
+Dalam operasi hauling konvensional, dispatcher seringkali harus mengambil keputusan penting — memilih rute mana, kapan memberangkatkan truk, armada mana yang perlu perhatian — hanya berdasarkan intuisi dan pengalaman. NATRA hadir untuk mengubah proses itu. Setiap keputusan didukung oleh data sensor langsung dari truk, model prediktif yang belajar dari pola operasional, dan antarmuka yang dirancang agar informasi kritis selalu tersedia dalam satu pandangan.
+
+Platform ini memproses telemetri kendaraan setiap 2 detik — mencakup RPM mesin, tekanan oli, suhu coolant, tekanan bahan bakar, dan enam parameter sensor lainnya — lalu menghitung skor kesehatan armada secara kontinu. Ketika skor menurun atau anomali terdeteksi, notifikasi peringatan langsung muncul di Command Center sebelum kerusakan menjadi downtime yang merugikan.
+
+NATRA dibangun sebagai jawaban atas tantangan nyata di lapangan operasi PT Kideco Jaya Agung, dan dikembangkan dalam rangka **KIC 2026 Hackathon**.
+
+> Dibangun untuk **KIC 2026 Hackathon** · PT Kideco Jaya Agung
+
+---
+
+## Fitur Unggulan
+
 <br/>
 
 <div align="center">
-  <img src="docs/photosreadme/screenshot.png" alt="NATRA Dashboard — Hauling Operations Control" width="880" style="border-radius:12px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);" />
+  <img src="docs/photosreadme/screenshot.png" alt="NATRA Dashboard — Kendali Operasi Hauling" width="880" />
   <br/>
-  <sub><em>NATRA Hauling Dashboard — Live fleet tracking, route intelligence, and predictive analytics in one view.</em></sub>
+  <sub><em>Dasbor NATRA — Pemantauan armada, intelijen rute, dan analitik prediktif dalam satu tampilan.</em></sub>
 </div>
 
 <br/>
 
----
-
-## What is NATRA?
-
-NATRA is an integrated hauling logistics control platform built for mining dispatchers. It combines Dijkstra-based route optimization, ML-powered ETA & fuel prediction, real-time fleet health monitoring, and live vehicle telemetry — all in a single, purpose-built dashboard.
-
-> Built for the **KIC 2026 Hackathon** · Kideco Jaya Agung
-
----
-
-## Features
-
 <table>
   <tr>
     <td width="50%" valign="top">
-      <h3>🗺️&nbsp; Route Intelligence</h3>
-      <p>Optimal route recommendations powered by Dijkstra with multi-metric comparison — ETA, fuel consumption, payload, queue time, and road risk. Dispatchers choose between <em>Balanced</em>, <em>Fuel-Efficient</em>, or <em>Low-Queue</em> strategies.</p>
+      <h3>🗺️&nbsp; Intelijen Rute</h3>
+      <p>Rekomendasi rute optimal berbasis algoritma Dijkstra dengan perbandingan multi-metrik — ETA, konsumsi BBM, payload, waktu antrean, dan risiko jalan. Dispatcher dapat memilih strategi <em>Seimbang</em>, <em>Hemat BBM</em>, atau <em>Antrean Minimum</em>.</p>
     </td>
     <td width="50%" valign="top">
       <h3>📡&nbsp; Command Center</h3>
-      <p>Real-time fleet monitoring with an interactive map, live vehicle positions, per-truck telemetry panels, and integrated alert notifications — all updating every 2 seconds from the backend.</p>
+      <p>Pemantauan armada secara real-time dengan peta interaktif, posisi kendaraan langsung, panel telemetri per truk, dan notifikasi peringatan terintegrasi — semua diperbarui setiap 2 detik dari backend.</p>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <h3>🔧&nbsp; Predictive Maintenance</h3>
-      <p>ML-powered health scoring using an <strong>IsolationForest</strong> model trained on 6 sensor streams: RPM, oil pressure, coolant temperature, fuel pressure, coolant pressure, and lube oil temperature. Health scores update on every telemetry tick.</p>
+      <h3>🔧&nbsp; Pemeliharaan Prediktif</h3>
+      <p>Penilaian kesehatan berbasis ML menggunakan model <strong>IsolationForest</strong> yang dilatih pada 6 aliran sensor: RPM, tekanan oli, suhu coolant, tekanan bahan bakar, tekanan coolant, dan suhu oli pelumas. Skor kesehatan diperbarui di setiap tick telemetri.</p>
     </td>
     <td width="50%" valign="top">
-      <h3>⚡&nbsp; ETA & Fuel Prediction</h3>
-      <p><strong>RandomForest</strong> (ETA) and <strong>XGBoost</strong> (fuel) models wired into the prediction engine, with physics-based rule fallback. Predictions are computed per route segment and aggregated for full-trip estimates.</p>
+      <h3>⚡&nbsp; Prediksi ETA & BBM</h3>
+      <p>Model <strong>RandomForest</strong> (ETA) dan <strong>XGBoost</strong> (BBM) terintegrasi ke dalam mesin prediksi, dengan fallback berbasis fisika per segmen. Estimasi dihitung per segmen rute dan diakumulasikan untuk perjalanan penuh.</p>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <h3>📊&nbsp; Route Monitor</h3>
-      <p>Live tabular view of all active trips across three lenses — Overview, ETA, and Fuel — with a slide-in detail panel per truck showing health score, trip progress, and segment-level telemetry history.</p>
+      <h3>📊&nbsp; Monitor Rute</h3>
+      <p>Tampilan tabel semua perjalanan aktif dalam tiga lensa — Ikhtisar, ETA, dan BBM — dengan panel detail per truk yang menampilkan skor kesehatan, progres perjalanan, dan riwayat telemetri per segmen.</p>
     </td>
     <td width="50%" valign="top">
-      <h3>🚛&nbsp; Fleet Management</h3>
-      <p>Full shift lifecycle: start shift, assign trucks, dispatch to loading points, track trip progress, and monitor accumulated engine hours for wear-out detection across the entire fleet.</p>
+      <h3>🚛&nbsp; Manajemen Armada</h3>
+      <p>Siklus shift penuh: mulai shift, tugaskan truk, berangkatkan ke titik loading, pantau progres perjalanan, dan monitor akumulasi jam mesin untuk deteksi wear-out di seluruh armada.</p>
     </td>
   </tr>
 </table>
 
 ---
 
-## Dispatcher Workflow
+## Alur Kerja Dispatcher
 
 ```
-Dispatcher selects truck & destination
+Dispatcher memilih truk & tujuan
             ↓
-Backend loads road network nodes and edges
+Backend memuat jaringan jalan (node & edge)
             ↓
-Route engine recommends optimal path (Dijkstra)
+Mesin rute merekomendasikan jalur optimal (Dijkstra)
             ↓
-ML models compute ETA / fuel / health score
+Model ML menghitung ETA / BBM / skor kesehatan
             ↓
-Dispatcher reviews recommendations & dispatches trip
+Dispatcher meninjau rekomendasi & memberangkatkan truk
             ↓
-Command Center monitors progress & live telemetry
+Command Center memantau progres & telemetri langsung
 ```
 
 ---
 
-## Fleet
+## Armada
 
 <div align="center">
   <img src="frontend/public/hauling_truck.png" width="200" alt="Dump Truck" />
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="frontend/public/hauling_loader.png" width="200" alt="Loader" />
   <br/>
-  <sub>Dump Truck &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Loader</sub>
+  <sub>Dump Truck</sub>
 </div>
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology |
+| Layer | Teknologi |
 |---|---|
 | **Frontend** | Next.js 16 (React 19), TypeScript, Tailwind CSS 4 |
-| **UI Components** | Shadcn/ui, Base UI, Lucide React |
-| **Visualization** | Recharts, Leaflet / react-leaflet |
+| **Komponen UI** | Shadcn/ui, Base UI, Lucide React |
+| **Visualisasi** | Recharts, Leaflet / react-leaflet |
 | **Backend** | FastAPI 0.115, Python 3.12 |
-| **ML Models** | scikit-learn (IsolationForest), XGBoost, RandomForest |
+| **Model ML** | scikit-learn (IsolationForest), XGBoost, RandomForest |
 | **Database** | PostgreSQL 16, SQLAlchemy 2.0, Alembic |
 | **Simulator** | Python async HTTP telemetry simulator |
-| **Infrastructure** | Docker Compose, Uvicorn ASGI |
+| **Infrastruktur** | Docker Compose, Uvicorn ASGI |
 
 ---
 
-## Quick Start
+## Mulai Cepat
 
-### Prerequisites
+### Prasyarat
 
 - Node.js 20+, Python 3.12+, Docker & Docker Compose
 
@@ -140,7 +142,7 @@ npm run dev
 # → http://localhost:3000
 ```
 
-### Backend (Docker — recommended)
+### Backend (Docker — direkomendasikan)
 
 ```bash
 docker compose up --build
@@ -148,7 +150,7 @@ docker compose up --build
 # Docs → http://localhost:8000/docs
 ```
 
-### Backend (local)
+### Backend (lokal)
 
 ```bash
 cd backend
@@ -157,43 +159,43 @@ alembic upgrade head
 uvicorn app.main:app --reload
 ```
 
-### Telemetry Simulator
+### Simulator Telemetri
 
 ```bash
 cd simulator
 pip install -r requirements.txt
 
-python telemetry_simulator.py                        # normal scenario
-python telemetry_simulator.py --scenario degraded    # gradual engine degradation on DT-03
-python telemetry_simulator.py --scenario breakdown   # critical failure scenario on DT-03
-python telemetry_simulator.py --speed fast           # compress trip duration to ~90s
+python telemetry_simulator.py                        # skenario normal
+python telemetry_simulator.py --scenario degraded    # degradasi mesin bertahap pada DT-03
+python telemetry_simulator.py --scenario breakdown   # kegagalan kritis pada DT-03
+python telemetry_simulator.py --speed fast           # kompres durasi perjalanan ke ~90 detik
 ```
 
 ---
 
-## Repository Structure
+## Struktur Repositori
 
 ```
 kideco-main/
-├── frontend/     # Next.js dispatcher dashboard
-├── backend/      # FastAPI — routes, telemetry, ML health scoring
-├── simulator/    # Async vehicle telemetry simulator
-├── docs/         # Architecture, API contract, data contract
+├── frontend/     # Dasbor dispatcher Next.js
+├── backend/      # FastAPI — rute, telemetri, penilaian kesehatan ML
+├── simulator/    # Simulator telemetri kendaraan async
+├── docs/         # Arsitektur, kontrak API, kontrak data
 └── docker-compose.yml
 ```
 
 ---
 
-## Documentation
+## Dokumentasi
 
-| Document | Description |
+| Dokumen | Deskripsi |
 |---|---|
-| [`docs/architecture.md`](docs/architecture.md) | MVP architecture and technical decisions |
-| [`docs/api-contract.md`](docs/api-contract.md) | Full API endpoint specification |
-| [`docs/data-contract.md`](docs/data-contract.md) | Data models and schemas |
-| [`docs/route-optimization.md`](docs/route-optimization.md) | Route optimization algorithm |
-| [`docs/ml-eta.md`](docs/ml-eta.md) | ETA prediction model experiments |
-| [`docs/simulator.md`](docs/simulator.md) | Telemetry simulator scenarios |
+| [`docs/architecture.md`](docs/architecture.md) | Arsitektur MVP dan keputusan teknis |
+| [`docs/api-contract.md`](docs/api-contract.md) | Spesifikasi lengkap endpoint API |
+| [`docs/data-contract.md`](docs/data-contract.md) | Model dan skema data |
+| [`docs/route-optimization.md`](docs/route-optimization.md) | Algoritma optimasi rute |
+| [`docs/ml-eta.md`](docs/ml-eta.md) | Eksperimen model prediksi ETA |
+| [`docs/simulator.md`](docs/simulator.md) | Skenario simulator telemetri |
 
 ---
 
@@ -201,7 +203,7 @@ kideco-main/
   <br/>
   <img src="frontend/public/kidecologo.png" alt="Kideco Jaya Agung" width="80" />
   <br/><br/>
-  <sub>Built with ❤️ for <strong>KIC 2026 Hackathon</strong> · Kideco Jaya Agung</sub>
+  <sub>Dibuat dengan ❤️ untuk <strong>KIC 2026 Hackathon</strong> · PT Kideco Jaya Agung</sub>
   <br/>
   <sub>
     <a href="https://github.com/kideco-juara-hackathon/kideco-natra">GitHub</a>
