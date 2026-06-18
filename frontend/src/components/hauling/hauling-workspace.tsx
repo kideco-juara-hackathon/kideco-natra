@@ -216,6 +216,7 @@ function HaulingWorkspaceFrame({
       ) : activeKey === "hauling-route-plan" ? (
         <RoutePlanScreen
           assignments={mapAssignments}
+          batchPhase={cc.batchPhase}
           dispatchStage={cc.dispatchStage}
           idleTrucks={cc.idleTrucks}
           lastDispatchedTrip={cc.lastDispatchedTrip}
@@ -223,8 +224,11 @@ function HaulingWorkspaceFrame({
           onAssignRoute={cc.assignRoute}
           onBack={cc.back}
           onClose={cc.closeDispatch}
+          onCloseBatchDispatch={cc.closeBatchDispatch}
+          onConfirmBatchDispatch={cc.confirmBatchDispatch}
           onDispatch={cc.dispatch}
           onManualLoadingPointChange={cc.changeManualLoadingPoint}
+          onOpenBatchDispatch={cc.openBatchDispatch}
           onOpenOverview={() => setActiveKey("hauling-overview")}
           onReview={cc.review}
           onRouteSelect={cc.selectRoute}
