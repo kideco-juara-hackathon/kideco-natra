@@ -84,6 +84,9 @@ services:
       - ../kideco-ml-maintenance/results:/ml_models/maintenance:ro
     ports:
       - '127.0.0.1:${BACKEND_PORT:-8001}:8000'
+    networks:
+      - default
+      - caddy_network
     depends_on:
       postgres:
         condition: service_healthy
@@ -97,6 +100,9 @@ services:
     container_name: kideco-frontend
     ports:
       - "127.0.0.1:${FRONTEND_PORT:-3001}:3000"
+    networks:
+      - default
+      - caddy_network
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -120,3 +126,7 @@ volumes:
   mosquitto_data:
   mosquitto_logs:
   postgres_data:
+
+networks:
+  caddy_network:
+    external: true
