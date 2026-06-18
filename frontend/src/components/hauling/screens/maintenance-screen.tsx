@@ -56,7 +56,7 @@ import {
   telemetryForTruck,
 } from "@/lib/hauling-telemetry";
 
-// â”€â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 type HealthLevel = "Aman" | "Monitoring" | "Risiko Sedang" | "Risiko Tinggi";
 
@@ -65,7 +65,7 @@ type VehicleRow = VehicleResponse & {
   recs: RecommendationResponse[];
 };
 
-// â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function healthLevel(score: number): HealthLevel {
   if (score >= 85) return "Aman";
@@ -83,7 +83,7 @@ function healthTone(level: HealthLevel) {
 
 function deriveNextAction(v: VehicleRow): string {
   const level = healthLevel(v.healthScore);
-  if (level === "Risiko Tinggi") return "Tahan dari dispatch â€” kirim ke maintenance bay";
+  if (level === "Risiko Tinggi") return "Tahan dari dispatch — kirim ke maintenance bay";
   if (level === "Risiko Sedang") return "Inspeksi setelah trip selesai";
   if (level === "Monitoring") return "Monitor telemetri pada trip berikutnya";
   return "Layak untuk dispatch berikutnya";
@@ -109,7 +109,7 @@ function telemetryRiskOrder(risk?: string | null): number {
   return 4;
 }
 
-// â”€â”€â”€ Shared components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Shared components ────────────────────────────────────────────────────────
 
 function MetricCard({
   icon: Icon,
@@ -138,7 +138,7 @@ function MetricCard({
   );
 }
 
-// â”€â”€â”€ List screen â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── List screen ──────────────────────────────────────────────────────────────
 
 function MaintenanceListScreen({
   vehicles,
@@ -205,14 +205,14 @@ function MaintenanceListScreen({
   );
 
   const formatTime = (isoString?: string) => {
-    if (!isoString) return "â€”";
+    if (!isoString) return "—";
     try {
       const date = new Date(isoString);
       const hrs = String(date.getHours()).padStart(2, "0");
       const mins = String(date.getMinutes()).padStart(2, "0");
       return `${hrs}:${mins}`;
     } catch {
-      return "â€”";
+      return "—";
     }
   };
 
@@ -604,7 +604,7 @@ function MaintenanceListScreen({
                         {v.telemetry?.vibrationLevel != null ? `${n(v.telemetry.vibrationLevel).toFixed(2)} g` : "—"}
                       </TableCell>
                       <TableCell className="py-3 tabular-nums text-[13.5px] text-foreground">
-                        {v.telemetry?.oilPressureBar != null ? `${n(v.telemetry.oilPressureBar).toFixed(1)} bar` : "—"}
+                        {v.telemetry?.oilPressureBar != null ? `${(n(v.telemetry.oilPressureBar) * 14.5038).toFixed(0)} PSI` : "—"}
                       </TableCell>
                       <TableCell className="py-3 tabular-nums text-[13.5px] text-foreground">
                         {v.telemetry?.fuelRateLph != null ? `${n(v.telemetry.fuelRateLph).toFixed(1)} L/h` : "—"}
@@ -640,7 +640,7 @@ function MaintenanceListScreen({
           {/* Table Pagination Footer */}
           <div className="flex items-center justify-between border-t px-1 py-4 text-[13px] text-muted-foreground mt-4">
             <div>
-              Menampilkan 1â€“{filteredVehicles.length} dari {filteredVehicles.length} unit
+              Menampilkan 1–{filteredVehicles.length} dari {filteredVehicles.length} unit
             </div>
             <div className="flex items-center gap-1.5">
               <button className="p-1.5 border rounded-md hover:bg-muted disabled:opacity-40" disabled>
@@ -660,7 +660,7 @@ function MaintenanceListScreen({
   );
 }
 
-// â”€â”€â”€ Detail screen â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Detail screen ────────────────────────────────────────────────────────────
 
 function Sparkline({ values, colorClass }: { values: number[]; colorClass: string }) {
   const width = 120;
@@ -706,7 +706,7 @@ function HealthDonut({ score, trend }: { score: number; trend: string }) {
 
   const isNegative = trend.startsWith("-");
   const trendColor = isNegative ? "text-red-500" : "text-emerald-500";
-  const arrow = isNegative ? "â†“" : "â†‘";
+  const arrow = isNegative ? "↓" : "↑";
 
   return (
     <div className="flex flex-col items-center justify-center shrink-0">
@@ -732,7 +732,7 @@ function HealthDonut({ score, trend }: { score: number; trend: string }) {
             strokeLinecap="round"
           />
         </svg>
-        <div className="absolute text-center">
+        <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-[20px] font-extrabold text-foreground leading-none">{score}</span>
         </div>
       </div>
@@ -833,13 +833,13 @@ function MaintenanceDetailScreen({
     {
       name: "Mesin",
       status: tempVal > 95 ? "Kritis" : tempVal > 88 ? "Tinggi" : "Aman",
-      val: `${tempVal.toFixed(0)}Â°C`,
+      val: `${tempVal.toFixed(0)}°C`,
       tone: tempVal > 95 ? "danger" : tempVal > 88 ? "danger" : "success"
     },
     {
       name: "Sistem Pendingin",
       status: tempVal > 90 ? "Sedang" : "Aman",
-      val: `${(tempVal * 0.88).toFixed(0)}Â°C`,
+      val: `${(tempVal * 0.88).toFixed(0)}°C`,
       tone: tempVal > 90 ? "warning" : "success"
     },
     {
@@ -911,7 +911,7 @@ function MaintenanceDetailScreen({
 
   return (
     <div className="space-y-4">
-      {/* â”€â”€â”€ Top Header Card â”€â”€â”€ */}
+      {/* ─── Top Header Card ─── */}
       <Card className="rounded-xl shadow-sm border border-border p-5 bg-card">
         <div className="flex flex-col md:flex-row justify-between gap-6">
           {/* Left Block: Clickable Image + Title & Details Column */}
@@ -1013,7 +1013,7 @@ function MaintenanceDetailScreen({
         </div>
       </Card>
 
-      {/* â”€â”€â”€ Metrics Row (5 Cards) â”€â”€â”€ */}
+      {/* ─── Metrics Row (5 Cards) ─── */}
       <section className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-5">
         
         {/* Card 1: Health Score */}
@@ -1078,7 +1078,7 @@ function MaintenanceDetailScreen({
             </div>
             <div className="mt-3 flex items-baseline gap-2">
               <span className="text-3xl font-extrabold text-foreground font-mono">{tempVal.toFixed(0)}</span>
-              <span className="text-xs text-muted-foreground font-semibold">Â°C</span>
+              <span className="text-xs text-muted-foreground font-semibold">°C</span>
               <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ml-1 ${
                 tempVal > 95
                   ? "bg-red-50 text-red-700 border-red-200"
@@ -1089,7 +1089,7 @@ function MaintenanceDetailScreen({
                 {tempVal > 95 ? "Kritis" : tempVal > 88 ? "Tinggi" : "Normal"}
               </span>
             </div>
-            <p className="text-[11px] text-muted-foreground font-medium mt-1">Threshold: 95 Â°C</p>
+            <p className="text-[11px] text-muted-foreground font-medium mt-1">Threshold: 95 °C</p>
           </div>
           <div className="flex justify-end pt-3">
             <Sparkline
@@ -1172,7 +1172,7 @@ function MaintenanceDetailScreen({
         </Card>
       </section>
 
-      {/* â”€â”€â”€ 2-Column Dashboard Grid â”€â”€â”€ */}
+      {/* ─── 2-Column Dashboard Grid ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         
         {/* Left Column (2/3 width grid) */}
@@ -1287,7 +1287,7 @@ function MaintenanceDetailScreen({
                       strokeDasharray="4,4"
                       strokeWidth="1.5"
                     />
-                    <text x="325" y={threshY + 3} className="fill-red-600 text-[8px] font-extrabold">95Â°C</text>
+                    <text x="325" y={threshY + 3} className="fill-red-600 text-[8px] font-extrabold">95°C</text>
                     
                     <path d={tempAreaD} fill={`url(#tempGrad-${vehicle.id})`} />
                     <path d={tempLineD} fill="none" stroke="#ef4444" strokeWidth="2.2" strokeLinecap="round" />
@@ -1311,7 +1311,7 @@ function MaintenanceDetailScreen({
                             className="text-[11px] font-extrabold"
                             fill="#ef4444"
                           >
-                            {p.val.toFixed(0)}Â°C
+                            {p.val.toFixed(0)}°C
                           </text>
                         </g>
                       );
@@ -1329,9 +1329,9 @@ function MaintenanceDetailScreen({
                       </text>
                     ))}
                     
-                    <text x="22" y="28" textAnchor="end" className="fill-muted-foreground text-[8.5px] font-medium">120Â°</text>
-                    <text x="22" y="78" textAnchor="end" className="fill-muted-foreground text-[8.5px] font-medium">85Â°</text>
-                    <text x="22" y="128" textAnchor="end" className="fill-muted-foreground text-[8.5px] font-medium">50Â°</text>
+                    <text x="22" y="28" textAnchor="end" className="fill-muted-foreground text-[8.5px] font-medium">120°</text>
+                    <text x="22" y="78" textAnchor="end" className="fill-muted-foreground text-[8.5px] font-medium">85°</text>
+                    <text x="22" y="128" textAnchor="end" className="fill-muted-foreground text-[8.5px] font-medium">50°</text>
                   </svg>
                 </div>
               </div>
@@ -1524,7 +1524,7 @@ function MaintenanceDetailScreen({
   );
 }
 
-// â”€â”€â”€ Main â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Main ─────────────────────────────────────────────────────────────────────
 
 export function HaulingMaintenanceScreen({
   initialSelectedId = null,
