@@ -728,8 +728,8 @@ export const truckSeeds = [
     "loadState": "empty",
     "status": "idle",
     "position": {
-      "lat": -1.8639,
-      "lng": 115.8667
+      "lat": -1.8628,
+      "lng": 115.8658
     },
     "datasetRows": 2124
   },
@@ -746,8 +746,8 @@ export const truckSeeds = [
     "loadState": "empty",
     "status": "idle",
     "position": {
-      "lat": -1.8635,
-      "lng": 115.8663
+      "lat": -1.8630,
+      "lng": 115.8674
     },
     "datasetRows": 2004
   },
@@ -764,8 +764,8 @@ export const truckSeeds = [
     "loadState": "loaded",
     "status": "active",
     "position": {
-      "lat": -1.8958,
-      "lng": 115.8582
+      "lat": -1.8646,
+      "lng": 115.8657
     },
     "datasetRows": 1952
   },
@@ -782,8 +782,8 @@ export const truckSeeds = [
     "loadState": "loaded",
     "status": "active",
     "position": {
-      "lat": -1.9054,
-      "lng": 115.8756
+      "lat": -1.8644,
+      "lng": 115.8674
     },
     "datasetRows": 1824
   },
@@ -800,8 +800,8 @@ export const truckSeeds = [
     "loadState": "loaded",
     "status": "active",
     "position": {
-      "lat": -1.8879,
-      "lng": 115.8856
+      "lat": -1.8635,
+      "lng": 115.8665
     },
     "datasetRows": 1741
   }
