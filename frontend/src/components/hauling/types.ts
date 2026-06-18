@@ -6,9 +6,8 @@ export type ScreenKey =
   | "hauling-route-monitor"
   | "hauling-maintenance"
   | "marine-overview"
-  | "marine-route-plan"
-  | "marine-eta"
-  | "marine-fuel"
+  | "marine-command-center"
+  | "marine-route-monitor"
   | "marine-maintenance";
 
 export type DispatchStage = "truck" | "routes" | "review" | "done";
