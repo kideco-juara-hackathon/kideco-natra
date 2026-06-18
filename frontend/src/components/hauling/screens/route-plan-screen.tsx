@@ -1,16 +1,22 @@
+import { Zap } from "lucide-react";
+
+import { BatchDispatchModal } from "@/components/hauling/components/batch-dispatch-modal";
 import { DispatchPanel } from "@/components/hauling/components/dispatch-panel";
 import type { DispatchStage } from "@/components/hauling/types";
 import { RebasedRouteMapShell } from "@/components/route/rebased-route-map-shell";
+import { Button } from "@/components/ui/button";
 import type {
   RouteAssignment,
   RouteOption,
   Truck,
 } from "@/data/hauling-screens";
+import type { BatchDispatchPhase } from "@/lib/command-center/use-command-center";
 
 import { RouteCommandStrip } from "../components/route-command-strip";
 
 export function RoutePlanScreen({
   assignments,
+  batchPhase,
   dispatchStage,
   idleTrucks,
   lastDispatchedTrip,
@@ -18,8 +24,11 @@ export function RoutePlanScreen({
   onAssignRoute,
   onBack,
   onClose,
+  onCloseBatchDispatch,
+  onConfirmBatchDispatch,
   onDispatch,
   onManualLoadingPointChange,
+  onOpenBatchDispatch,
   onOpenOverview,
   onReview,
   onRouteSelect,
@@ -28,6 +37,7 @@ export function RoutePlanScreen({
   selectedTruck,
 }: {
   assignments: RouteAssignment[];
+  batchPhase: BatchDispatchPhase;
   dispatchStage: DispatchStage;
   idleTrucks: Truck[];
   lastDispatchedTrip: RouteAssignment | null;
@@ -35,8 +45,11 @@ export function RoutePlanScreen({
   onAssignRoute: () => void;
   onBack: () => void;
   onClose: () => void;
+  onCloseBatchDispatch: () => void;
+  onConfirmBatchDispatch: () => void;
   onDispatch: () => void;
   onManualLoadingPointChange: (loadingPointId: string) => void;
+  onOpenBatchDispatch: () => void;
   onOpenOverview: () => void;
   onReview: () => void;
   onRouteSelect: (route: RouteOption) => void;
@@ -61,8 +74,16 @@ export function RoutePlanScreen({
       />
 
       {!selectedTruck ? (
-        <div className="pointer-events-none absolute bottom-5 left-1/2 z-[500] -translate-x-1/2 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--bg-surface)] px-4 py-3 text-body-sm shadow-[var(--shadow-md)]">
-          Pilih marker truk idle untuk melihat detail dan memberi rute.
+        <div className="absolute bottom-5 left-1/2 z-[500] -translate-x-1/2 flex flex-col items-center gap-3">
+          <div className="pointer-events-none rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--bg-surface)] px-4 py-3 text-body-sm shadow-[var(--shadow-md)]">
+            Pilih marker truk idle untuk melihat detail dan memberi rute.
+          </div>
+          {idleTrucks.length >= 2 ? (
+            <Button className="gap-2 shadow-[var(--shadow-md)]" onClick={onOpenBatchDispatch}>
+              <Zap className="size-4" />
+              Dispatch Semua ({idleTrucks.length} Unit)
+            </Button>
+          ) : null}
         </div>
       ) : (
         <DispatchPanel
@@ -81,6 +102,12 @@ export function RoutePlanScreen({
           selectedTruck={selectedTruck}
         />
       )}
+
+      <BatchDispatchModal
+        phase={batchPhase}
+        onConfirm={onConfirmBatchDispatch}
+        onClose={onCloseBatchDispatch}
+      />
     </div>
   );
 }
