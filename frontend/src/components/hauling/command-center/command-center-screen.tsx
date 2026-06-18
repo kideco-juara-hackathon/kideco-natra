@@ -7,6 +7,7 @@ import { RebasedRouteMapShell } from "@/components/route/rebased-route-map-shell
 import { Button } from "@/components/ui/button";
 import { useCommandCenter } from "@/lib/command-center/use-command-center";
 
+import { BatchDispatchModal } from "../components/batch-dispatch-modal";
 import { DispatchPanel } from "../components/dispatch-panel";
 import { CriticalAlertModal } from "./critical-alert-modal";
 import { FleetRail } from "./fleet-rail";
@@ -101,6 +102,7 @@ export function CommandCenterScreen({ onOpenOverview }: { onOpenOverview?: () =>
       {/* Left Column: Fleet Status Roster */}
       <FleetRail
         assignments={cc.assignments}
+        onDispatchAll={isShiftActive && cc.idleTrucks.length >= 2 ? cc.openBatchDispatch : undefined}
         onSelect={selectTruck}
         selectedTruckId={cc.selectedTruckId}
         trucks={cc.trucks}
@@ -179,6 +181,11 @@ export function CommandCenterScreen({ onOpenOverview }: { onOpenOverview?: () =>
 
       <NotificationToasts />
       <CriticalAlertModal />
+      <BatchDispatchModal
+        phase={cc.batchPhase}
+        onConfirm={cc.confirmBatchDispatch}
+        onClose={cc.closeBatchDispatch}
+      />
     </div>
   );
 }
