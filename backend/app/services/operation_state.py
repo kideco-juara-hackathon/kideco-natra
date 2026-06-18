@@ -41,18 +41,18 @@ _active_trips: dict[str, DispatchResponse] = {}
 def _node_position(node_id: str) -> dict[str, float]:
     node = next((item for item in list_seed_nodes() if item["id"] == node_id), None)
     if not node:
-        return {"lat": -1.8907, "lng": 115.8721}
+        return {"lat": -1.8637, "lng": 115.8665}
     return {"lat": node["visualLat"], "lng": node["visualLng"]}
 
 
 def _staging_slots() -> list[dict[str, float]]:
     anchor = _node_position(DISPATCH_NODE_ID)
     return [
-        {"lat": anchor["lat"] + 0.006, "lng": anchor["lng"] - 0.0072},
-        {"lat": anchor["lat"] + 0.004, "lng": anchor["lng"] + 0.0072},
-        {"lat": anchor["lat"] - 0.0056, "lng": anchor["lng"] - 0.0056},
-        {"lat": anchor["lat"] - 0.0048, "lng": anchor["lng"] + 0.0064},
-        {"lat": anchor["lat"] + 0.0072, "lng": anchor["lng"] + 0.0008},
+        {"lat": anchor["lat"] + 0.0009, "lng": anchor["lng"] - 0.0007},
+        {"lat": anchor["lat"] + 0.0007, "lng": anchor["lng"] + 0.0009},
+        {"lat": anchor["lat"] - 0.0009, "lng": anchor["lng"] - 0.0008},
+        {"lat": anchor["lat"] - 0.0007, "lng": anchor["lng"] + 0.0009},
+        {"lat": anchor["lat"] + 0.0002, "lng": anchor["lng"] + 0.0000},
     ]
 
 
