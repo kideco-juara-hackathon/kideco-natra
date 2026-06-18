@@ -225,7 +225,7 @@ export function HaulingRouteMonitorScreen() {
       </div>
 
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetContent side="right" className="flex flex-col overflow-hidden p-0 sm:max-w-[380px]">
+        <SheetContent side="right" className="flex flex-col overflow-hidden p-0 sm:max-w-[480px]">
           <SheetHeader className="shrink-0 border-b p-5 pb-4">
             <SheetTitle className="text-lg">
               {selectedVehicle?.id ?? "Detail Unit"}
