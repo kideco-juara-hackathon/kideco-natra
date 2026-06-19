@@ -22,17 +22,12 @@ import {
 import type {
   RecommendationResponse,
   TelemetryResponse,
-  VehicleResponse,
 } from "@/lib/api";
+import type { HaulingVehicleRow } from "@/lib/hauling-vehicle-rows";
 
 // ─── Shared types ─────────────────────────────────────────────────────────────
 
-export type VehicleRow = VehicleResponse & {
-  telemetry: TelemetryResponse | null;
-  recs: RecommendationResponse[];
-  progress?: number;  // 0-100 from cc.assignments
-  etaMin?: number;    // total route ETA from cc.assignments
-};
+export type VehicleRow = HaulingVehicleRow;
 
 export type DelayStatus = "Terlambat" | "Monitor" | "Normal" | "—";
 export type FuelStatus = "Normal" | "Tinggi" | "Kritis" | "—";

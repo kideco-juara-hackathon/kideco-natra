@@ -34,8 +34,8 @@
       "loadState": "empty",
       "status": "idle",
       "position": {
-        "lat": -1.8878,
-        "lng": 115.8692
+        "lat": -1.8628,
+        "lng": 115.8658
       },
       "datasetRows": 2124
     },
@@ -52,8 +52,8 @@
       "loadState": "empty",
       "status": "idle",
       "position": {
-        "lat": -1.8893,
-        "lng": 115.8758
+        "lat": -1.8630,
+        "lng": 115.8674
       },
       "datasetRows": 2004
     },
@@ -70,8 +70,8 @@
       "loadState": "loaded",
       "status": "active",
       "position": {
-        "lat": -1.892,
-        "lng": 115.8704
+        "lat": -1.8646,
+        "lng": 115.8657
       },
       "datasetRows": 1952
     },
@@ -88,8 +88,8 @@
       "loadState": "loaded",
       "status": "active",
       "position": {
-        "lat": -1.8917,
-        "lng": 115.8741
+        "lat": -1.8644,
+        "lng": 115.8674
       },
       "datasetRows": 1824
     },
@@ -106,8 +106,8 @@
       "loadState": "loaded",
       "status": "active",
       "position": {
-        "lat": -1.8888,
-        "lng": 115.8722
+        "lat": -1.8635,
+        "lng": 115.8665
       },
       "datasetRows": 1741
     }

@@ -20,6 +20,7 @@ data/raw/*
 data/processed/*
 ml/models/*
 ml/reports/*
+backend/ml_models/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !ml/models/.gitkeep

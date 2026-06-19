@@ -16,6 +16,7 @@ import {
   createRouteAssignment,
   dispatchNodes,
   getManualRouteOption,
+  getRouteOptions,
   initialTrucks,
   loadingPoints,
   type RouteAssignment,
@@ -43,6 +44,18 @@ const STORAGE_KEY = "kideco-command-center-state-v1";
 
 export type ShiftStatus = "not_started" | "active";
 
+export type BatchDispatchEntry = {
+  truck: Truck;
+  recommendation: RouteOption;
+};
+
+export type BatchDispatchPhase =
+  | { kind: "idle" }
+  | { kind: "loading" }
+  | { kind: "ready"; entries: BatchDispatchEntry[] }
+  | { kind: "dispatching"; entries: BatchDispatchEntry[] }
+  | { kind: "done"; count: number };
+
 type PersistedCommandCenterState = {
   shiftStatus: ShiftStatus;
   trucks: Truck[];
@@ -52,13 +65,13 @@ type PersistedCommandCenterState = {
 
 // Staging slots around the dispatch point so initial idle trucks fan out instead
 // of stacking on a single marker.
-const dispatchAnchor = { lat: -1.8907, lng: 115.8721 };
+const dispatchAnchor = { lat: -1.8637, lng: 115.8665 };
 const STAGING_SLOTS: Array<{ lat: number; lng: number }> = [
-  { lat: dispatchAnchor.lat + 0.006, lng: dispatchAnchor.lng - 0.0072 },
-  { lat: dispatchAnchor.lat + 0.004, lng: dispatchAnchor.lng + 0.0072 },
-  { lat: dispatchAnchor.lat - 0.0056, lng: dispatchAnchor.lng - 0.0056 },
-  { lat: dispatchAnchor.lat - 0.0048, lng: dispatchAnchor.lng + 0.0064 },
-  { lat: dispatchAnchor.lat + 0.0072, lng: dispatchAnchor.lng + 0.0008 },
+  { lat: dispatchAnchor.lat + 0.0009, lng: dispatchAnchor.lng - 0.0007 },
+  { lat: dispatchAnchor.lat + 0.0007, lng: dispatchAnchor.lng + 0.0009 },
+  { lat: dispatchAnchor.lat - 0.0009, lng: dispatchAnchor.lng - 0.0008 },
+  { lat: dispatchAnchor.lat - 0.0007, lng: dispatchAnchor.lng + 0.0009 },
+  { lat: dispatchAnchor.lat + 0.0002, lng: dispatchAnchor.lng + 0.0000 },
 ];
 
 function nodePosition(nodeId: string) {
@@ -145,6 +158,10 @@ function useCommandCenterState() {
 
   // Shift accounting.
   const [hauledTon, setHauledTon] = useState(0);
+
+  // Batch dispatch.
+  const [batchPhase, setBatchPhase] = useState<BatchDispatchPhase>({ kind: "idle" });
+  const batchEntriesRef = useRef<BatchDispatchEntry[]>([]);
 
   // Refs mirror state so the interval reads the latest without re-subscribing.
   const trucksRef = useRef(trucks);
@@ -365,6 +382,107 @@ function useCommandCenterState() {
       .catch(() => applyAssignment(localAssignment));
   }, [push, selectedRoute, selectedTruckId]);
 
+  const openBatchDispatch = useCallback(() => {
+    const currentIdleTrucks = trucksRef.current.filter((t) => t.status === "idle");
+    if (currentIdleTrucks.length < 2) return;
+
+    setBatchPhase({ kind: "loading" });
+
+    void Promise.allSettled(
+      currentIdleTrucks.map((truck) =>
+        api
+          .createRouteRecommendations({
+            truckId: truck.id,
+            originNodeId: truck.currentNodeId,
+            candidateLoadingPointIds: loadingPoints.map((p) => p.id),
+            dumpPointId: DEFAULT_DUMP_POINT_ID,
+            targetPayloadTon: truck.capacityTon,
+            objective: "balanced",
+          })
+          .then((res) => ({ truckId: truck.id, recommendations: res.recommendations as RouteOption[] })),
+      ),
+    ).then((results) => {
+      const sorted = [...currentIdleTrucks].sort((a, b) => b.healthScore - a.healthScore);
+
+      const recsMap = new Map<string, RouteOption[]>();
+      for (const result of results) {
+        if (result.status === "fulfilled") {
+          recsMap.set(result.value.truckId, result.value.recommendations);
+        }
+      }
+
+      // Fallback to seed recommendations for trucks whose request failed.
+      for (const truck of sorted) {
+        if (!recsMap.has(truck.id)) {
+          recsMap.set(truck.id, getRouteOptions(truck));
+        }
+      }
+
+      // Greedy LP assignment: distribute trucks across loading points.
+      const usedLPs = new Set<string>();
+      const entries: BatchDispatchEntry[] = [];
+
+      for (const truck of sorted) {
+        const recs = recsMap.get(truck.id) ?? [];
+        if (recs.length === 0) continue;
+        const chosen = recs.find((r) => !usedLPs.has(r.loadingPointId)) ?? recs[0];
+        usedLPs.add(chosen.loadingPointId);
+        entries.push({ truck, recommendation: chosen });
+      }
+
+      batchEntriesRef.current = entries;
+      setBatchPhase({ kind: "ready", entries });
+    });
+  }, []);
+
+  const confirmBatchDispatch = useCallback(() => {
+    const entries = batchEntriesRef.current;
+    if (entries.length === 0) return;
+
+    setBatchPhase({ kind: "dispatching", entries });
+
+    void Promise.allSettled(
+      entries.map(({ truck, recommendation }) => {
+        const localAssignment = createAssignment({
+          route: recommendation,
+          tripId: `TRIP-B${Date.now().toString().slice(-5)}`,
+          truckId: truck.id,
+        });
+
+        const apply = (assignment: RouteAssignment) => {
+          setAssignments((curr) => [...curr, assignment]);
+          setTrucks((curr) =>
+            curr.map((t) =>
+              t.id === truck.id
+                ? { ...t, currentPayloadTon: assignment.coalTon, loadState: "loaded" as const, status: "active" as const }
+                : t,
+            ),
+          );
+          push(dispatchedEvent(truck.id, loadingPointLabel(assignment.loadingPointId), assignment.etaMin));
+        };
+
+        return api
+          .dispatchTruck({
+            truckId: truck.id,
+            routeOptionId: recommendation.id,
+            loadingPointId: recommendation.loadingPointId,
+            originNodeId: recommendation.originNodeId,
+            dumpPointId: recommendation.dumpPointId,
+            selectionMode: "recommended",
+          })
+          .then((res) => apply(toAssignment(res)))
+          .catch(() => apply(localAssignment));
+      }),
+    ).then(() => {
+      setBatchPhase({ kind: "done", count: entries.length });
+    });
+  }, [push]);
+
+  const closeBatchDispatch = useCallback(() => {
+    setBatchPhase({ kind: "idle" });
+    batchEntriesRef.current = [];
+  }, []);
+
   // Clicking a notification's action: ready/maintenance focus the truck + open dispatch.
   // Read-state + the click plumbing live in the notifications context; this only
   // performs the screen-specific side effect (select the truck).
@@ -413,6 +531,11 @@ function useCommandCenterState() {
     back,
     changeManualLoadingPoint,
     dispatch,
+    // batch dispatch
+    batchPhase,
+    openBatchDispatch,
+    confirmBatchDispatch,
+    closeBatchDispatch,
   };
 }
 

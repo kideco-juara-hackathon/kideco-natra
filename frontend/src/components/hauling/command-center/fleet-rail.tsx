@@ -1,7 +1,8 @@
 "use client";
 
-import { Truck as TruckIcon } from "lucide-react";
+import { Truck as TruckIcon, Zap } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import type { RouteAssignment, Truck } from "@/data/hauling-screens";
 import { loadingPoints } from "@/data/hauling-screens";
 import { cn } from "@/lib/utils";
@@ -97,11 +98,13 @@ export function FleetRail({
   assignments,
   selectedTruckId,
   onSelect,
+  onDispatchAll,
 }: {
   trucks: Truck[];
   assignments: RouteAssignment[];
   selectedTruckId: string | null;
   onSelect: (truckId: string) => void;
+  onDispatchAll?: () => void;
 }) {
   const assignmentByTruck = new Map(assignments.map((assignment) => [assignment.truckId, assignment]));
   const idleCount = trucks.filter((truck) => truck.status === "idle").length;
@@ -136,6 +139,16 @@ export function FleetRail({
           />
         ))}
       </div>
+
+      {/* Dispatch All button — shown when 2+ idle trucks are available */}
+      {onDispatchAll && idleCount >= 2 ? (
+        <div className="border-t border-[var(--border-default)] p-3 shrink-0">
+          <Button className="w-full gap-2" onClick={onDispatchAll}>
+            <Zap className="size-4" />
+            Dispatch Semua ({idleCount} Unit)
+          </Button>
+        </div>
+      ) : null}
 
       {/* Bottom Status Card */}
       <div className="border-t border-[var(--border-default)] p-3.5 bg-[var(--bg-subtle)]/20 shrink-0">

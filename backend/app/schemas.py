@@ -248,6 +248,7 @@ class TelemetryResponse(ApiSchema):
     oil_pressure_bar: float | None = Field(alias="oilPressureBar", default=None)
     vibration_level: float | None = Field(alias="vibrationLevel", default=None)
     fuel_rate_lph: float | None = Field(alias="fuelRateLph", default=None)
+    engine_hour: float | None = Field(alias="engineHour", default=None)
     health_score: float | None = Field(alias="healthScore", default=None)
     risk_level: str | None = Field(alias="riskLevel", default=None)
     recommendations: list[str] = []

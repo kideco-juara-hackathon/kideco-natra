@@ -60,7 +60,7 @@ def test_route_plan_returns_recommendation_shape() -> None:
             RoutePlanRequest(
                 vehicleId="DT-01",
                 originNodeId="DISPATCH-01",
-                destinationNodeId="JETTY-01",
+                destinationNodeId="STOCKPILE-01",
                 loadState="Full",
                 payloadTon=28,
             ),
@@ -68,7 +68,7 @@ def test_route_plan_returns_recommendation_shape() -> None:
         )
         assert response.vehicle_id == "DT-01"
         assert response.path[0] == "DISPATCH-01"
-        assert response.path[-1] == "JETTY-01"
+        assert response.path[-1] == "STOCKPILE-01"
         assert response.distance_m > 0
         assert response.eta_seconds > 0
         assert response.fuel_estimate_liter > 0
@@ -152,6 +152,7 @@ def test_telemetry_health_alert_and_dashboard_summary() -> None:
 
         latest = latest_telemetry(asset_id="DT-01", db=db)
         assert "DT-01" in latest
+        assert latest["DT-01"].health_score == telemetry.health_score
 
         dashboard = dashboard_summary(db)
         assert dashboard.latest_telemetry_count >= 1

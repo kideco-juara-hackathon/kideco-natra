@@ -537,10 +537,6 @@ export function AppFrame({
                   : null}
               </div>
 
-              {/* D1 Avatar in Header */}
-              <div className="grid size-10 shrink-0 place-items-center rounded-full bg-bg-inverse text-[12px] font-semibold text-text-inverse">
-                D1
-              </div>
             </div>
           </header>
 

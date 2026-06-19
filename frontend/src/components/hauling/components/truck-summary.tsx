@@ -140,7 +140,7 @@ export function TruckSummary({
 
       {/* Rekomendasi Awal Box */}
       <div className="rounded-xl border border-[var(--border-default)] p-4 bg-[var(--bg-surface)] flex flex-col gap-3">
-        <div className="flex items-center gap-1.5 text-amber-500">In
+        <div className="flex items-center gap-1.5 text-amber-500">
           <span className="text-[12px] font-bold text-[var(--text-default)]">
             Rekomendasi Awal
           </span>
