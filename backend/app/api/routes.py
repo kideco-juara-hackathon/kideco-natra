@@ -53,6 +53,7 @@ from app.services.operation_state import (
 )
 from app.services.prediction import assess_health, estimate_route_eta_seconds, estimate_route_fuel_liter
 from app.services.route_engine import RouteNotFoundError, create_route_plan
+from app.services.scoring import normalize_risk
 from app.services.seed_route_engine import (
     SeedRouteError,
     create_recommendations,
@@ -274,7 +275,7 @@ def latest_telemetry(
         )
         if not record:
             continue
-        health_score, risk_level, _, _ = assess_health(asset, record)
+        health_score = round(float(asset.health_score if asset.health_score is not None else 85.0), 2)
         result[asset.asset_code] = TelemetryResponse(
             id=record.id,
             vehicleId=asset.asset_code,
@@ -289,7 +290,7 @@ def latest_telemetry(
             fuelRateLph=record.fuel_flow_rate,
             engineHour=record.engine_hour,
             healthScore=health_score,
-            riskLevel=risk_level,
+            riskLevel=normalize_risk(health_score),
         )
     return result
 

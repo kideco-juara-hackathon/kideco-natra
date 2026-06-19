@@ -29,6 +29,7 @@ import {
   syntheticTelemetryHistory,
   telemetryForTruck,
 } from "@/lib/hauling-telemetry";
+import { buildHaulingVehicleRow } from "@/lib/hauling-vehicle-rows";
 
 import { ETALens } from "./lenses/eta-lens";
 import { FuelLens } from "./lenses/fuel-lens";
@@ -85,22 +86,15 @@ export function HaulingRouteMonitorScreen() {
 
       const rows: VehicleRow[] = trucks.map((truck) => {
         const assignment = assignments.find((a) => a.truckId === truck.id);
-        return {
-          id: truck.id,
-          name: truck.code,
-          type: "hauler",
-          capacityTon: truck.capacityTon,
-          status: truck.status,
-          healthScore: truck.healthScore,
-          currentNodeId: truck.currentNodeId,
-          lat: truck.position.lat,
-          lng: truck.position.lng,
-          progress: assignment?.progress,
-          etaMin: assignment?.etaMin,
-          telemetry: telemetryForTruck(telemetryRes, truck, assignments),
-          recs: recommendationsForTruck(recsRes, truck.id)
-            .sort((a, b) => priorityOrder(a.priority) - priorityOrder(b.priority)),
-        };
+        const telemetry = telemetryForTruck(telemetryRes, truck, assignments);
+        const recommendations = recommendationsForTruck(recsRes, truck.id)
+          .sort((a, b) => priorityOrder(a.priority) - priorityOrder(b.priority));
+        return buildHaulingVehicleRow({
+          truck,
+          telemetry,
+          recommendations,
+          assignment,
+        });
       });
 
       setVehicles(rows);
@@ -142,15 +136,17 @@ export function HaulingRouteMonitorScreen() {
   // Reload history immediately when user switches selected unit
   useEffect(() => {
     if (!selectedId) return;
-    const truck = cc.trucks.find((item) => item.id === selectedId);
-    const assignment = cc.assignments.find((item) => item.truckId === selectedId);
-    setLoadingHistory(true);
-    setHistory([]);
-    api.getTelemetryHistory(selectedId, 5)
-      .then((items) => setHistory(items.length > 0 ? items : truck ? syntheticTelemetryHistory(truck, assignment, 5) : []))
-      .catch(() => setHistory(truck ? syntheticTelemetryHistory(truck, assignment, 5) : []))
-      .finally(() => setLoadingHistory(false));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    const timer = window.setTimeout(() => {
+      const truck = ccTrucksRef.current.find((item) => item.id === selectedId);
+      const assignment = ccAssignmentsRef.current.find((item) => item.truckId === selectedId);
+      setLoadingHistory(true);
+      setHistory([]);
+      api.getTelemetryHistory(selectedId, 5)
+        .then((items) => setHistory(items.length > 0 ? items : truck ? syntheticTelemetryHistory(truck, assignment, 5) : []))
+        .catch(() => setHistory(truck ? syntheticTelemetryHistory(truck, assignment, 5) : []))
+        .finally(() => setLoadingHistory(false));
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [selectedId]);
 
   const handleSelect = useCallback((id: string) => {
@@ -160,7 +156,7 @@ export function HaulingRouteMonitorScreen() {
 
   const selectedVehicle = vehicles.find((v) => v.id === selectedId) ?? null;
   const selectedRouteLabel = selectedId
-    ? ccAssignmentsRef.current.find((a) => a.truckId === selectedId)?.routeLabel ?? null
+    ? cc.assignments.find((a) => a.truckId === selectedId)?.routeLabel ?? null
     : null;
 
   if (loading) {

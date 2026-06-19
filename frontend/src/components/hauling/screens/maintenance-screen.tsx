@@ -44,18 +44,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  api,
-  type RecommendationResponse,
-  type TelemetryResponse,
-  type VehicleResponse,
-} from "@/lib/api";
+import { api } from "@/lib/api";
 import { useCommandCenter } from "@/lib/command-center/use-command-center";
 import { dispatchNodes } from "@/data/hauling-screens";
 import {
   recommendationsForTruck,
   telemetryForTruck,
 } from "@/lib/hauling-telemetry";
+import {
+  buildHaulingVehicleRow,
+  type HaulingVehicleRow,
+} from "@/lib/hauling-vehicle-rows";
 
 // Map node id -> human-readable name so "Lokasi" reflects the unit's real node.
 const NODE_NAME_BY_ID = new Map(dispatchNodes.map((node) => [node.id, node.name]));
@@ -70,10 +69,7 @@ function formatEngineHours(hours: number | null | undefined): string {
 
 type HealthLevel = "Aman" | "Monitoring" | "Risiko Sedang" | "Risiko Tinggi";
 
-type VehicleRow = VehicleResponse & {
-  telemetry: TelemetryResponse | null;
-  recs: RecommendationResponse[];
-};
+type VehicleRow = HaulingVehicleRow;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -1573,20 +1569,19 @@ export function HaulingMaintenanceScreen({
       ]);
 
       const rows: VehicleRow[] = ccTrucksRef.current
-        .map((truck) => ({
-          id: truck.id,
-          name: truck.code,
-          type: "hauler",
-          capacityTon: truck.capacityTon,
-          status: truck.status,
-          healthScore: truck.healthScore,
-          currentNodeId: truck.currentNodeId,
-          lat: truck.position.lat,
-          lng: truck.position.lng,
-          telemetry: telemetryForTruck(telemetryRes, truck, ccAssignmentsRef.current),
-          recs: recommendationsForTruck(recsRes, truck.id)
-            .sort((a, b) => priorityOrder(a.priority) - priorityOrder(b.priority)),
-        }))
+        .map((truck) => {
+          const assignments = ccAssignmentsRef.current;
+          const assignment = assignments.find((item) => item.truckId === truck.id);
+          const telemetry = telemetryForTruck(telemetryRes, truck, assignments);
+          const recommendations = recommendationsForTruck(recsRes, truck.id)
+            .sort((a, b) => priorityOrder(a.priority) - priorityOrder(b.priority));
+          return buildHaulingVehicleRow({
+            truck,
+            telemetry,
+            recommendations,
+            assignment,
+          });
+        })
         .sort((a, b) => a.healthScore - b.healthScore);
 
       setVehicles(rows);
@@ -1599,7 +1594,6 @@ export function HaulingMaintenanceScreen({
   }, []);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchData();
     const interval = window.setInterval(fetchData, 5_000);
     return () => window.clearInterval(interval);
