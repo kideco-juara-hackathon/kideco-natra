@@ -236,6 +236,7 @@ export type TelemetryResponse = {
   oilPressureBar: number | null;
   vibrationLevel: number | null;
   fuelRateLph: number | null;
+  engineHour: number | null;
   healthScore: number;
   riskLevel: string;
   recommendations?: string[];
