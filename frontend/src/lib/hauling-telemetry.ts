@@ -45,6 +45,9 @@ export function buildSyntheticTelemetry(
     oilPressureBar,
     vibrationLevel,
     fuelRateLph: Number((baseFuelRate + healthPenalty * 0.14 + idNumber * 0.35).toFixed(1)),
+    // Mirrors the backend seed derivation (800h base, lower health = more hours) so
+    // "Jam Operasi" stays plausible when no real telemetry is available yet.
+    engineHour: Math.round(800 + healthPenalty * 20),
     healthScore: truck.healthScore,
     riskLevel: healthRisk(truck.healthScore),
     recommendations: [],
