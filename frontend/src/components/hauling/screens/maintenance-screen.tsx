@@ -51,10 +51,20 @@ import {
   type VehicleResponse,
 } from "@/lib/api";
 import { useCommandCenter } from "@/lib/command-center/use-command-center";
+import { dispatchNodes } from "@/data/hauling-screens";
 import {
   recommendationsForTruck,
   telemetryForTruck,
 } from "@/lib/hauling-telemetry";
+
+// Map node id -> human-readable name so "Lokasi" reflects the unit's real node.
+const NODE_NAME_BY_ID = new Map(dispatchNodes.map((node) => [node.id, node.name]));
+
+// Format engine hours (e.g. 1192.4 -> "1.192 jam") using Indonesian thousands.
+function formatEngineHours(hours: number | null | undefined): string {
+  if (hours == null) return "—";
+  return `${Math.round(hours).toLocaleString("id-ID")} jam`;
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -91,6 +101,19 @@ function deriveNextAction(v: VehicleRow): string {
 
 function priorityOrder(p: string): number {
   return p === "critical" ? 0 : p === "high" ? 1 : p === "medium" ? 2 : 3;
+}
+
+function priorityLabel(p: string): string {
+  if (p === "critical") return "Prioritas Kritis";
+  if (p === "high") return "Prioritas Tinggi";
+  if (p === "medium") return "Prioritas Sedang";
+  return "Prioritas Rendah";
+}
+
+function priorityBadgeClass(p: string): string {
+  if (p === "critical" || p === "high") return "bg-red-50 text-red-700 border-red-200";
+  if (p === "medium") return "bg-amber-50 text-amber-700 border-amber-200";
+  return "bg-muted text-muted-foreground border-border";
 }
 
 const n = (v: number | null, fallback = 0): number => v ?? fallback;
@@ -755,36 +778,6 @@ function generateSparklineData(centerValue: number, count = 15, variance = 3) {
   return result;
 }
 
-const getMockDetails = (id: string) => {
-  switch (id) {
-    case "DT-05":
-      return {
-        odometer: "15.932 km",
-        jamOperasi: "3.020 jam",
-        lokasi: "Pit 1 - Hauling Road",
-      };
-    case "DT-01":
-      return {
-        odometer: "12.450 km",
-        jamOperasi: "2.150 jam",
-        lokasi: "Pit 1 - Hauling Road",
-      };
-    case "DT-02":
-      return {
-        odometer: "14.890 km",
-        jamOperasi: "2.780 jam",
-        lokasi: "Pit 2 - Hauling Road",
-      };
-    default:
-      const lastDigit = parseInt(id.replace(/\D/g, "")) || 3;
-      return {
-        odometer: `${10 + lastDigit * 1.5}.342 km`,
-        jamOperasi: `${2 + lastDigit * 0.3}.150 jam`,
-        lokasi: `Pit ${(lastDigit % 3) + 1} - Hauling Road`,
-      };
-  }
-};
-
 const getFormattedTimestamp = (timestamp?: string) => {
   if (!timestamp) return "21 Mei 2025, 08:45 WIB";
   try {
@@ -812,8 +805,18 @@ function MaintenanceDetailScreen({
   const tone = healthTone(level);
   const t = vehicle.telemetry;
 
-  const mockData = getMockDetails(vehicle.id);
+  const lokasi = NODE_NAME_BY_ID.get(vehicle.currentNodeId ?? "") ?? vehicle.currentNodeId ?? "—";
+  const jamOperasi = formatEngineHours(t?.engineHour);
   const updateTime = getFormattedTimestamp(t?.timestamp);
+
+  // Client-only "mark for maintenance" acknowledgement (no backend endpoint yet).
+  const [maintenanceMarked, setMaintenanceMarked] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const markForMaintenance = () => {
+    setMaintenanceMarked(true);
+    setShowToast(true);
+    window.setTimeout(() => setShowToast(false), 2600);
+  };
 
   // Sparkline data generation
   const tempVal = t ? n(t.engineTempC) : 92;
@@ -911,6 +914,16 @@ function MaintenanceDetailScreen({
 
   return (
     <div className="space-y-4">
+      {/* Transient confirmation toast for "mark for maintenance" (client-only). */}
+      {showToast && (
+        <div className="fixed bottom-6 right-6 z-[1000] flex items-center gap-2.5 rounded-lg border border-[var(--success-600)]/30 bg-card px-4 py-3 shadow-lg animate-in fade-in slide-in-from-bottom-2">
+          <CheckCircle2 className="size-4 text-[var(--success-600)] shrink-0" />
+          <span className="text-xs font-semibold text-foreground">
+            {vehicle.id} ditandai untuk maintenance
+          </span>
+        </div>
+      )}
+
       {/* ─── Top Header Card ─── */}
       <Card className="rounded-xl shadow-sm border border-border p-5 bg-card">
         <div className="flex flex-col md:flex-row justify-between gap-6">
@@ -964,19 +977,13 @@ function MaintenanceDetailScreen({
                 {/* Column 3: Lokasi */}
                 <div className="flex flex-col">
                   <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Lokasi</span>
-                  <span className="text-[13px] font-extrabold text-foreground mt-1">{mockData.lokasi}</span>
+                  <span className="text-[13px] font-extrabold text-foreground mt-1">{lokasi}</span>
                 </div>
 
-                {/* Column 4: Odometer */}
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Odometer</span>
-                  <span className="text-[13px] font-extrabold text-foreground font-mono mt-1">{mockData.odometer}</span>
-                </div>
-
-                {/* Column 5: Jam Operasi */}
+                {/* Column 4: Jam Operasi */}
                 <div className="flex flex-col">
                   <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Jam Operasi</span>
-                  <span className="text-[13px] font-extrabold text-foreground font-mono mt-1">{mockData.jamOperasi}</span>
+                  <span className="text-[13px] font-extrabold text-foreground font-mono mt-1">{jamOperasi}</span>
                 </div>
               </div>
             </div>
@@ -985,9 +992,17 @@ function MaintenanceDetailScreen({
           {/* Right Block: Action Button + Status/Last Update stacked vertically */}
           <div className="flex flex-col items-start md:items-end justify-between gap-5 shrink-0 md:text-right min-w-[200px] self-stretch py-0.5 border-t md:border-t-0 pt-4 md:pt-0 border-border/50">
             {/* Button Tandai untuk Maintenance */}
-            <Button className="bg-[var(--danger-600)] hover:bg-[var(--danger-700)] text-white font-bold h-10 text-xs flex items-center gap-1.5 shadow-sm px-5 rounded-lg border-0">
-              Tandai untuk Maintenance
-              <Wrench className="size-4" />
+            <Button
+              onClick={markForMaintenance}
+              disabled={maintenanceMarked}
+              className={`font-bold h-10 text-xs flex items-center gap-1.5 shadow-sm px-5 rounded-lg border-0 text-white ${
+                maintenanceMarked
+                  ? "bg-[var(--success-600)] hover:bg-[var(--success-600)] cursor-default"
+                  : "bg-[var(--danger-600)] hover:bg-[var(--danger-700)]"
+              }`}
+            >
+              {maintenanceMarked ? "Ditandai untuk Maintenance" : "Tandai untuk Maintenance"}
+              {maintenanceMarked ? <CheckCircle2 className="size-4" /> : <Wrench className="size-4" />}
             </Button>
             
             {/* Status and Last Update stacked */}
@@ -1434,48 +1449,56 @@ function MaintenanceDetailScreen({
               <div className="pb-3 border-b border-border mb-3">
                 <span className="text-sm font-extrabold text-foreground">Rekomendasi Maintenance</span>
               </div>
-              
-              {/* Alert banner */}
-              <div className="flex gap-2.5 rounded-xl border border-amber-100 bg-amber-50/70 p-3 text-xs mb-4">
-                <AlertCircle className="size-4 text-amber-600 shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-bold text-amber-900">Inspeksi Segera Disarankan</p>
-                  <p className="text-amber-700 font-medium mt-0.5 leading-relaxed">
-                    Health score menurun dan suhu mesin mendekati ambang batas.
+
+              {/* Alert banner — only when there is a high/critical recommendation */}
+              {vehicle.recs.some((r) => r.priority === "critical" || r.priority === "high") && (
+                <div className="flex gap-2.5 rounded-xl border border-amber-100 bg-amber-50/70 p-3 text-xs mb-4">
+                  <AlertCircle className="size-4 text-amber-600 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-bold text-amber-900">Inspeksi Segera Disarankan</p>
+                    <p className="text-amber-700 font-medium mt-0.5 leading-relaxed">
+                      {vehicle.recs.find((r) => r.priority === "critical" || r.priority === "high")?.message ??
+                        "Terdapat rekomendasi prioritas tinggi untuk unit ini."}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Checklist — real recommendations for this unit */}
+              {vehicle.recs.length > 0 ? (
+                <div className="space-y-3">
+                  {vehicle.recs.slice(0, 4).map((rec) => (
+                    <div key={rec.id} className="flex items-start justify-between gap-3 text-xs p-1">
+                      <div className="flex gap-2.5">
+                        <div className="mt-1 flex items-center justify-center size-3.5 rounded-full border border-muted-foreground/35 bg-background text-[9px] shrink-0" />
+                        <div>
+                          <p className="font-bold text-foreground">{rec.title}</p>
+                          <p className="text-[10px] text-muted-foreground font-medium mt-0.5 leading-relaxed">
+                            {rec.recommendedAction || rec.message}
+                          </p>
+                        </div>
+                      </div>
+                      <span className={`text-[9.5px] font-bold px-1.5 py-0.5 rounded border shrink-0 ${priorityBadgeClass(rec.priority)}`}>
+                        {priorityLabel(rec.priority)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center gap-2 py-6 text-center">
+                  <CheckCircle2 className="size-6 text-[var(--success-600)]" />
+                  <p className="text-xs font-semibold text-muted-foreground">
+                    Tidak ada rekomendasi aktif untuk unit ini.
                   </p>
                 </div>
-              </div>
-
-              {/* Checklist */}
-              <div className="space-y-3">
-                {[
-                  { title: "Periksa Sistem Pendingin Mesin", desc: "Suhu mesin mendekati threshold kritis.", priority: "Prioritas Tinggi", tone: "danger" },
-                  { title: "Periksa Sistem Filter Udara", desc: "Penurunan performa dapat terjadi.", priority: "Prioritas Sedang", tone: "warning" },
-                  { title: "Cek Sistem Hidrolik bucket", desc: "Vibrasi meningkat, periksa kebocoran.", priority: "Prioritas Sedang", tone: "warning" }
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-start justify-between gap-3 text-xs p-1">
-                    <div className="flex gap-2.5">
-                      <div className="mt-1 flex items-center justify-center size-3.5 rounded-full border border-muted-foreground/35 bg-background text-[9px] shrink-0" />
-                      <div>
-                        <p className="font-bold text-foreground">{item.title}</p>
-                        <p className="text-[10px] text-muted-foreground font-medium mt-0.5 leading-relaxed">{item.desc}</p>
-                      </div>
-                    </div>
-                    <span className={`text-[9.5px] font-bold px-1.5 py-0.5 rounded border shrink-0 ${
-                      item.tone === "danger"
-                        ? "bg-red-50 text-red-700 border-red-200"
-                        : "bg-amber-50 text-amber-700 border-amber-200"
-                    }`}>
-                      {item.priority}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              )}
             </div>
 
-            <button className="w-full flex items-center justify-center py-2.5 border border-border rounded-lg text-xs font-bold text-muted-foreground hover:bg-muted/30 hover:text-foreground mt-4 transition-colors">
-              Lihat Semua Rekomendasi (5)
-            </button>
+            {vehicle.recs.length > 0 && (
+              <button className="w-full flex items-center justify-center py-2.5 border border-border rounded-lg text-xs font-bold text-muted-foreground hover:bg-muted/30 hover:text-foreground mt-4 transition-colors">
+                Lihat Semua Rekomendasi ({vehicle.recs.length})
+              </button>
+            )}
           </Card>
 
           {/* Card: Riwayat Inspeksi Terakhir */}
