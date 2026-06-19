@@ -152,6 +152,7 @@ def ingest_telemetry(db: Session, asset: Asset, payload: TelemetryEvent) -> Tele
         oilPressureBar=record.oil_pressure_bar,
         vibrationLevel=record.vibration_g,
         fuelRateLph=record.fuel_flow_rate,
+        engineHour=record.engine_hour,
         healthScore=health_score,
         riskLevel=risk_level,
         recommendations=recommendations,
