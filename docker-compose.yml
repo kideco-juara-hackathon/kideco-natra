@@ -76,14 +76,8 @@ services:
       FUEL_PRICE_PER_LITER: ${FUEL_PRICE_PER_LITER:-15000}
       DEFAULT_LOADING_TIME_SECONDS: ${DEFAULT_LOADING_TIME_SECONDS:-420}
       DEFAULT_ETA_THRESHOLD_SECONDS: ${DEFAULT_ETA_THRESHOLD_SECONDS:-600}
-      ML_ETA_DIR: /ml_models/eta
-      ML_FUEL_DIR: /ml_models/fuel
-      ML_MAINTENANCE_DIR: /ml_models/maintenance
     volumes:
       - ./data:/data:ro
-      - ../kideco-ml-eta/results:/ml_models/eta:ro
-      - ../kideco-ml-fuel/results:/ml_models/fuel:ro
-      - ../kideco-ml-maintenance/results:/ml_models/maintenance:ro
     ports:
       - '127.0.0.1:${BACKEND_PORT:-8001}:8000'
     networks:
