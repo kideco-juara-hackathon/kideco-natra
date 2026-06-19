@@ -62,6 +62,7 @@ services:
       retries: 10
 
   backend:
+    # image: user312982/kideco:backend
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -95,11 +96,12 @@ services:
     restart: unless-stopped
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8001}
+    image: user312982/kideco:frontend
+    # build:
+    #   context: ./frontend
+    #   dockerfile: Dockerfile
+    #   args:
+    #     NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8001}
     container_name: kideco-frontend
     mem_limit: 512m
     ports:
@@ -107,9 +109,6 @@ services:
     networks:
       - default
       - caddy_network
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     environment:
       - NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8001}
     depends_on:
@@ -117,9 +116,10 @@ services:
     restart: unless-stopped
 
   simulator:
-    build:
-      context: ./simulator
-      dockerfile: Dockerfile
+    image: user312982/kideco:simulator
+    # build:
+    #   context: ./simulator
+    #   dockerfile: Dockerfile
     container_name: kideco-simulator
     depends_on:
       - backend
