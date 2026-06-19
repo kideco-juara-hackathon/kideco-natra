@@ -287,6 +287,7 @@ def latest_telemetry(
             oilPressureBar=record.oil_pressure_bar,
             vibrationLevel=record.vibration_g,
             fuelRateLph=record.fuel_flow_rate,
+            engineHour=record.engine_hour,
             healthScore=health_score,
             riskLevel=risk_level,
         )
@@ -318,6 +319,7 @@ def telemetry_history(asset_id: str, limit: int = 50, db: Session = Depends(get_
                 oilPressureBar=record.oil_pressure_bar,
                 vibrationLevel=record.vibration_g,
                 fuelRateLph=record.fuel_flow_rate,
+                engineHour=record.engine_hour,
                 healthScore=health_score,
                 riskLevel=risk_level,
             )
