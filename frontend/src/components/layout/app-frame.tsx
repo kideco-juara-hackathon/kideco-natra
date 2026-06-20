@@ -175,7 +175,7 @@ function Sidebar({
         >
           <Image
             alt="NATRA"
-            className={cn("h-auto", collapsed ? "w-[56px]" : "w-[172px]")}
+            className={cn("h-auto dark:invert dark:hue-rotate-180", collapsed ? "w-[56px]" : "w-[172px]")}
             height={48}
             priority
             src="/natralogo.png"

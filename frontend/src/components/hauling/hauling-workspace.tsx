@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Gauge, Route, Truck, Wrench } from "lucide-react";
 
 import { AppFrame, type SearchResult } from "@/components/layout/app-frame";
+import { BrandedLoader } from "@/components/layout/branded-loader";
 import {
   CommandCenterProvider,
   useCommandCenter,
@@ -273,7 +274,7 @@ function isMapScreen(activeKey: ScreenKey) {
 
 export function HaulingWorkspace() {
   return (
-    <Suspense fallback={<div className="grid min-h-screen place-items-center">Memuat...</div>}>
+    <Suspense fallback={<BrandedLoader />}>
       <HaulingWorkspaceContent />
     </Suspense>
   );
