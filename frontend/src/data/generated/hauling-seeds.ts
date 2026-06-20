@@ -2,25 +2,25 @@
 // Do not edit manually; update the processing script or source CSV instead.
 
 export const haulingSeedMetadata = {
-  "source": "Data Road Segmen.xlsx - Front Utara - Fase 7.csv",
+  "source": "demo-dataset.csv",
   "generatedFromRows": 67664,
   "uniqueSourceWaypoints": 317,
   "uniqueHaulers": 106,
   "selectedHaulers": [
-    "CO4544",
-    "CO4587",
-    "CO4602",
-    "CO4440",
-    "CO4583"
+    "HU-001",
+    "HU-002",
+    "HU-003",
+    "HU-004",
+    "HU-005"
   ],
   "selectedLoaders": [
-    "CE6155",
-    "CE5255",
-    "CE6170",
-    "CE5242"
+    "LDR-01",
+    "LDR-02",
+    "LDR-03",
+    "LDR-04"
   ],
-  "dominantDisposalSink": "OPD_SP20",
-  "note": "MVP seed uses dataset-derived metrics with rebased/simulated visual coordinates around the KIDECO demo map."
+  "dominantDisposalSink": "SP-01",
+  "note": "MVP seed uses dataset-derived metrics with rebased/simulated visual coordinates around the demo map."
 } as const;
 
 export const dispatchSeedNodes = [
@@ -34,59 +34,59 @@ export const dispatchSeedNodes = [
     "sourceWaypointId": "Begin.Travelling.Empty"
   },
   {
-    "id": "CP-JOGJA-1400",
-    "code": "JOGJA-1400",
-    "name": "Jogja STA 1400",
+    "id": "CP-A-1400",
+    "code": "A-1400",
+    "name": "Road Alpha STA 1400",
     "type": "checkpoint",
     "visualLat": -1.8692,
     "visualLng": 115.8762,
-    "sourceWaypointId": "Jl_Jogja_STA1400"
+    "sourceWaypointId": "RD-A-STA1400"
   },
   {
-    "id": "CP-JOGJA-1100",
-    "code": "JOGJA-1100",
-    "name": "Jogja STA 1100",
+    "id": "CP-A-1100",
+    "code": "A-1100",
+    "name": "Road Alpha STA 1100",
     "type": "checkpoint",
     "visualLat": -1.8741,
     "visualLng": 115.8792,
-    "sourceWaypointId": "Jl_Jogja_STA1100"
+    "sourceWaypointId": "RD-A-STA1100"
   },
   {
-    "id": "CP-JOGJA-1000",
-    "code": "JOGJA-1000",
-    "name": "Jogja STA 1000",
+    "id": "CP-A-1000",
+    "code": "A-1000",
+    "name": "Road Alpha STA 1000",
     "type": "checkpoint",
     "visualLat": -1.8801,
     "visualLng": 115.8804,
-    "sourceWaypointId": "Jl_Jogja_STA1000"
+    "sourceWaypointId": "RD-A-STA1000"
   },
   {
-    "id": "CP-JOGJA-900",
-    "code": "JOGJA-900",
-    "name": "Jogja STA 900",
+    "id": "CP-A-900",
+    "code": "A-900",
+    "name": "Road Alpha STA 900",
     "type": "checkpoint",
     "visualLat": -1.8836,
     "visualLng": 115.8762,
-    "sourceWaypointId": "Jl_Jogja_STA900"
+    "sourceWaypointId": "RD-A-STA900"
   },
   {
-    "id": "CP-JOGJA-800",
-    "code": "JOGJA-800",
-    "name": "Jogja STA 800",
+    "id": "CP-A-800",
+    "code": "A-800",
+    "name": "Road Alpha STA 800",
     "type": "checkpoint",
     "visualLat": -1.8848,
     "visualLng": 115.8706,
-    "sourceWaypointId": "Jl_Jogja_STA800"
+    "sourceWaypointId": "RD-A-STA800"
   },
   {
     "id": "PIT-A",
     "code": "PIT-A",
-    "name": "Pit A - CE6155 Front",
+    "name": "Pit Alpha",
     "type": "pit",
     "visualLat": -1.8912,
     "visualLng": 115.8587,
-    "sourceWaypointId": "SRC_CE6155",
-    "sourceLoaderId": "CE6155"
+    "sourceWaypointId": "SRC-PIT-A",
+    "sourceLoaderId": "LDR-01"
   },
   {
     "id": "LP-A1",
@@ -95,36 +95,36 @@ export const dispatchSeedNodes = [
     "type": "loading_point",
     "visualLat": -1.8958,
     "visualLng": 115.8580,
-    "sourceWaypointId": "SRC_CE6155",
-    "sourceLoaderId": "CE6155"
+    "sourceWaypointId": "SRC-PIT-A",
+    "sourceLoaderId": "LDR-01"
   },
   {
-    "id": "CP-KB4-200",
-    "code": "KB4-200",
-    "name": "KB4 Front STA 200",
+    "id": "CP-B-200",
+    "code": "B-200",
+    "name": "Road Bravo STA 200",
     "type": "checkpoint",
     "visualLat": -1.8924,
     "visualLng": 115.8735,
-    "sourceWaypointId": "Akses_Front_Jl_KB4_STA200"
+    "sourceWaypointId": "RD-B-STA200"
   },
   {
-    "id": "CP-KB4-400",
-    "code": "KB4-400",
-    "name": "KB4 Front STA 400",
+    "id": "CP-B-400",
+    "code": "B-400",
+    "name": "Road Bravo STA 400",
     "type": "checkpoint",
     "visualLat": -1.8990,
     "visualLng": 115.8719,
-    "sourceWaypointId": "Akses_Front_Jl_KB4_STA_400"
+    "sourceWaypointId": "RD-B-STA400"
   },
   {
     "id": "PIT-B",
     "code": "PIT-B",
-    "name": "Pit B - CE5255 Front",
+    "name": "Pit Bravo",
     "type": "pit",
     "visualLat": -1.9025,
     "visualLng": 115.8723,
-    "sourceWaypointId": "SRC_CE5255",
-    "sourceLoaderId": "CE5255"
+    "sourceWaypointId": "SRC-PIT-B",
+    "sourceLoaderId": "LDR-02"
   },
   {
     "id": "LP-B1",
@@ -133,27 +133,27 @@ export const dispatchSeedNodes = [
     "type": "loading_point",
     "visualLat": -1.9054,
     "visualLng": 115.8754,
-    "sourceWaypointId": "SRC_CE5255",
-    "sourceLoaderId": "CE5255"
+    "sourceWaypointId": "SRC-PIT-B",
+    "sourceLoaderId": "LDR-02"
   },
   {
-    "id": "CP-KB4-700",
-    "code": "KB4-700",
-    "name": "KB4 Front STA 700",
+    "id": "CP-B-700",
+    "code": "B-700",
+    "name": "Road Bravo STA 700",
     "type": "checkpoint",
     "visualLat": -1.8912,
     "visualLng": 115.8796,
-    "sourceWaypointId": "Akses_Front_Jl_KB4_STA700"
+    "sourceWaypointId": "RD-B-STA700"
   },
   {
     "id": "PIT-C",
     "code": "PIT-C",
-    "name": "Pit C - CE6170 Front",
+    "name": "Pit Charlie",
     "type": "pit",
     "visualLat": -1.8893,
     "visualLng": 115.8822,
-    "sourceWaypointId": "SRC_CE6170",
-    "sourceLoaderId": "CE6170"
+    "sourceWaypointId": "SRC-PIT-C",
+    "sourceLoaderId": "LDR-03"
   },
   {
     "id": "LP-C1",
@@ -162,106 +162,106 @@ export const dispatchSeedNodes = [
     "type": "loading_point",
     "visualLat": -1.8879,
     "visualLng": 115.8854,
-    "sourceWaypointId": "SRC_CE6170",
-    "sourceLoaderId": "CE6170"
+    "sourceWaypointId": "SRC-PIT-C",
+    "sourceLoaderId": "LDR-03"
   },
   {
-    "id": "CP-PELAIHARI-800",
-    "code": "PELAIHARI-800",
-    "name": "Pelaihari STA 800",
+    "id": "CP-C-800",
+    "code": "C-800",
+    "name": "Road Charlie STA 800",
     "type": "checkpoint",
     "visualLat": -1.8974,
     "visualLng": 115.8906,
-    "sourceWaypointId": "Jl_Pelaihari_STA800"
+    "sourceWaypointId": "RD-C-STA800"
   },
   {
-    "id": "CP-PELAIHARI-600",
-    "code": "PELAIHARI-600",
-    "name": "Pelaihari STA 600",
+    "id": "CP-C-600",
+    "code": "C-600",
+    "name": "Road Charlie STA 600",
     "type": "checkpoint",
     "visualLat": -1.8921,
     "visualLng": 115.8942,
-    "sourceWaypointId": "Jl_Pelaihari_STA600"
+    "sourceWaypointId": "RD-C-STA600"
   },
   {
-    "id": "CP-PELAIHARI-500",
-    "code": "PELAIHARI-500",
-    "name": "Pelaihari STA 500",
+    "id": "CP-C-500",
+    "code": "C-500",
+    "name": "Road Charlie STA 500",
     "type": "checkpoint",
     "visualLat": -1.8862,
     "visualLng": 115.8978,
-    "sourceWaypointId": "Jl_Pelaihari_STA500"
+    "sourceWaypointId": "RD-C-STA500"
   },
   {
-    "id": "CP-PELAIHARI-400",
-    "code": "PELAIHARI-400",
-    "name": "Pelaihari STA 400",
+    "id": "CP-C-400",
+    "code": "C-400",
+    "name": "Road Charlie STA 400",
     "type": "checkpoint",
     "visualLat": -1.8803,
     "visualLng": 115.9014,
-    "sourceWaypointId": "Jl_Pelaihari_STA400"
+    "sourceWaypointId": "RD-C-STA400"
   },
   {
-    "id": "CP-BARCELONA",
-    "code": "BARCELONA",
-    "name": "Simpang Barcelona",
+    "id": "CP-JCT-01",
+    "code": "JCT-01",
+    "name": "Junction Delta",
     "type": "checkpoint",
     "visualLat": -1.8743,
     "visualLng": 115.9050,
-    "sourceWaypointId": "Jl_Simpang_Barcelona"
+    "sourceWaypointId": "RD-JCT-01"
   },
   {
-    "id": "CP-OPK-0",
-    "code": "OPK-0",
-    "name": "OPK STA 0",
+    "id": "CP-D-0",
+    "code": "D-0",
+    "name": "Road Echo STA 0",
     "type": "checkpoint",
     "visualLat": -1.8682,
     "visualLng": 115.9086,
-    "sourceWaypointId": "Jl_OPK_STA0"
+    "sourceWaypointId": "RD-D-STA0"
   },
   {
-    "id": "CP-OPK-100",
-    "code": "OPK-100",
-    "name": "OPK STA 100",
+    "id": "CP-D-100",
+    "code": "D-100",
+    "name": "Road Echo STA 100",
     "type": "checkpoint",
     "visualLat": -1.8618,
     "visualLng": 115.9122,
-    "sourceWaypointId": "Jl_OPK_STA100"
+    "sourceWaypointId": "RD-D-STA100"
   },
   {
-    "id": "CP-DISP-300",
-    "code": "DISP-300",
-    "name": "Disposal Access STA 300",
+    "id": "CP-E-300",
+    "code": "E-300",
+    "name": "Road Foxtrot STA 300",
     "type": "checkpoint",
     "visualLat": -1.8557,
     "visualLng": 115.9158,
-    "sourceWaypointId": "Akses_Disposal_Jl_OPK_STA300"
+    "sourceWaypointId": "RD-E-STA300"
   },
   {
-    "id": "CP-DISP-500",
-    "code": "DISP-500",
-    "name": "Disposal Access STA 500",
+    "id": "CP-E-500",
+    "code": "E-500",
+    "name": "Road Foxtrot STA 500",
     "type": "checkpoint",
     "visualLat": -1.8497,
     "visualLng": 115.9194,
-    "sourceWaypointId": "Akses_Disposal_Jl_OPK_STA500"
+    "sourceWaypointId": "RD-E-STA500"
   },
   {
     "id": "STOCKPILE-01",
     "code": "STOCKPILE-01",
-    "name": "OPD SP20 / Stockpile",
+    "name": "Stockpile SP-01",
     "type": "dump_point",
     "visualLat": -1.8438,
     "visualLng": 115.9230,
-    "sourceWaypointId": "OPD_SP20"
+    "sourceWaypointId": "SP-01"
   }
 ] as const;
 
 export const dispatchSeedEdges = [
   {
-    "id": "E-DISPATCH-JOGJA1400",
+    "id": "E-DISPATCH-A1400",
     "fromNodeId": "DISPATCH-01",
-    "toNodeId": "CP-JOGJA-1400",
+    "toNodeId": "CP-A-1400",
     "type": "empty_haul",
     "distanceMeter": 109,
     "avgSpeedKmh": 16.0,
@@ -270,16 +270,15 @@ export const dispatchSeedEdges = [
     "sampleCount": 842,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-DISPATCH-JOGJA1400",
+    "sourceSegmentId": "DATASET-E-DISPATCH-A1400",
     "sourceEdges": [
-      "Begin.Travelling.Empty->Supply_Pelaihari",
-      "Supply_Pelaihari->Jl_Jogja_STA1400"
+      "Begin.Travelling.Empty->RD-A-STA1400"
     ]
   },
   {
-    "id": "E-JOGJA1400-JOGJA1100",
-    "fromNodeId": "CP-JOGJA-1400",
-    "toNodeId": "CP-JOGJA-1100",
+    "id": "E-A1400-A1100",
+    "fromNodeId": "CP-A-1400",
+    "toNodeId": "CP-A-1100",
     "type": "empty_haul",
     "distanceMeter": 356,
     "avgSpeedKmh": 37.3,
@@ -288,17 +287,15 @@ export const dispatchSeedEdges = [
     "sampleCount": 2041,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-JOGJA1400-JOGJA1100",
+    "sourceSegmentId": "DATASET-E-A1400-A1100",
     "sourceEdges": [
-      "Jl_Jogja_STA1400->Supply_Pelaihari",
-      "Supply_Pelaihari->Jl_Simpang_Bayern_Munich",
-      "Jl_Simpang_Bayern_Munich->Jl_Jogja_STA1100"
+      "RD-A-STA1400->RD-A-STA1100"
     ]
   },
   {
-    "id": "E-JOGJA1100-JOGJA1000",
-    "fromNodeId": "CP-JOGJA-1100",
-    "toNodeId": "CP-JOGJA-1000",
+    "id": "E-A1100-A1000",
+    "fromNodeId": "CP-A-1100",
+    "toNodeId": "CP-A-1000",
     "type": "empty_haul",
     "distanceMeter": 193,
     "avgSpeedKmh": 41.5,
@@ -307,15 +304,15 @@ export const dispatchSeedEdges = [
     "sampleCount": 780,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-JOGJA1100-JOGJA1000",
+    "sourceSegmentId": "DATASET-E-A1100-A1000",
     "sourceEdges": [
-      "Jl_Jogja_STA1100->Jl_Jogja_STA1000"
+      "RD-A-STA1100->RD-A-STA1000"
     ]
   },
   {
-    "id": "E-JOGJA1000-JOGJA900",
-    "fromNodeId": "CP-JOGJA-1000",
-    "toNodeId": "CP-JOGJA-900",
+    "id": "E-A1000-A900",
+    "fromNodeId": "CP-A-1000",
+    "toNodeId": "CP-A-900",
     "type": "empty_haul",
     "distanceMeter": 179,
     "avgSpeedKmh": 41.3,
@@ -324,15 +321,15 @@ export const dispatchSeedEdges = [
     "sampleCount": 719,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-JOGJA1000-JOGJA900",
+    "sourceSegmentId": "DATASET-E-A1000-A900",
     "sourceEdges": [
-      "Jl_Jogja_STA1000->Jl_Jogja_STA900"
+      "RD-A-STA1000->RD-A-STA900"
     ]
   },
   {
-    "id": "E-JOGJA900-JOGJA800",
-    "fromNodeId": "CP-JOGJA-900",
-    "toNodeId": "CP-JOGJA-800",
+    "id": "E-A900-A800",
+    "fromNodeId": "CP-A-900",
+    "toNodeId": "CP-A-800",
     "type": "empty_haul",
     "distanceMeter": 283,
     "avgSpeedKmh": 37.7,
@@ -341,14 +338,14 @@ export const dispatchSeedEdges = [
     "sampleCount": 736,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-JOGJA900-JOGJA800",
+    "sourceSegmentId": "DATASET-E-A900-A800",
     "sourceEdges": [
-      "Jl_Jogja_STA900->Jl_Jogja_STA800"
+      "RD-A-STA900->RD-A-STA800"
     ]
   },
   {
-    "id": "E-JOGJA800-PITA",
-    "fromNodeId": "CP-JOGJA-800",
+    "id": "E-A800-PITA",
+    "fromNodeId": "CP-A-800",
     "toNodeId": "PIT-A",
     "type": "empty_haul",
     "distanceMeter": 87,
@@ -358,9 +355,9 @@ export const dispatchSeedEdges = [
     "sampleCount": 172,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-JOGJA800-PITA",
+    "sourceSegmentId": "DATASET-E-A800-PITA",
     "sourceEdges": [
-      "Akses_Front_Jl_KB4_STA200->SRC_CE6155"
+      "RD-B-STA200->SRC-PIT-A"
     ]
   },
   {
@@ -377,13 +374,13 @@ export const dispatchSeedEdges = [
     "riskLevel": "medium",
     "sourceSegmentId": "DATASET-E-PITA-LPA1",
     "sourceEdges": [
-      "SRC_CE6155->Begin.Loading"
+      "SRC-PIT-A->Begin.Loading"
     ]
   },
   {
-    "id": "E-JOGJA800-KB4200",
-    "fromNodeId": "CP-JOGJA-800",
-    "toNodeId": "CP-KB4-200",
+    "id": "E-A800-B200",
+    "fromNodeId": "CP-A-800",
+    "toNodeId": "CP-B-200",
     "type": "empty_haul",
     "distanceMeter": 579,
     "avgSpeedKmh": 29.9,
@@ -392,16 +389,16 @@ export const dispatchSeedEdges = [
     "sampleCount": 1216,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-JOGJA800-KB4200",
+    "sourceSegmentId": "DATASET-E-A800-B200",
     "sourceEdges": [
-      "Jl_Jogja_STA800->Jl_KB4_New_STA0",
-      "Jl_KB4_New_STA0->Jl_KB4_New_STA100"
+      "RD-A-STA800->RD-B-STA0",
+      "RD-B-STA0->RD-B-STA100"
     ]
   },
   {
-    "id": "E-KB4200-KB4400",
-    "fromNodeId": "CP-KB4-200",
-    "toNodeId": "CP-KB4-400",
+    "id": "E-B200-B400",
+    "fromNodeId": "CP-B-200",
+    "toNodeId": "CP-B-400",
     "type": "connector",
     "distanceMeter": 104,
     "avgSpeedKmh": 22.5,
@@ -410,14 +407,14 @@ export const dispatchSeedEdges = [
     "sampleCount": 181,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-KB4200-KB4400",
+    "sourceSegmentId": "DATASET-E-B200-B400",
     "sourceEdges": [
-      "Akses_Front_Jl_KB4_STA200->Akses_Front_Jl_KB4_STA_400"
+      "RD-B-STA200->RD-B-STA400"
     ]
   },
   {
-    "id": "E-KB4400-PITB",
-    "fromNodeId": "CP-KB4-400",
+    "id": "E-B400-PITB",
+    "fromNodeId": "CP-B-400",
     "toNodeId": "PIT-B",
     "type": "empty_haul",
     "distanceMeter": 60,
@@ -427,9 +424,9 @@ export const dispatchSeedEdges = [
     "sampleCount": 235,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-KB4400-PITB",
+    "sourceSegmentId": "DATASET-E-B400-PITB",
     "sourceEdges": [
-      "Akses_Front_Jl_KB4_STA_400->SRC_CE5255"
+      "RD-B-STA400->SRC-PIT-B"
     ]
   },
   {
@@ -446,13 +443,13 @@ export const dispatchSeedEdges = [
     "riskLevel": "medium",
     "sourceSegmentId": "DATASET-E-PITB-LPB1",
     "sourceEdges": [
-      "SRC_CE5255->Begin.Loading"
+      "SRC-PIT-B->Begin.Loading"
     ]
   },
   {
-    "id": "E-KB4200-KB4700",
-    "fromNodeId": "CP-KB4-200",
-    "toNodeId": "CP-KB4-700",
+    "id": "E-B200-B700",
+    "fromNodeId": "CP-B-200",
+    "toNodeId": "CP-B-700",
     "type": "empty_haul",
     "distanceMeter": 133,
     "avgSpeedKmh": 25.0,
@@ -461,14 +458,14 @@ export const dispatchSeedEdges = [
     "sampleCount": 3887,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-KB4200-KB4700",
+    "sourceSegmentId": "DATASET-E-B200-B700",
     "sourceEdges": [
-      "fallback:Akses_Front_Jl_KB4_STA200->Akses_Front_Jl_KB4_STA700"
+      "fallback:RD-B-STA200->RD-B-STA700"
     ]
   },
   {
-    "id": "E-KB4700-PITC",
-    "fromNodeId": "CP-KB4-700",
+    "id": "E-B700-PITC",
+    "fromNodeId": "CP-B-700",
     "toNodeId": "PIT-C",
     "type": "empty_haul",
     "distanceMeter": 196,
@@ -478,10 +475,10 @@ export const dispatchSeedEdges = [
     "sampleCount": 368,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-KB4700-PITC",
+    "sourceSegmentId": "DATASET-E-B700-PITC",
     "sourceEdges": [
-      "Akses_Front_Jl_KB4_STA700->Akses_Front_Jl_Sudan_STA200",
-      "Akses_Front_Jl_Sudan_STA200->SRC_CE6170"
+      "RD-B-STA700->RD-C-ACCESS-200",
+      "RD-C-ACCESS-200->SRC-PIT-C"
     ]
   },
   {
@@ -498,13 +495,13 @@ export const dispatchSeedEdges = [
     "riskLevel": "medium",
     "sourceSegmentId": "DATASET-E-PITC-LPC1",
     "sourceEdges": [
-      "SRC_CE6170->Begin.Loading"
+      "SRC-PIT-C->Begin.Loading"
     ]
   },
   {
-    "id": "E-LPA1-PELAIHARI800",
+    "id": "E-LPA1-C800",
     "fromNodeId": "LP-A1",
-    "toNodeId": "CP-PELAIHARI-800",
+    "toNodeId": "CP-C-800",
     "type": "loaded_haul",
     "distanceMeter": 193,
     "avgSpeedKmh": 23.6,
@@ -513,16 +510,16 @@ export const dispatchSeedEdges = [
     "sampleCount": 1153,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-LPA1-PELAIHARI800",
+    "sourceSegmentId": "DATASET-E-LPA1-C800",
     "sourceEdges": [
       "Begin.Loading->Begin.Travelling.Full",
-      "Jl_Jogja_STA1400->Jl_Pelaihari_STA800"
+      "RD-A-STA1400->RD-C-STA800"
     ]
   },
   {
-    "id": "E-LPB1-PELAIHARI800",
+    "id": "E-LPB1-C800",
     "fromNodeId": "LP-B1",
-    "toNodeId": "CP-PELAIHARI-800",
+    "toNodeId": "CP-C-800",
     "type": "loaded_haul",
     "distanceMeter": 260,
     "avgSpeedKmh": 18.7,
@@ -531,16 +528,16 @@ export const dispatchSeedEdges = [
     "sampleCount": 1164,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-LPB1-PELAIHARI800",
+    "sourceSegmentId": "DATASET-E-LPB1-C800",
     "sourceEdges": [
-      "Begin.Loading->SRC_CE5255",
-      "Jl_Jogja_STA1400->Jl_Pelaihari_STA800"
+      "Begin.Loading->SRC-PIT-B",
+      "RD-A-STA1400->RD-C-STA800"
     ]
   },
   {
-    "id": "E-LPC1-PELAIHARI800",
+    "id": "E-LPC1-C800",
     "fromNodeId": "LP-C1",
-    "toNodeId": "CP-PELAIHARI-800",
+    "toNodeId": "CP-C-800",
     "type": "loaded_haul",
     "distanceMeter": 246,
     "avgSpeedKmh": 19.6,
@@ -549,16 +546,16 @@ export const dispatchSeedEdges = [
     "sampleCount": 1061,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-LPC1-PELAIHARI800",
+    "sourceSegmentId": "DATASET-E-LPC1-C800",
     "sourceEdges": [
-      "Begin.Loading->SRC_CE6170",
-      "Jl_Jogja_STA1400->Jl_Pelaihari_STA800"
+      "Begin.Loading->SRC-PIT-C",
+      "RD-A-STA1400->RD-C-STA800"
     ]
   },
   {
-    "id": "E-PELAIHARI800-600",
-    "fromNodeId": "CP-PELAIHARI-800",
-    "toNodeId": "CP-PELAIHARI-600",
+    "id": "E-C800-C600",
+    "fromNodeId": "CP-C-800",
+    "toNodeId": "CP-C-600",
     "type": "loaded_haul",
     "distanceMeter": 142,
     "avgSpeedKmh": 25.8,
@@ -567,15 +564,15 @@ export const dispatchSeedEdges = [
     "sampleCount": 976,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-PELAIHARI800-600",
+    "sourceSegmentId": "DATASET-E-C800-C600",
     "sourceEdges": [
-      "Jl_Pelaihari_STA800->Jl_Pelaihari_STA600"
+      "RD-C-STA800->RD-C-STA600"
     ]
   },
   {
-    "id": "E-PELAIHARI600-500",
-    "fromNodeId": "CP-PELAIHARI-600",
-    "toNodeId": "CP-PELAIHARI-500",
+    "id": "E-C600-C500",
+    "fromNodeId": "CP-C-600",
+    "toNodeId": "CP-C-500",
     "type": "loaded_haul",
     "distanceMeter": 120,
     "avgSpeedKmh": 26.4,
@@ -584,15 +581,15 @@ export const dispatchSeedEdges = [
     "sampleCount": 1021,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-PELAIHARI600-500",
+    "sourceSegmentId": "DATASET-E-C600-C500",
     "sourceEdges": [
-      "Jl_Pelaihari_STA600->Jl_Pelaihari_STA500"
+      "RD-C-STA600->RD-C-STA500"
     ]
   },
   {
-    "id": "E-PELAIHARI500-400",
-    "fromNodeId": "CP-PELAIHARI-500",
-    "toNodeId": "CP-PELAIHARI-400",
+    "id": "E-C500-C400",
+    "fromNodeId": "CP-C-500",
+    "toNodeId": "CP-C-400",
     "type": "loaded_haul",
     "distanceMeter": 172,
     "avgSpeedKmh": 33.0,
@@ -601,15 +598,15 @@ export const dispatchSeedEdges = [
     "sampleCount": 1023,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-PELAIHARI500-400",
+    "sourceSegmentId": "DATASET-E-C500-C400",
     "sourceEdges": [
-      "Jl_Pelaihari_STA500->Jl_Pelaihari_STA400"
+      "RD-C-STA500->RD-C-STA400"
     ]
   },
   {
-    "id": "E-PELAIHARI400-BARCELONA",
-    "fromNodeId": "CP-PELAIHARI-400",
-    "toNodeId": "CP-BARCELONA",
+    "id": "E-C400-JCT01",
+    "fromNodeId": "CP-C-400",
+    "toNodeId": "CP-JCT-01",
     "type": "loaded_haul",
     "distanceMeter": 156,
     "avgSpeedKmh": 30.2,
@@ -618,15 +615,15 @@ export const dispatchSeedEdges = [
     "sampleCount": 922,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-PELAIHARI400-BARCELONA",
+    "sourceSegmentId": "DATASET-E-C400-JCT01",
     "sourceEdges": [
-      "Jl_Pelaihari_STA400->Jl_Simpang_Barcelona"
+      "RD-C-STA400->RD-JCT-01"
     ]
   },
   {
-    "id": "E-BARCELONA-OPK0",
-    "fromNodeId": "CP-BARCELONA",
-    "toNodeId": "CP-OPK-0",
+    "id": "E-JCT01-D0",
+    "fromNodeId": "CP-JCT-01",
+    "toNodeId": "CP-D-0",
     "type": "loaded_haul",
     "distanceMeter": 392,
     "avgSpeedKmh": 32.3,
@@ -635,16 +632,16 @@ export const dispatchSeedEdges = [
     "sampleCount": 1947,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-BARCELONA-OPK0",
+    "sourceSegmentId": "DATASET-E-JCT01-D0",
     "sourceEdges": [
-      "Jl_Simpang_Barcelona->Jl_Pelaihari_STA100",
-      "Jl_Pelaihari_STA100->Jl_OPK_STA0"
+      "RD-JCT-01->RD-C-STA100",
+      "RD-C-STA100->RD-D-STA0"
     ]
   },
   {
-    "id": "E-OPK0-OPK100",
-    "fromNodeId": "CP-OPK-0",
-    "toNodeId": "CP-OPK-100",
+    "id": "E-D0-D100",
+    "fromNodeId": "CP-D-0",
+    "toNodeId": "CP-D-100",
     "type": "loaded_haul",
     "distanceMeter": 232,
     "avgSpeedKmh": 17.7,
@@ -653,15 +650,15 @@ export const dispatchSeedEdges = [
     "sampleCount": 926,
     "roadCondition": "good",
     "riskLevel": "low",
-    "sourceSegmentId": "DATASET-E-OPK0-OPK100",
+    "sourceSegmentId": "DATASET-E-D0-D100",
     "sourceEdges": [
-      "Jl_OPK_STA0->Jl_OPK_STA100"
+      "RD-D-STA0->RD-D-STA100"
     ]
   },
   {
-    "id": "E-OPK100-DISP300",
-    "fromNodeId": "CP-OPK-100",
-    "toNodeId": "CP-DISP-300",
+    "id": "E-D100-E300",
+    "fromNodeId": "CP-D-100",
+    "toNodeId": "CP-E-300",
     "type": "loaded_haul",
     "distanceMeter": 591,
     "avgSpeedKmh": 25.5,
@@ -670,17 +667,17 @@ export const dispatchSeedEdges = [
     "sampleCount": 2756,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-OPK100-DISP300",
+    "sourceSegmentId": "DATASET-E-D100-E300",
     "sourceEdges": [
-      "Jl_OPK_STA100->Akses_Disposal_Jl_OPK_STA100",
-      "Akses_Disposal_Jl_OPK_STA100->Akses_Disposal_Jl_OPK_STA200",
-      "Akses_Disposal_Jl_OPK_STA200->Akses_Disposal_Jl_OPK_STA300"
+      "RD-D-STA100->RD-E-STA100",
+      "RD-E-STA100->RD-E-STA200",
+      "RD-E-STA200->RD-E-STA300"
     ]
   },
   {
-    "id": "E-DISP300-DISP500",
-    "fromNodeId": "CP-DISP-300",
-    "toNodeId": "CP-DISP-500",
+    "id": "E-E300-E500",
+    "fromNodeId": "CP-E-300",
+    "toNodeId": "CP-E-500",
     "type": "loaded_haul",
     "distanceMeter": 339,
     "avgSpeedKmh": 27.6,
@@ -689,15 +686,15 @@ export const dispatchSeedEdges = [
     "sampleCount": 1024,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-DISP300-DISP500",
+    "sourceSegmentId": "DATASET-E-E300-E500",
     "sourceEdges": [
-      "Akses_Disposal_Jl_OPK_STA300->Akses_Disposal_Jl_OPK_STA400",
-      "Akses_Disposal_Jl_OPK_STA400->Akses_Disposal_Jl_OPK_STA500"
+      "RD-E-STA300->RD-E-STA400",
+      "RD-E-STA400->RD-E-STA500"
     ]
   },
   {
-    "id": "E-DISP500-STOCKPILE",
-    "fromNodeId": "CP-DISP-500",
+    "id": "E-E500-STOCKPILE",
+    "fromNodeId": "CP-E-500",
     "toNodeId": "STOCKPILE-01",
     "type": "loaded_haul",
     "distanceMeter": 170,
@@ -707,9 +704,9 @@ export const dispatchSeedEdges = [
     "sampleCount": 426,
     "roadCondition": "medium",
     "riskLevel": "medium",
-    "sourceSegmentId": "DATASET-E-DISP500-STOCKPILE",
+    "sourceSegmentId": "DATASET-E-E500-STOCKPILE",
     "sourceEdges": [
-      "Akses_Disposal_Jl_OPK_STA500->OPD_SP20"
+      "RD-E-STA500->SP-01"
     ]
   }
 ] as const;
@@ -718,7 +715,7 @@ export const truckSeeds = [
   {
     "id": "DT-01",
     "code": "DT-01",
-    "sourceHaulerId": "CO4544",
+    "sourceHaulerId": "HU-001",
     "capacityTon": 60,
     "currentPayloadTon": 0,
     "currentNodeId": "DISPATCH-01",
@@ -736,7 +733,7 @@ export const truckSeeds = [
   {
     "id": "DT-02",
     "code": "DT-02",
-    "sourceHaulerId": "CO4587",
+    "sourceHaulerId": "HU-002",
     "capacityTon": 80,
     "currentPayloadTon": 0,
     "currentNodeId": "DISPATCH-01",
@@ -754,7 +751,7 @@ export const truckSeeds = [
   {
     "id": "DT-03",
     "code": "DT-03",
-    "sourceHaulerId": "CO4602",
+    "sourceHaulerId": "HU-003",
     "capacityTon": 60,
     "currentPayloadTon": 60,
     "currentNodeId": "LP-A1",
@@ -772,7 +769,7 @@ export const truckSeeds = [
   {
     "id": "DT-04",
     "code": "DT-04",
-    "sourceHaulerId": "CO4440",
+    "sourceHaulerId": "HU-004",
     "capacityTon": 60,
     "currentPayloadTon": 60,
     "currentNodeId": "LP-B1",
@@ -790,7 +787,7 @@ export const truckSeeds = [
   {
     "id": "DT-05",
     "code": "DT-05",
-    "sourceHaulerId": "CO4583",
+    "sourceHaulerId": "HU-005",
     "capacityTon": 60,
     "currentPayloadTon": 60,
     "currentNodeId": "LP-C1",
@@ -813,9 +810,9 @@ export const loadingPointSeeds = [
     "nodeId": "LP-A1",
     "name": "Loading Point A1",
     "pitId": "PIT-A",
-    "pitName": "Pit A - CE6155 Front",
-    "sourceLoaderId": "CE6155",
-    "sourceWaypointId": "SRC_CE6155",
+    "pitName": "Pit Alpha",
+    "sourceLoaderId": "LDR-01",
+    "sourceWaypointId": "SRC-PIT-A",
     "availableCoalTon": 620,
     "queueCount": 1,
     "estimatedLoadingTimeMin": 8,
@@ -828,9 +825,9 @@ export const loadingPointSeeds = [
     "nodeId": "LP-B1",
     "name": "Loading Point B1",
     "pitId": "PIT-B",
-    "pitName": "Pit B - CE5255 Front",
-    "sourceLoaderId": "CE5255",
-    "sourceWaypointId": "SRC_CE5255",
+    "pitName": "Pit Bravo",
+    "sourceLoaderId": "LDR-02",
+    "sourceWaypointId": "SRC-PIT-B",
     "availableCoalTon": 520,
     "queueCount": 4,
     "estimatedLoadingTimeMin": 9,
@@ -843,9 +840,9 @@ export const loadingPointSeeds = [
     "nodeId": "LP-C1",
     "name": "Loading Point C1",
     "pitId": "PIT-C",
-    "pitName": "Pit C - CE6170 Front",
-    "sourceLoaderId": "CE6170",
-    "sourceWaypointId": "SRC_CE6170",
+    "pitName": "Pit Charlie",
+    "sourceLoaderId": "LDR-03",
+    "sourceWaypointId": "SRC-PIT-C",
     "availableCoalTon": 460,
     "queueCount": 0,
     "estimatedLoadingTimeMin": 7,
@@ -859,11 +856,11 @@ export const dumpPointSeeds = [
   {
     "id": "DUMP-STOCKPILE-01",
     "nodeId": "STOCKPILE-01",
-    "name": "OPD SP20 / Stockpile",
+    "name": "Stockpile SP-01",
     "type": "stockpile",
     "capacityTon": 2200,
     "currentStockTon": 980,
-    "sourceWaypointId": "OPD_SP20",
+    "sourceWaypointId": "SP-01",
     "status": "active"
   }
 ] as const;
@@ -873,31 +870,31 @@ export const routeScenarioSeeds = [
     "id": "OPTIMAL-A1",
     "label": "Rekomendasi Optimal",
     "loadingPointId": "LP-A1",
-    "reason": "Loader paling stabil, sample historis terbesar, dan rute loaded menuju OPD SP20 paling konsisten.",
+    "reason": "Loader paling stabil, sample historis terbesar, dan rute loaded menuju stockpile paling konsisten.",
     "queuePenalty": 1,
     "riskPenalty": 2,
     "underloadPenalty": 0,
     "emptyRouteNodes": [
       "DISPATCH-01",
-      "CP-JOGJA-1400",
-      "CP-JOGJA-1100",
-      "CP-JOGJA-1000",
-      "CP-JOGJA-900",
-      "CP-JOGJA-800",
+      "CP-A-1400",
+      "CP-A-1100",
+      "CP-A-1000",
+      "CP-A-900",
+      "CP-A-800",
       "PIT-A",
       "LP-A1"
     ],
     "loadedRouteNodes": [
       "LP-A1",
-      "CP-PELAIHARI-800",
-      "CP-PELAIHARI-600",
-      "CP-PELAIHARI-500",
-      "CP-PELAIHARI-400",
-      "CP-BARCELONA",
-      "CP-OPK-0",
-      "CP-OPK-100",
-      "CP-DISP-300",
-      "CP-DISP-500",
+      "CP-C-800",
+      "CP-C-600",
+      "CP-C-500",
+      "CP-C-400",
+      "CP-JCT-01",
+      "CP-D-0",
+      "CP-D-100",
+      "CP-E-300",
+      "CP-E-500",
       "STOCKPILE-01"
     ],
     "originNodeId": "DISPATCH-01",
@@ -905,11 +902,11 @@ export const routeScenarioSeeds = [
     "emptyRoute": {
       "routeNodes": [
         "DISPATCH-01",
-        "CP-JOGJA-1400",
-        "CP-JOGJA-1100",
-        "CP-JOGJA-1000",
-        "CP-JOGJA-900",
-        "CP-JOGJA-800",
+        "CP-A-1400",
+        "CP-A-1100",
+        "CP-A-1000",
+        "CP-A-900",
+        "CP-A-800",
         "PIT-A",
         "LP-A1"
       ],
@@ -917,64 +914,64 @@ export const routeScenarioSeeds = [
       "etaMin": 7,
       "fuelLiter": 4,
       "sourceEdgeIds": [
-        "E-DISPATCH-JOGJA1400",
-        "E-JOGJA1400-JOGJA1100",
-        "E-JOGJA1100-JOGJA1000",
-        "E-JOGJA1000-JOGJA900",
-        "E-JOGJA900-JOGJA800",
-        "E-JOGJA800-PITA",
+        "E-DISPATCH-A1400",
+        "E-A1400-A1100",
+        "E-A1100-A1000",
+        "E-A1000-A900",
+        "E-A900-A800",
+        "E-A800-PITA",
         "E-PITA-LPA1"
       ]
     },
     "loadedRoute": {
       "routeNodes": [
         "LP-A1",
-        "CP-PELAIHARI-800",
-        "CP-PELAIHARI-600",
-        "CP-PELAIHARI-500",
-        "CP-PELAIHARI-400",
-        "CP-BARCELONA",
-        "CP-OPK-0",
-        "CP-OPK-100",
-        "CP-DISP-300",
-        "CP-DISP-500",
+        "CP-C-800",
+        "CP-C-600",
+        "CP-C-500",
+        "CP-C-400",
+        "CP-JCT-01",
+        "CP-D-0",
+        "CP-D-100",
+        "CP-E-300",
+        "CP-E-500",
         "STOCKPILE-01"
       ],
       "distanceMeter": 2507,
       "etaMin": 8,
       "fuelLiter": 11,
       "sourceEdgeIds": [
-        "E-LPA1-PELAIHARI800",
-        "E-PELAIHARI800-600",
-        "E-PELAIHARI600-500",
-        "E-PELAIHARI500-400",
-        "E-PELAIHARI400-BARCELONA",
-        "E-BARCELONA-OPK0",
-        "E-OPK0-OPK100",
-        "E-OPK100-DISP300",
-        "E-DISP300-DISP500",
-        "E-DISP500-STOCKPILE"
+        "E-LPA1-C800",
+        "E-C800-C600",
+        "E-C600-C500",
+        "E-C500-C400",
+        "E-C400-JCT01",
+        "E-JCT01-D0",
+        "E-D0-D100",
+        "E-D100-E300",
+        "E-E300-E500",
+        "E-E500-STOCKPILE"
       ]
     },
     "loadingTimeMin": 8,
     "routeNodes": [
       "DISPATCH-01",
-      "CP-JOGJA-1400",
-      "CP-JOGJA-1100",
-      "CP-JOGJA-1000",
-      "CP-JOGJA-900",
-      "CP-JOGJA-800",
+      "CP-A-1400",
+      "CP-A-1100",
+      "CP-A-1000",
+      "CP-A-900",
+      "CP-A-800",
       "PIT-A",
       "LP-A1",
-      "CP-PELAIHARI-800",
-      "CP-PELAIHARI-600",
-      "CP-PELAIHARI-500",
-      "CP-PELAIHARI-400",
-      "CP-BARCELONA",
-      "CP-OPK-0",
-      "CP-OPK-100",
-      "CP-DISP-300",
-      "CP-DISP-500",
+      "CP-C-800",
+      "CP-C-600",
+      "CP-C-500",
+      "CP-C-400",
+      "CP-JCT-01",
+      "CP-D-0",
+      "CP-D-100",
+      "CP-E-300",
+      "CP-E-500",
       "STOCKPILE-01"
     ],
     "etaMin": 23,
@@ -994,27 +991,27 @@ export const routeScenarioSeeds = [
     "underloadPenalty": 0,
     "emptyRouteNodes": [
       "DISPATCH-01",
-      "CP-JOGJA-1400",
-      "CP-JOGJA-1100",
-      "CP-JOGJA-1000",
-      "CP-JOGJA-900",
-      "CP-JOGJA-800",
-      "CP-KB4-200",
-      "CP-KB4-400",
+      "CP-A-1400",
+      "CP-A-1100",
+      "CP-A-1000",
+      "CP-A-900",
+      "CP-A-800",
+      "CP-B-200",
+      "CP-B-400",
       "PIT-B",
       "LP-B1"
     ],
     "loadedRouteNodes": [
       "LP-B1",
-      "CP-PELAIHARI-800",
-      "CP-PELAIHARI-600",
-      "CP-PELAIHARI-500",
-      "CP-PELAIHARI-400",
-      "CP-BARCELONA",
-      "CP-OPK-0",
-      "CP-OPK-100",
-      "CP-DISP-300",
-      "CP-DISP-500",
+      "CP-C-800",
+      "CP-C-600",
+      "CP-C-500",
+      "CP-C-400",
+      "CP-JCT-01",
+      "CP-D-0",
+      "CP-D-100",
+      "CP-E-300",
+      "CP-E-500",
       "STOCKPILE-01"
     ],
     "originNodeId": "DISPATCH-01",
@@ -1022,13 +1019,13 @@ export const routeScenarioSeeds = [
     "emptyRoute": {
       "routeNodes": [
         "DISPATCH-01",
-        "CP-JOGJA-1400",
-        "CP-JOGJA-1100",
-        "CP-JOGJA-1000",
-        "CP-JOGJA-900",
-        "CP-JOGJA-800",
-        "CP-KB4-200",
-        "CP-KB4-400",
+        "CP-A-1400",
+        "CP-A-1100",
+        "CP-A-1000",
+        "CP-A-900",
+        "CP-A-800",
+        "CP-B-200",
+        "CP-B-400",
         "PIT-B",
         "LP-B1"
       ],
@@ -1036,68 +1033,68 @@ export const routeScenarioSeeds = [
       "etaMin": 8,
       "fuelLiter": 6,
       "sourceEdgeIds": [
-        "E-DISPATCH-JOGJA1400",
-        "E-JOGJA1400-JOGJA1100",
-        "E-JOGJA1100-JOGJA1000",
-        "E-JOGJA1000-JOGJA900",
-        "E-JOGJA900-JOGJA800",
-        "E-JOGJA800-KB4200",
-        "E-KB4200-KB4400",
-        "E-KB4400-PITB",
+        "E-DISPATCH-A1400",
+        "E-A1400-A1100",
+        "E-A1100-A1000",
+        "E-A1000-A900",
+        "E-A900-A800",
+        "E-A800-B200",
+        "E-B200-B400",
+        "E-B400-PITB",
         "E-PITB-LPB1"
       ]
     },
     "loadedRoute": {
       "routeNodes": [
         "LP-B1",
-        "CP-PELAIHARI-800",
-        "CP-PELAIHARI-600",
-        "CP-PELAIHARI-500",
-        "CP-PELAIHARI-400",
-        "CP-BARCELONA",
-        "CP-OPK-0",
-        "CP-OPK-100",
-        "CP-DISP-300",
-        "CP-DISP-500",
+        "CP-C-800",
+        "CP-C-600",
+        "CP-C-500",
+        "CP-C-400",
+        "CP-JCT-01",
+        "CP-D-0",
+        "CP-D-100",
+        "CP-E-300",
+        "CP-E-500",
         "STOCKPILE-01"
       ],
       "distanceMeter": 2574,
       "etaMin": 7,
       "fuelLiter": 11,
       "sourceEdgeIds": [
-        "E-LPB1-PELAIHARI800",
-        "E-PELAIHARI800-600",
-        "E-PELAIHARI600-500",
-        "E-PELAIHARI500-400",
-        "E-PELAIHARI400-BARCELONA",
-        "E-BARCELONA-OPK0",
-        "E-OPK0-OPK100",
-        "E-OPK100-DISP300",
-        "E-DISP300-DISP500",
-        "E-DISP500-STOCKPILE"
+        "E-LPB1-C800",
+        "E-C800-C600",
+        "E-C600-C500",
+        "E-C500-C400",
+        "E-C400-JCT01",
+        "E-JCT01-D0",
+        "E-D0-D100",
+        "E-D100-E300",
+        "E-E300-E500",
+        "E-E500-STOCKPILE"
       ]
     },
     "loadingTimeMin": 9,
     "routeNodes": [
       "DISPATCH-01",
-      "CP-JOGJA-1400",
-      "CP-JOGJA-1100",
-      "CP-JOGJA-1000",
-      "CP-JOGJA-900",
-      "CP-JOGJA-800",
-      "CP-KB4-200",
-      "CP-KB4-400",
+      "CP-A-1400",
+      "CP-A-1100",
+      "CP-A-1000",
+      "CP-A-900",
+      "CP-A-800",
+      "CP-B-200",
+      "CP-B-400",
       "PIT-B",
       "LP-B1",
-      "CP-PELAIHARI-800",
-      "CP-PELAIHARI-600",
-      "CP-PELAIHARI-500",
-      "CP-PELAIHARI-400",
-      "CP-BARCELONA",
-      "CP-OPK-0",
-      "CP-OPK-100",
-      "CP-DISP-300",
-      "CP-DISP-500",
+      "CP-C-800",
+      "CP-C-600",
+      "CP-C-500",
+      "CP-C-400",
+      "CP-JCT-01",
+      "CP-D-0",
+      "CP-D-100",
+      "CP-E-300",
+      "CP-E-500",
       "STOCKPILE-01"
     ],
     "etaMin": 24,
@@ -1117,27 +1114,27 @@ export const routeScenarioSeeds = [
     "underloadPenalty": 2,
     "emptyRouteNodes": [
       "DISPATCH-01",
-      "CP-JOGJA-1400",
-      "CP-JOGJA-1100",
-      "CP-JOGJA-1000",
-      "CP-JOGJA-900",
-      "CP-JOGJA-800",
-      "CP-KB4-200",
-      "CP-KB4-700",
+      "CP-A-1400",
+      "CP-A-1100",
+      "CP-A-1000",
+      "CP-A-900",
+      "CP-A-800",
+      "CP-B-200",
+      "CP-B-700",
       "PIT-C",
       "LP-C1"
     ],
     "loadedRouteNodes": [
       "LP-C1",
-      "CP-PELAIHARI-800",
-      "CP-PELAIHARI-600",
-      "CP-PELAIHARI-500",
-      "CP-PELAIHARI-400",
-      "CP-BARCELONA",
-      "CP-OPK-0",
-      "CP-OPK-100",
-      "CP-DISP-300",
-      "CP-DISP-500",
+      "CP-C-800",
+      "CP-C-600",
+      "CP-C-500",
+      "CP-C-400",
+      "CP-JCT-01",
+      "CP-D-0",
+      "CP-D-100",
+      "CP-E-300",
+      "CP-E-500",
       "STOCKPILE-01"
     ],
     "originNodeId": "DISPATCH-01",
@@ -1145,13 +1142,13 @@ export const routeScenarioSeeds = [
     "emptyRoute": {
       "routeNodes": [
         "DISPATCH-01",
-        "CP-JOGJA-1400",
-        "CP-JOGJA-1100",
-        "CP-JOGJA-1000",
-        "CP-JOGJA-900",
-        "CP-JOGJA-800",
-        "CP-KB4-200",
-        "CP-KB4-700",
+        "CP-A-1400",
+        "CP-A-1100",
+        "CP-A-1000",
+        "CP-A-900",
+        "CP-A-800",
+        "CP-B-200",
+        "CP-B-700",
         "PIT-C",
         "LP-C1"
       ],
@@ -1159,68 +1156,68 @@ export const routeScenarioSeeds = [
       "etaMin": 8,
       "fuelLiter": 6,
       "sourceEdgeIds": [
-        "E-DISPATCH-JOGJA1400",
-        "E-JOGJA1400-JOGJA1100",
-        "E-JOGJA1100-JOGJA1000",
-        "E-JOGJA1000-JOGJA900",
-        "E-JOGJA900-JOGJA800",
-        "E-JOGJA800-KB4200",
-        "E-KB4200-KB4700",
-        "E-KB4700-PITC",
+        "E-DISPATCH-A1400",
+        "E-A1400-A1100",
+        "E-A1100-A1000",
+        "E-A1000-A900",
+        "E-A900-A800",
+        "E-A800-B200",
+        "E-B200-B700",
+        "E-B700-PITC",
         "E-PITC-LPC1"
       ]
     },
     "loadedRoute": {
       "routeNodes": [
         "LP-C1",
-        "CP-PELAIHARI-800",
-        "CP-PELAIHARI-600",
-        "CP-PELAIHARI-500",
-        "CP-PELAIHARI-400",
-        "CP-BARCELONA",
-        "CP-OPK-0",
-        "CP-OPK-100",
-        "CP-DISP-300",
-        "CP-DISP-500",
+        "CP-C-800",
+        "CP-C-600",
+        "CP-C-500",
+        "CP-C-400",
+        "CP-JCT-01",
+        "CP-D-0",
+        "CP-D-100",
+        "CP-E-300",
+        "CP-E-500",
         "STOCKPILE-01"
       ],
       "distanceMeter": 2560,
       "etaMin": 7,
       "fuelLiter": 11,
       "sourceEdgeIds": [
-        "E-LPC1-PELAIHARI800",
-        "E-PELAIHARI800-600",
-        "E-PELAIHARI600-500",
-        "E-PELAIHARI500-400",
-        "E-PELAIHARI400-BARCELONA",
-        "E-BARCELONA-OPK0",
-        "E-OPK0-OPK100",
-        "E-OPK100-DISP300",
-        "E-DISP300-DISP500",
-        "E-DISP500-STOCKPILE"
+        "E-LPC1-C800",
+        "E-C800-C600",
+        "E-C600-C500",
+        "E-C500-C400",
+        "E-C400-JCT01",
+        "E-JCT01-D0",
+        "E-D0-D100",
+        "E-D100-E300",
+        "E-E300-E500",
+        "E-E500-STOCKPILE"
       ]
     },
     "loadingTimeMin": 7,
     "routeNodes": [
       "DISPATCH-01",
-      "CP-JOGJA-1400",
-      "CP-JOGJA-1100",
-      "CP-JOGJA-1000",
-      "CP-JOGJA-900",
-      "CP-JOGJA-800",
-      "CP-KB4-200",
-      "CP-KB4-700",
+      "CP-A-1400",
+      "CP-A-1100",
+      "CP-A-1000",
+      "CP-A-900",
+      "CP-A-800",
+      "CP-B-200",
+      "CP-B-700",
       "PIT-C",
       "LP-C1",
-      "CP-PELAIHARI-800",
-      "CP-PELAIHARI-600",
-      "CP-PELAIHARI-500",
-      "CP-PELAIHARI-400",
-      "CP-BARCELONA",
-      "CP-OPK-0",
-      "CP-OPK-100",
-      "CP-DISP-300",
-      "CP-DISP-500",
+      "CP-C-800",
+      "CP-C-600",
+      "CP-C-500",
+      "CP-C-400",
+      "CP-JCT-01",
+      "CP-D-0",
+      "CP-D-100",
+      "CP-E-300",
+      "CP-E-500",
       "STOCKPILE-01"
     ],
     "etaMin": 22,
@@ -1245,11 +1242,11 @@ export const initialAssignmentSeeds = [
     "emptyRoute": {
       "routeNodes": [
         "DISPATCH-01",
-        "CP-JOGJA-1400",
-        "CP-JOGJA-1100",
-        "CP-JOGJA-1000",
-        "CP-JOGJA-900",
-        "CP-JOGJA-800",
+        "CP-A-1400",
+        "CP-A-1100",
+        "CP-A-1000",
+        "CP-A-900",
+        "CP-A-800",
         "PIT-A",
         "LP-A1"
       ],
@@ -1257,63 +1254,63 @@ export const initialAssignmentSeeds = [
       "etaMin": 7,
       "fuelLiter": 4,
       "sourceEdgeIds": [
-        "E-DISPATCH-JOGJA1400",
-        "E-JOGJA1400-JOGJA1100",
-        "E-JOGJA1100-JOGJA1000",
-        "E-JOGJA1000-JOGJA900",
-        "E-JOGJA900-JOGJA800",
-        "E-JOGJA800-PITA",
+        "E-DISPATCH-A1400",
+        "E-A1400-A1100",
+        "E-A1100-A1000",
+        "E-A1000-A900",
+        "E-A900-A800",
+        "E-A800-PITA",
         "E-PITA-LPA1"
       ]
     },
     "loadedRoute": {
       "routeNodes": [
         "LP-A1",
-        "CP-PELAIHARI-800",
-        "CP-PELAIHARI-600",
-        "CP-PELAIHARI-500",
-        "CP-PELAIHARI-400",
-        "CP-BARCELONA",
-        "CP-OPK-0",
-        "CP-OPK-100",
-        "CP-DISP-300",
-        "CP-DISP-500",
+        "CP-C-800",
+        "CP-C-600",
+        "CP-C-500",
+        "CP-C-400",
+        "CP-JCT-01",
+        "CP-D-0",
+        "CP-D-100",
+        "CP-E-300",
+        "CP-E-500",
         "STOCKPILE-01"
       ],
       "distanceMeter": 2507,
       "etaMin": 8,
       "fuelLiter": 11,
       "sourceEdgeIds": [
-        "E-LPA1-PELAIHARI800",
-        "E-PELAIHARI800-600",
-        "E-PELAIHARI600-500",
-        "E-PELAIHARI500-400",
-        "E-PELAIHARI400-BARCELONA",
-        "E-BARCELONA-OPK0",
-        "E-OPK0-OPK100",
-        "E-OPK100-DISP300",
-        "E-DISP300-DISP500",
-        "E-DISP500-STOCKPILE"
+        "E-LPA1-C800",
+        "E-C800-C600",
+        "E-C600-C500",
+        "E-C500-C400",
+        "E-C400-JCT01",
+        "E-JCT01-D0",
+        "E-D0-D100",
+        "E-D100-E300",
+        "E-E300-E500",
+        "E-E500-STOCKPILE"
       ]
     },
     "routeNodes": [
       "DISPATCH-01",
-      "CP-JOGJA-1400",
-      "CP-JOGJA-1100",
-      "CP-JOGJA-1000",
-      "CP-JOGJA-900",
-      "CP-JOGJA-800",
+      "CP-A-1400",
+      "CP-A-1100",
+      "CP-A-1000",
+      "CP-A-900",
+      "CP-A-800",
       "PIT-A",
       "LP-A1",
-      "CP-PELAIHARI-800",
-      "CP-PELAIHARI-600",
-      "CP-PELAIHARI-500",
-      "CP-PELAIHARI-400",
-      "CP-BARCELONA",
-      "CP-OPK-0",
-      "CP-OPK-100",
-      "CP-DISP-300",
-      "CP-DISP-500",
+      "CP-C-800",
+      "CP-C-600",
+      "CP-C-500",
+      "CP-C-400",
+      "CP-JCT-01",
+      "CP-D-0",
+      "CP-D-100",
+      "CP-E-300",
+      "CP-E-500",
       "STOCKPILE-01"
     ],
     "etaMin": 23,
@@ -1334,13 +1331,13 @@ export const initialAssignmentSeeds = [
     "emptyRoute": {
       "routeNodes": [
         "DISPATCH-01",
-        "CP-JOGJA-1400",
-        "CP-JOGJA-1100",
-        "CP-JOGJA-1000",
-        "CP-JOGJA-900",
-        "CP-JOGJA-800",
-        "CP-KB4-200",
-        "CP-KB4-400",
+        "CP-A-1400",
+        "CP-A-1100",
+        "CP-A-1000",
+        "CP-A-900",
+        "CP-A-800",
+        "CP-B-200",
+        "CP-B-400",
         "PIT-B",
         "LP-B1"
       ],
@@ -1348,67 +1345,67 @@ export const initialAssignmentSeeds = [
       "etaMin": 8,
       "fuelLiter": 6,
       "sourceEdgeIds": [
-        "E-DISPATCH-JOGJA1400",
-        "E-JOGJA1400-JOGJA1100",
-        "E-JOGJA1100-JOGJA1000",
-        "E-JOGJA1000-JOGJA900",
-        "E-JOGJA900-JOGJA800",
-        "E-JOGJA800-KB4200",
-        "E-KB4200-KB4400",
-        "E-KB4400-PITB",
+        "E-DISPATCH-A1400",
+        "E-A1400-A1100",
+        "E-A1100-A1000",
+        "E-A1000-A900",
+        "E-A900-A800",
+        "E-A800-B200",
+        "E-B200-B400",
+        "E-B400-PITB",
         "E-PITB-LPB1"
       ]
     },
     "loadedRoute": {
       "routeNodes": [
         "LP-B1",
-        "CP-PELAIHARI-800",
-        "CP-PELAIHARI-600",
-        "CP-PELAIHARI-500",
-        "CP-PELAIHARI-400",
-        "CP-BARCELONA",
-        "CP-OPK-0",
-        "CP-OPK-100",
-        "CP-DISP-300",
-        "CP-DISP-500",
+        "CP-C-800",
+        "CP-C-600",
+        "CP-C-500",
+        "CP-C-400",
+        "CP-JCT-01",
+        "CP-D-0",
+        "CP-D-100",
+        "CP-E-300",
+        "CP-E-500",
         "STOCKPILE-01"
       ],
       "distanceMeter": 2574,
       "etaMin": 7,
       "fuelLiter": 11,
       "sourceEdgeIds": [
-        "E-LPB1-PELAIHARI800",
-        "E-PELAIHARI800-600",
-        "E-PELAIHARI600-500",
-        "E-PELAIHARI500-400",
-        "E-PELAIHARI400-BARCELONA",
-        "E-BARCELONA-OPK0",
-        "E-OPK0-OPK100",
-        "E-OPK100-DISP300",
-        "E-DISP300-DISP500",
-        "E-DISP500-STOCKPILE"
+        "E-LPB1-C800",
+        "E-C800-C600",
+        "E-C600-C500",
+        "E-C500-C400",
+        "E-C400-JCT01",
+        "E-JCT01-D0",
+        "E-D0-D100",
+        "E-D100-E300",
+        "E-E300-E500",
+        "E-E500-STOCKPILE"
       ]
     },
     "routeNodes": [
       "DISPATCH-01",
-      "CP-JOGJA-1400",
-      "CP-JOGJA-1100",
-      "CP-JOGJA-1000",
-      "CP-JOGJA-900",
-      "CP-JOGJA-800",
-      "CP-KB4-200",
-      "CP-KB4-400",
+      "CP-A-1400",
+      "CP-A-1100",
+      "CP-A-1000",
+      "CP-A-900",
+      "CP-A-800",
+      "CP-B-200",
+      "CP-B-400",
       "PIT-B",
       "LP-B1",
-      "CP-PELAIHARI-800",
-      "CP-PELAIHARI-600",
-      "CP-PELAIHARI-500",
-      "CP-PELAIHARI-400",
-      "CP-BARCELONA",
-      "CP-OPK-0",
-      "CP-OPK-100",
-      "CP-DISP-300",
-      "CP-DISP-500",
+      "CP-C-800",
+      "CP-C-600",
+      "CP-C-500",
+      "CP-C-400",
+      "CP-JCT-01",
+      "CP-D-0",
+      "CP-D-100",
+      "CP-E-300",
+      "CP-E-500",
       "STOCKPILE-01"
     ],
     "etaMin": 24,
@@ -1429,13 +1426,13 @@ export const initialAssignmentSeeds = [
     "emptyRoute": {
       "routeNodes": [
         "DISPATCH-01",
-        "CP-JOGJA-1400",
-        "CP-JOGJA-1100",
-        "CP-JOGJA-1000",
-        "CP-JOGJA-900",
-        "CP-JOGJA-800",
-        "CP-KB4-200",
-        "CP-KB4-700",
+        "CP-A-1400",
+        "CP-A-1100",
+        "CP-A-1000",
+        "CP-A-900",
+        "CP-A-800",
+        "CP-B-200",
+        "CP-B-700",
         "PIT-C",
         "LP-C1"
       ],
@@ -1443,67 +1440,67 @@ export const initialAssignmentSeeds = [
       "etaMin": 8,
       "fuelLiter": 6,
       "sourceEdgeIds": [
-        "E-DISPATCH-JOGJA1400",
-        "E-JOGJA1400-JOGJA1100",
-        "E-JOGJA1100-JOGJA1000",
-        "E-JOGJA1000-JOGJA900",
-        "E-JOGJA900-JOGJA800",
-        "E-JOGJA800-KB4200",
-        "E-KB4200-KB4700",
-        "E-KB4700-PITC",
+        "E-DISPATCH-A1400",
+        "E-A1400-A1100",
+        "E-A1100-A1000",
+        "E-A1000-A900",
+        "E-A900-A800",
+        "E-A800-B200",
+        "E-B200-B700",
+        "E-B700-PITC",
         "E-PITC-LPC1"
       ]
     },
     "loadedRoute": {
       "routeNodes": [
         "LP-C1",
-        "CP-PELAIHARI-800",
-        "CP-PELAIHARI-600",
-        "CP-PELAIHARI-500",
-        "CP-PELAIHARI-400",
-        "CP-BARCELONA",
-        "CP-OPK-0",
-        "CP-OPK-100",
-        "CP-DISP-300",
-        "CP-DISP-500",
+        "CP-C-800",
+        "CP-C-600",
+        "CP-C-500",
+        "CP-C-400",
+        "CP-JCT-01",
+        "CP-D-0",
+        "CP-D-100",
+        "CP-E-300",
+        "CP-E-500",
         "STOCKPILE-01"
       ],
       "distanceMeter": 2560,
       "etaMin": 7,
       "fuelLiter": 11,
       "sourceEdgeIds": [
-        "E-LPC1-PELAIHARI800",
-        "E-PELAIHARI800-600",
-        "E-PELAIHARI600-500",
-        "E-PELAIHARI500-400",
-        "E-PELAIHARI400-BARCELONA",
-        "E-BARCELONA-OPK0",
-        "E-OPK0-OPK100",
-        "E-OPK100-DISP300",
-        "E-DISP300-DISP500",
-        "E-DISP500-STOCKPILE"
+        "E-LPC1-C800",
+        "E-C800-C600",
+        "E-C600-C500",
+        "E-C500-C400",
+        "E-C400-JCT01",
+        "E-JCT01-D0",
+        "E-D0-D100",
+        "E-D100-E300",
+        "E-E300-E500",
+        "E-E500-STOCKPILE"
       ]
     },
     "routeNodes": [
       "DISPATCH-01",
-      "CP-JOGJA-1400",
-      "CP-JOGJA-1100",
-      "CP-JOGJA-1000",
-      "CP-JOGJA-900",
-      "CP-JOGJA-800",
-      "CP-KB4-200",
-      "CP-KB4-700",
+      "CP-A-1400",
+      "CP-A-1100",
+      "CP-A-1000",
+      "CP-A-900",
+      "CP-A-800",
+      "CP-B-200",
+      "CP-B-700",
       "PIT-C",
       "LP-C1",
-      "CP-PELAIHARI-800",
-      "CP-PELAIHARI-600",
-      "CP-PELAIHARI-500",
-      "CP-PELAIHARI-400",
-      "CP-BARCELONA",
-      "CP-OPK-0",
-      "CP-OPK-100",
-      "CP-DISP-300",
-      "CP-DISP-500",
+      "CP-C-800",
+      "CP-C-600",
+      "CP-C-500",
+      "CP-C-400",
+      "CP-JCT-01",
+      "CP-D-0",
+      "CP-D-100",
+      "CP-E-300",
+      "CP-E-500",
       "STOCKPILE-01"
     ],
     "etaMin": 22,
