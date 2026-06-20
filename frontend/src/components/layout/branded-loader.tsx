@@ -11,15 +11,18 @@ import Image from "next/image";
 export function BrandedLoader({
   message = "Menghubungkan ke command center",
   submessage = "Menyiapkan data operasional KIDECO…",
+  inline = false,
 }: {
   message?: string;
   submessage?: string;
+  /** Contained loader for a screen's content area (no full-screen overlay, no logo). */
+  inline?: boolean;
 }) {
-  return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-[var(--bg-app-frame)] animate-in fade-in duration-300">
-      <div className="flex flex-col items-center gap-8 px-6 text-center">
-        {/* Logo with a soft brand glow */}
-        <div className="relative">
+  const body = (
+    <div className="flex flex-col items-center gap-6 px-6 text-center">
+      {/* Logo with a soft brand glow — only for the full-screen boot state. */}
+      {!inline && (
+        <div className="relative mb-2">
           <div
             aria-hidden
             className="absolute inset-0 -z-10 animate-pulse rounded-full bg-[var(--kideco-red-500)]/20 blur-2xl"
@@ -30,25 +33,39 @@ export function BrandedLoader({
             width={200}
             height={56}
             priority
-            className="h-auto w-[180px]"
+            className="h-auto w-[180px] dark:invert dark:hue-rotate-180"
           />
         </div>
+      )}
 
-        {/* Refined brand ring spinner */}
-        <div className="relative size-9" role="status" aria-label="Memuat">
-          <div className="absolute inset-0 rounded-full border-[3px] border-[var(--border-default)]" />
-          <div
-            className="absolute inset-0 animate-spin rounded-full border-[3px] border-transparent border-t-[var(--kideco-red-500)]"
-            style={{ animationDuration: "0.8s" }}
-          />
-        </div>
-
-        {/* Message hierarchy */}
-        <div className="space-y-1.5">
-          <p className="text-sm font-semibold text-[var(--text-default)]">{message}</p>
-          <p className="text-xs text-[var(--text-muted)]">{submessage}</p>
-        </div>
+      {/* Refined brand ring spinner */}
+      <div className="relative size-9" role="status" aria-label="Memuat">
+        <div className="absolute inset-0 rounded-full border-[3px] border-[var(--border-default)]" />
+        <div
+          className="absolute inset-0 animate-spin rounded-full border-[3px] border-transparent border-t-[var(--kideco-red-500)]"
+          style={{ animationDuration: "0.8s" }}
+        />
       </div>
+
+      {/* Message hierarchy */}
+      <div className="space-y-1.5">
+        <p className="text-sm font-semibold text-[var(--text-default)]">{message}</p>
+        {submessage ? <p className="text-xs text-[var(--text-muted)]">{submessage}</p> : null}
+      </div>
+    </div>
+  );
+
+  if (inline) {
+    return (
+      <div className="grid min-h-[400px] w-full place-items-center animate-in fade-in duration-300">
+        {body}
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 grid place-items-center bg-[var(--bg-app-frame)] animate-in fade-in duration-300">
+      {body}
     </div>
   );
 }

@@ -24,6 +24,7 @@ import {
   Wrench,
 } from "lucide-react";
 
+import { BrandedLoader } from "@/components/layout/branded-loader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -451,10 +452,11 @@ export function HaulingOverviewScreen({
 
   if (loading && !refreshing) {
     return (
-      <div className="flex min-h-[400px] flex-col items-center justify-center gap-3">
-        <RefreshCw className="size-7 animate-spin text-primary" />
-        <p className="text-sm text-muted-foreground">Memuat data operasional KIDECO...</p>
-      </div>
+      <BrandedLoader
+        inline
+        message="Memuat data operasional KIDECO…"
+        submessage="Mengambil status armada, telemetry & rekomendasi terbaru."
+      />
     );
   }
 
