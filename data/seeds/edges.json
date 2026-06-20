@@ -1,30 +1,30 @@
 {
   "metadata": {
-    "source": "Data Road Segmen.xlsx - Front Utara - Fase 7.csv",
+    "source": "demo-dataset.csv",
     "generatedFromRows": 67664,
     "uniqueSourceWaypoints": 317,
     "uniqueHaulers": 106,
     "selectedHaulers": [
-      "CO4544",
-      "CO4587",
-      "CO4602",
-      "CO4440",
-      "CO4583"
+      "HU-001",
+      "HU-002",
+      "HU-003",
+      "HU-004",
+      "HU-005"
     ],
     "selectedLoaders": [
-      "CE6155",
-      "CE5255",
-      "CE6170",
-      "CE5242"
+      "LDR-01",
+      "LDR-02",
+      "LDR-03",
+      "LDR-04"
     ],
-    "dominantDisposalSink": "OPD_SP20",
-    "note": "MVP seed uses dataset-derived metrics with rebased/simulated visual coordinates around the KIDECO demo map."
+    "dominantDisposalSink": "SP-01",
+    "note": "MVP seed uses dataset-derived metrics with rebased/simulated visual coordinates around the demo map."
   },
   "edges": [
     {
-      "id": "E-DISPATCH-JOGJA1400",
+      "id": "E-DISPATCH-A1400",
       "fromNodeId": "DISPATCH-01",
-      "toNodeId": "CP-JOGJA-1400",
+      "toNodeId": "CP-A-1400",
       "type": "empty_haul",
       "distanceMeter": 109,
       "avgSpeedKmh": 16.0,
@@ -33,16 +33,15 @@
       "sampleCount": 842,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-DISPATCH-JOGJA1400",
+      "sourceSegmentId": "DATASET-E-DISPATCH-A1400",
       "sourceEdges": [
-        "Begin.Travelling.Empty->Supply_Pelaihari",
-        "Supply_Pelaihari->Jl_Jogja_STA1400"
+        "Begin.Travelling.Empty->RD-A-STA1400"
       ]
     },
     {
-      "id": "E-JOGJA1400-JOGJA1100",
-      "fromNodeId": "CP-JOGJA-1400",
-      "toNodeId": "CP-JOGJA-1100",
+      "id": "E-A1400-A1100",
+      "fromNodeId": "CP-A-1400",
+      "toNodeId": "CP-A-1100",
       "type": "empty_haul",
       "distanceMeter": 356,
       "avgSpeedKmh": 37.3,
@@ -51,17 +50,15 @@
       "sampleCount": 2041,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-JOGJA1400-JOGJA1100",
+      "sourceSegmentId": "DATASET-E-A1400-A1100",
       "sourceEdges": [
-        "Jl_Jogja_STA1400->Supply_Pelaihari",
-        "Supply_Pelaihari->Jl_Simpang_Bayern_Munich",
-        "Jl_Simpang_Bayern_Munich->Jl_Jogja_STA1100"
+        "RD-A-STA1400->RD-A-STA1100"
       ]
     },
     {
-      "id": "E-JOGJA1100-JOGJA1000",
-      "fromNodeId": "CP-JOGJA-1100",
-      "toNodeId": "CP-JOGJA-1000",
+      "id": "E-A1100-A1000",
+      "fromNodeId": "CP-A-1100",
+      "toNodeId": "CP-A-1000",
       "type": "empty_haul",
       "distanceMeter": 193,
       "avgSpeedKmh": 41.5,
@@ -70,15 +67,15 @@
       "sampleCount": 780,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-JOGJA1100-JOGJA1000",
+      "sourceSegmentId": "DATASET-E-A1100-A1000",
       "sourceEdges": [
-        "Jl_Jogja_STA1100->Jl_Jogja_STA1000"
+        "RD-A-STA1100->RD-A-STA1000"
       ]
     },
     {
-      "id": "E-JOGJA1000-JOGJA900",
-      "fromNodeId": "CP-JOGJA-1000",
-      "toNodeId": "CP-JOGJA-900",
+      "id": "E-A1000-A900",
+      "fromNodeId": "CP-A-1000",
+      "toNodeId": "CP-A-900",
       "type": "empty_haul",
       "distanceMeter": 179,
       "avgSpeedKmh": 41.3,
@@ -87,15 +84,15 @@
       "sampleCount": 719,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-JOGJA1000-JOGJA900",
+      "sourceSegmentId": "DATASET-E-A1000-A900",
       "sourceEdges": [
-        "Jl_Jogja_STA1000->Jl_Jogja_STA900"
+        "RD-A-STA1000->RD-A-STA900"
       ]
     },
     {
-      "id": "E-JOGJA900-JOGJA800",
-      "fromNodeId": "CP-JOGJA-900",
-      "toNodeId": "CP-JOGJA-800",
+      "id": "E-A900-A800",
+      "fromNodeId": "CP-A-900",
+      "toNodeId": "CP-A-800",
       "type": "empty_haul",
       "distanceMeter": 283,
       "avgSpeedKmh": 37.7,
@@ -104,14 +101,14 @@
       "sampleCount": 736,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-JOGJA900-JOGJA800",
+      "sourceSegmentId": "DATASET-E-A900-A800",
       "sourceEdges": [
-        "Jl_Jogja_STA900->Jl_Jogja_STA800"
+        "RD-A-STA900->RD-A-STA800"
       ]
     },
     {
-      "id": "E-JOGJA800-PITA",
-      "fromNodeId": "CP-JOGJA-800",
+      "id": "E-A800-PITA",
+      "fromNodeId": "CP-A-800",
       "toNodeId": "PIT-A",
       "type": "empty_haul",
       "distanceMeter": 87,
@@ -121,9 +118,9 @@
       "sampleCount": 172,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-JOGJA800-PITA",
+      "sourceSegmentId": "DATASET-E-A800-PITA",
       "sourceEdges": [
-        "Akses_Front_Jl_KB4_STA200->SRC_CE6155"
+        "RD-B-STA200->SRC-PIT-A"
       ]
     },
     {
@@ -140,13 +137,13 @@
       "riskLevel": "medium",
       "sourceSegmentId": "DATASET-E-PITA-LPA1",
       "sourceEdges": [
-        "SRC_CE6155->Begin.Loading"
+        "SRC-PIT-A->Begin.Loading"
       ]
     },
     {
-      "id": "E-JOGJA800-KB4200",
-      "fromNodeId": "CP-JOGJA-800",
-      "toNodeId": "CP-KB4-200",
+      "id": "E-A800-B200",
+      "fromNodeId": "CP-A-800",
+      "toNodeId": "CP-B-200",
       "type": "empty_haul",
       "distanceMeter": 579,
       "avgSpeedKmh": 29.9,
@@ -155,16 +152,16 @@
       "sampleCount": 1216,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-JOGJA800-KB4200",
+      "sourceSegmentId": "DATASET-E-A800-B200",
       "sourceEdges": [
-        "Jl_Jogja_STA800->Jl_KB4_New_STA0",
-        "Jl_KB4_New_STA0->Jl_KB4_New_STA100"
+        "RD-A-STA800->RD-B-STA0",
+        "RD-B-STA0->RD-B-STA100"
       ]
     },
     {
-      "id": "E-KB4200-KB4400",
-      "fromNodeId": "CP-KB4-200",
-      "toNodeId": "CP-KB4-400",
+      "id": "E-B200-B400",
+      "fromNodeId": "CP-B-200",
+      "toNodeId": "CP-B-400",
       "type": "connector",
       "distanceMeter": 104,
       "avgSpeedKmh": 22.5,
@@ -173,14 +170,14 @@
       "sampleCount": 181,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-KB4200-KB4400",
+      "sourceSegmentId": "DATASET-E-B200-B400",
       "sourceEdges": [
-        "Akses_Front_Jl_KB4_STA200->Akses_Front_Jl_KB4_STA_400"
+        "RD-B-STA200->RD-B-STA400"
       ]
     },
     {
-      "id": "E-KB4400-PITB",
-      "fromNodeId": "CP-KB4-400",
+      "id": "E-B400-PITB",
+      "fromNodeId": "CP-B-400",
       "toNodeId": "PIT-B",
       "type": "empty_haul",
       "distanceMeter": 60,
@@ -190,9 +187,9 @@
       "sampleCount": 235,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-KB4400-PITB",
+      "sourceSegmentId": "DATASET-E-B400-PITB",
       "sourceEdges": [
-        "Akses_Front_Jl_KB4_STA_400->SRC_CE5255"
+        "RD-B-STA400->SRC-PIT-B"
       ]
     },
     {
@@ -209,13 +206,13 @@
       "riskLevel": "medium",
       "sourceSegmentId": "DATASET-E-PITB-LPB1",
       "sourceEdges": [
-        "SRC_CE5255->Begin.Loading"
+        "SRC-PIT-B->Begin.Loading"
       ]
     },
     {
-      "id": "E-KB4200-KB4700",
-      "fromNodeId": "CP-KB4-200",
-      "toNodeId": "CP-KB4-700",
+      "id": "E-B200-B700",
+      "fromNodeId": "CP-B-200",
+      "toNodeId": "CP-B-700",
       "type": "empty_haul",
       "distanceMeter": 133,
       "avgSpeedKmh": 25.0,
@@ -224,14 +221,14 @@
       "sampleCount": 3887,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-KB4200-KB4700",
+      "sourceSegmentId": "DATASET-E-B200-B700",
       "sourceEdges": [
-        "fallback:Akses_Front_Jl_KB4_STA200->Akses_Front_Jl_KB4_STA700"
+        "RD-B-STA200->RD-B-STA700"
       ]
     },
     {
-      "id": "E-KB4700-PITC",
-      "fromNodeId": "CP-KB4-700",
+      "id": "E-B700-PITC",
+      "fromNodeId": "CP-B-700",
       "toNodeId": "PIT-C",
       "type": "empty_haul",
       "distanceMeter": 196,
@@ -241,10 +238,9 @@
       "sampleCount": 368,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-KB4700-PITC",
+      "sourceSegmentId": "DATASET-E-B700-PITC",
       "sourceEdges": [
-        "Akses_Front_Jl_KB4_STA700->Akses_Front_Jl_Sudan_STA200",
-        "Akses_Front_Jl_Sudan_STA200->SRC_CE6170"
+        "RD-B-STA700->SRC-PIT-C"
       ]
     },
     {
@@ -261,13 +257,13 @@
       "riskLevel": "medium",
       "sourceSegmentId": "DATASET-E-PITC-LPC1",
       "sourceEdges": [
-        "SRC_CE6170->Begin.Loading"
+        "SRC-PIT-C->Begin.Loading"
       ]
     },
     {
-      "id": "E-LPA1-PELAIHARI800",
+      "id": "E-LPA1-C800",
       "fromNodeId": "LP-A1",
-      "toNodeId": "CP-PELAIHARI-800",
+      "toNodeId": "CP-C-800",
       "type": "loaded_haul",
       "distanceMeter": 193,
       "avgSpeedKmh": 23.6,
@@ -276,16 +272,16 @@
       "sampleCount": 1153,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-LPA1-PELAIHARI800",
+      "sourceSegmentId": "DATASET-E-LPA1-C800",
       "sourceEdges": [
         "Begin.Loading->Begin.Travelling.Full",
-        "Jl_Jogja_STA1400->Jl_Pelaihari_STA800"
+        "RD-A-STA1400->RD-C-STA800"
       ]
     },
     {
-      "id": "E-LPB1-PELAIHARI800",
+      "id": "E-LPB1-C800",
       "fromNodeId": "LP-B1",
-      "toNodeId": "CP-PELAIHARI-800",
+      "toNodeId": "CP-C-800",
       "type": "loaded_haul",
       "distanceMeter": 260,
       "avgSpeedKmh": 18.7,
@@ -294,16 +290,16 @@
       "sampleCount": 1164,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-LPB1-PELAIHARI800",
+      "sourceSegmentId": "DATASET-E-LPB1-C800",
       "sourceEdges": [
-        "Begin.Loading->SRC_CE5255",
-        "Jl_Jogja_STA1400->Jl_Pelaihari_STA800"
+        "Begin.Loading->SRC-PIT-B",
+        "RD-A-STA1400->RD-C-STA800"
       ]
     },
     {
-      "id": "E-LPC1-PELAIHARI800",
+      "id": "E-LPC1-C800",
       "fromNodeId": "LP-C1",
-      "toNodeId": "CP-PELAIHARI-800",
+      "toNodeId": "CP-C-800",
       "type": "loaded_haul",
       "distanceMeter": 246,
       "avgSpeedKmh": 19.6,
@@ -312,16 +308,16 @@
       "sampleCount": 1061,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-LPC1-PELAIHARI800",
+      "sourceSegmentId": "DATASET-E-LPC1-C800",
       "sourceEdges": [
-        "Begin.Loading->SRC_CE6170",
-        "Jl_Jogja_STA1400->Jl_Pelaihari_STA800"
+        "Begin.Loading->SRC-PIT-C",
+        "RD-A-STA1400->RD-C-STA800"
       ]
     },
     {
-      "id": "E-PELAIHARI800-600",
-      "fromNodeId": "CP-PELAIHARI-800",
-      "toNodeId": "CP-PELAIHARI-600",
+      "id": "E-C800-C600",
+      "fromNodeId": "CP-C-800",
+      "toNodeId": "CP-C-600",
       "type": "loaded_haul",
       "distanceMeter": 142,
       "avgSpeedKmh": 25.8,
@@ -330,15 +326,15 @@
       "sampleCount": 976,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-PELAIHARI800-600",
+      "sourceSegmentId": "DATASET-E-C800-C600",
       "sourceEdges": [
-        "Jl_Pelaihari_STA800->Jl_Pelaihari_STA600"
+        "RD-C-STA800->RD-C-STA600"
       ]
     },
     {
-      "id": "E-PELAIHARI600-500",
-      "fromNodeId": "CP-PELAIHARI-600",
-      "toNodeId": "CP-PELAIHARI-500",
+      "id": "E-C600-C500",
+      "fromNodeId": "CP-C-600",
+      "toNodeId": "CP-C-500",
       "type": "loaded_haul",
       "distanceMeter": 120,
       "avgSpeedKmh": 26.4,
@@ -347,15 +343,15 @@
       "sampleCount": 1021,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-PELAIHARI600-500",
+      "sourceSegmentId": "DATASET-E-C600-C500",
       "sourceEdges": [
-        "Jl_Pelaihari_STA600->Jl_Pelaihari_STA500"
+        "RD-C-STA600->RD-C-STA500"
       ]
     },
     {
-      "id": "E-PELAIHARI500-400",
-      "fromNodeId": "CP-PELAIHARI-500",
-      "toNodeId": "CP-PELAIHARI-400",
+      "id": "E-C500-C400",
+      "fromNodeId": "CP-C-500",
+      "toNodeId": "CP-C-400",
       "type": "loaded_haul",
       "distanceMeter": 172,
       "avgSpeedKmh": 33.0,
@@ -364,15 +360,15 @@
       "sampleCount": 1023,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-PELAIHARI500-400",
+      "sourceSegmentId": "DATASET-E-C500-C400",
       "sourceEdges": [
-        "Jl_Pelaihari_STA500->Jl_Pelaihari_STA400"
+        "RD-C-STA500->RD-C-STA400"
       ]
     },
     {
-      "id": "E-PELAIHARI400-BARCELONA",
-      "fromNodeId": "CP-PELAIHARI-400",
-      "toNodeId": "CP-BARCELONA",
+      "id": "E-C400-JCT01",
+      "fromNodeId": "CP-C-400",
+      "toNodeId": "CP-JCT-01",
       "type": "loaded_haul",
       "distanceMeter": 156,
       "avgSpeedKmh": 30.2,
@@ -381,15 +377,15 @@
       "sampleCount": 922,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-PELAIHARI400-BARCELONA",
+      "sourceSegmentId": "DATASET-E-C400-JCT01",
       "sourceEdges": [
-        "Jl_Pelaihari_STA400->Jl_Simpang_Barcelona"
+        "RD-C-STA400->RD-JCT-01"
       ]
     },
     {
-      "id": "E-BARCELONA-OPK0",
-      "fromNodeId": "CP-BARCELONA",
-      "toNodeId": "CP-OPK-0",
+      "id": "E-JCT01-D0",
+      "fromNodeId": "CP-JCT-01",
+      "toNodeId": "CP-D-0",
       "type": "loaded_haul",
       "distanceMeter": 392,
       "avgSpeedKmh": 32.3,
@@ -398,16 +394,15 @@
       "sampleCount": 1947,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-BARCELONA-OPK0",
+      "sourceSegmentId": "DATASET-E-JCT01-D0",
       "sourceEdges": [
-        "Jl_Simpang_Barcelona->Jl_Pelaihari_STA100",
-        "Jl_Pelaihari_STA100->Jl_OPK_STA0"
+        "RD-JCT-01->RD-D-STA0"
       ]
     },
     {
-      "id": "E-OPK0-OPK100",
-      "fromNodeId": "CP-OPK-0",
-      "toNodeId": "CP-OPK-100",
+      "id": "E-D0-D100",
+      "fromNodeId": "CP-D-0",
+      "toNodeId": "CP-D-100",
       "type": "loaded_haul",
       "distanceMeter": 232,
       "avgSpeedKmh": 17.7,
@@ -416,15 +411,15 @@
       "sampleCount": 926,
       "roadCondition": "good",
       "riskLevel": "low",
-      "sourceSegmentId": "DATASET-E-OPK0-OPK100",
+      "sourceSegmentId": "DATASET-E-D0-D100",
       "sourceEdges": [
-        "Jl_OPK_STA0->Jl_OPK_STA100"
+        "RD-D-STA0->RD-D-STA100"
       ]
     },
     {
-      "id": "E-OPK100-DISP300",
-      "fromNodeId": "CP-OPK-100",
-      "toNodeId": "CP-DISP-300",
+      "id": "E-D100-E300",
+      "fromNodeId": "CP-D-100",
+      "toNodeId": "CP-E-300",
       "type": "loaded_haul",
       "distanceMeter": 591,
       "avgSpeedKmh": 25.5,
@@ -433,17 +428,15 @@
       "sampleCount": 2756,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-OPK100-DISP300",
+      "sourceSegmentId": "DATASET-E-D100-E300",
       "sourceEdges": [
-        "Jl_OPK_STA100->Akses_Disposal_Jl_OPK_STA100",
-        "Akses_Disposal_Jl_OPK_STA100->Akses_Disposal_Jl_OPK_STA200",
-        "Akses_Disposal_Jl_OPK_STA200->Akses_Disposal_Jl_OPK_STA300"
+        "RD-D-STA100->RD-E-STA300"
       ]
     },
     {
-      "id": "E-DISP300-DISP500",
-      "fromNodeId": "CP-DISP-300",
-      "toNodeId": "CP-DISP-500",
+      "id": "E-E300-E500",
+      "fromNodeId": "CP-E-300",
+      "toNodeId": "CP-E-500",
       "type": "loaded_haul",
       "distanceMeter": 339,
       "avgSpeedKmh": 27.6,
@@ -452,15 +445,14 @@
       "sampleCount": 1024,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-DISP300-DISP500",
+      "sourceSegmentId": "DATASET-E-E300-E500",
       "sourceEdges": [
-        "Akses_Disposal_Jl_OPK_STA300->Akses_Disposal_Jl_OPK_STA400",
-        "Akses_Disposal_Jl_OPK_STA400->Akses_Disposal_Jl_OPK_STA500"
+        "RD-E-STA300->RD-E-STA500"
       ]
     },
     {
-      "id": "E-DISP500-STOCKPILE",
-      "fromNodeId": "CP-DISP-500",
+      "id": "E-E500-STOCKPILE",
+      "fromNodeId": "CP-E-500",
       "toNodeId": "STOCKPILE-01",
       "type": "loaded_haul",
       "distanceMeter": 170,
@@ -470,9 +462,9 @@
       "sampleCount": 426,
       "roadCondition": "medium",
       "riskLevel": "medium",
-      "sourceSegmentId": "DATASET-E-DISP500-STOCKPILE",
+      "sourceSegmentId": "DATASET-E-E500-STOCKPILE",
       "sourceEdges": [
-        "Akses_Disposal_Jl_OPK_STA500->OPD_SP20"
+        "RD-E-STA500->SP-01"
       ]
     }
   ]
