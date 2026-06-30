@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Layers } from "lucide-react";
+import { Info, Layers } from "lucide-react";
 import { divIcon } from "leaflet";
 import {
   CircleMarker,
@@ -224,6 +224,8 @@ export function ShipMap({ ships, selectedShipId, onShipSelect }: ShipMapProps) {
           <LegendNode color="#0284C7" label="Dermaga" />
           <LegendNode color="#DC2626" label="Dockyard" />
           <LegendDot label="Waypoint" />
+          <div className="h-3.5 w-px bg-border" />
+          <SimulasiRouteInfo />
         </div>
       </div>
     </div>
@@ -263,6 +265,24 @@ function LegendDot({ label }: { label: string }) {
     <div className="flex items-center gap-1.5">
       <div className="size-3 rounded-full border-2 border-[#94A3B8] bg-white" />
       <span className="text-muted-foreground font-medium">{label}</span>
+    </div>
+  );
+}
+
+function SimulasiRouteInfo() {
+  return (
+    <div className="group relative flex items-center gap-1">
+      <Info className="size-3.5 cursor-help text-amber-500" />
+      <span className="cursor-help font-semibold text-amber-600">Simulasi</span>
+      <div className="pointer-events-none absolute bottom-full left-1/2 mb-2.5 hidden w-[240px] -translate-x-1/2 group-hover:block">
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 shadow-lg text-[11px] leading-snug text-amber-900">
+          <p className="font-bold mb-1">Rute Dianonimkan</p>
+          <p>Jalur dan titik lokasi kapal merupakan simulasi. Data telemetry dibuat menyerupai kondisi operasional nyata namun tidak mencerminkan rute atau posisi aktual.</p>
+        </div>
+        <div className="mx-auto mt-[-1px] h-2 w-3 overflow-hidden">
+          <div className="mx-auto h-2 w-2 rotate-45 border-b border-r border-amber-200 bg-amber-50" />
+        </div>
+      </div>
     </div>
   );
 }

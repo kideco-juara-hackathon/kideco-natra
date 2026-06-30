@@ -16,6 +16,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Gauge,
+  Info,
   LogOut,
   Moon,
   Route,
@@ -267,9 +268,25 @@ function Sidebar({
         ))}
       </nav>
 
+      {/* Simulation notice */}
+      {collapsed ? (
+        <div className="mt-3 shrink-0 grid place-items-center">
+          <div title="Semua data di NATRA adalah simulasi berbasis pola real-life" className="grid size-7 place-items-center rounded-full border border-amber-200 bg-amber-50 dark:border-amber-800/40 dark:bg-amber-950/30 cursor-default">
+            <Info className="size-3.5 text-amber-500" />
+          </div>
+        </div>
+      ) : (
+        <div className="mt-3 shrink-0 flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 dark:border-amber-800/40 dark:bg-amber-950/30 px-3 py-2.5">
+          <Info className="mt-px size-3.5 shrink-0 text-amber-500" />
+          <p className="text-[11px] leading-snug text-amber-800 dark:text-amber-300">
+            <span className="font-bold">Data Simulasi.</span> Semua data merupakan simulasi berbasis pola telemetry real-life.
+          </p>
+        </div>
+      )}
+
       <div
         className={cn(
-          "mt-4 shrink-0 rounded-xl border border-border bg-card shadow-sm",
+          "mt-3 shrink-0 rounded-xl border border-border bg-card shadow-sm",
           collapsed ? "grid place-items-center p-2" : "p-3",
         )}
       >
