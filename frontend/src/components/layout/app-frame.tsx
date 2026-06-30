@@ -63,7 +63,7 @@ const TEAM_MEMBERS = [
 function CreditsDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="max-w-[440px] p-0 overflow-hidden">
+      <DialogContent className="max-w-[560px] p-0 overflow-hidden">
         {/* Header band */}
         <div className="bg-gradient-to-br from-[var(--kideco-red-500)] to-[var(--kideco-red-700)] px-6 py-5 text-white">
           <DialogHeader>
@@ -95,7 +95,7 @@ function CreditsDialog({ open, onClose }: { open: boolean; onClose: () => void }
                     {m.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate text-[12px] font-semibold text-foreground">{m.name}</p>
+                    <p className="text-[12px] font-semibold text-foreground">{m.name}</p>
                     <p className="text-[11px] text-muted-foreground">{m.role}</p>
                   </div>
                 </div>
@@ -418,28 +418,48 @@ function Sidebar({
           </>
         )}
 
-        {/* Profile card (clickable) */}
-        <button
-          type="button"
-          onClick={() => setProfileOpen((v) => !v)}
-          className={cn(
-            "w-full rounded-xl border border-border bg-card shadow-sm transition hover:bg-muted/40",
-            collapsed ? "grid place-items-center p-2" : "p-3",
-            profileOpen && "ring-2 ring-primary/30",
-          )}
-        >
-          <div className={cn("flex items-center", collapsed ? "justify-center" : "gap-3")}>
-            <div className="grid size-9 shrink-0 place-items-center rounded-full bg-bg-inverse text-[12px] font-semibold text-text-inverse">
-              D1
-            </div>
-            {!collapsed ? (
-              <div className="min-w-0 flex-1 text-left">
-                <div className="truncate text-[14px] font-semibold text-foreground">Dispatcher 01</div>
-                <div className="truncate text-[12px] text-text-muted">Fleet Dispatcher</div>
+        {/* Profile card */}
+        <div className={cn(
+          "w-full rounded-xl border border-border bg-card shadow-sm",
+          profileOpen && "ring-2 ring-primary/30",
+        )}>
+          {collapsed ? (
+            <button
+              type="button"
+              onClick={() => setProfileOpen((v) => !v)}
+              className="grid w-full place-items-center rounded-xl p-2 transition hover:bg-muted/40"
+            >
+              <div className="grid size-9 place-items-center rounded-full bg-bg-inverse text-[12px] font-semibold text-text-inverse">
+                D1
               </div>
-            ) : null}
-          </div>
-        </button>
+            </button>
+          ) : (
+            <div className="flex items-center gap-2 p-3">
+              <button
+                type="button"
+                onClick={() => setProfileOpen((v) => !v)}
+                className="flex min-w-0 flex-1 items-center gap-3 rounded-lg px-1 py-0.5 text-left transition hover:bg-muted/40"
+              >
+                <div className="grid size-9 shrink-0 place-items-center rounded-full bg-bg-inverse text-[12px] font-semibold text-text-inverse">
+                  D1
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-[14px] font-semibold text-foreground">Dispatcher 01</div>
+                  <div className="truncate text-[12px] text-text-muted">Fleet Dispatcher</div>
+                </div>
+              </button>
+              <Button
+                aria-label="Keluar dari dashboard"
+                onClick={onLogout}
+                size="icon-sm"
+                title="Keluar"
+                variant="ghost"
+              >
+                <LogOut className="size-4" />
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
 
       <CreditsDialog open={creditsOpen} onClose={() => setCreditsOpen(false)} />
