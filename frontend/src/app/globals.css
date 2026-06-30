@@ -178,6 +178,81 @@
   line-height: var(--line-body-sm);
 }
 
+/* ── Ship map markers ─────────────────────────────────────── */
+.ship-map-marker-wrapper,
+.ship-node-marker-wrapper {
+  background: transparent;
+  border: 0;
+}
+
+.ship-map-marker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ship-map-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 22%);
+  flex-shrink: 0;
+}
+
+.ship-map-label {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 4px 8px;
+  min-width: 115px;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 10%);
+}
+
+.ship-map-label__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ship-map-label__id {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #0f172a;
+  font-family: var(--font-family-sans, sans-serif);
+}
+
+.ship-map-label__health {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-family-sans, sans-serif);
+}
+
+.ship-map-label__status {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: var(--font-family-sans, sans-serif);
+}
+
+.ship-node-marker {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+}
+
+/* ─────────────────────────────────────────────────────────── */
 .truck-map-marker-wrapper {
   background: transparent;
   border: 0;

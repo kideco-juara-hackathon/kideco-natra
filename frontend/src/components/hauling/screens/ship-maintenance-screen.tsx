@@ -158,89 +158,92 @@ function ShipDetailContent({ ship }: { ship: ShipRow }) {
 
   return (
     <div className="space-y-4">
-      {/* Health summary */}
-      <div className="grid gap-3 md:grid-cols-2">
-        <Card className="rounded-xl shadow-none">
-          <CardContent className="flex items-center gap-5 px-5 py-4">
-            <div className="relative flex size-20 shrink-0 items-center justify-center">
+      {/* Health + Detail — single card stacked to fit 420px sheet */}
+      <Card className="rounded-xl shadow-none">
+        <CardContent className="px-5 py-4">
+          {/* Health row */}
+          <div className="flex items-center gap-4">
+            <div className="relative flex size-[68px] shrink-0 items-center justify-center">
               <svg className="absolute inset-0 size-full -rotate-90" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="15.9155" fill="none" stroke="hsl(var(--muted))" strokeWidth="3" />
                 <circle
                   cx="18" cy="18" r="15.9155"
                   fill="none"
                   strokeWidth="3"
-                  stroke={ship.healthScore >= 85 ? "var(--success-500)" : ship.healthScore >= 70 ? "var(--warning-500)" : "var(--danger-500)"}
+                  stroke={
+                    ship.healthScore >= 85
+                      ? "var(--success-500)"
+                      : ship.healthScore >= 70
+                        ? "var(--warning-500)"
+                        : "var(--danger-500)"
+                  }
                   strokeDasharray={`${ship.healthScore} ${100 - ship.healthScore}`}
                   strokeLinecap="round"
                 />
               </svg>
-              <span className={`text-xl font-bold tabular-nums ${tone.text}`}>{ship.healthScore}</span>
+              <span className={`text-lg font-bold tabular-nums ${tone.text}`}>{ship.healthScore}</span>
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold text-foreground">Health Score</p>
-              <Badge variant="outline" className={`mt-1 ${tone.badge}`}>{level}</Badge>
-              <p className="mt-2 text-xs text-muted-foreground">{shipNextAction(ship)}</p>
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="text-sm font-semibold text-foreground">Health Score</p>
+                <Badge variant="outline" className={tone.badge}>{level}</Badge>
+              </div>
+              <p className="mt-1.5 text-xs leading-snug text-muted-foreground">
+                {shipNextAction(ship)}
+              </p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
 
-        <Card className="rounded-xl shadow-none">
-          <CardHeader className="px-5 pb-2 pt-4">
-            <CardTitle className="text-sm">Detail Unit</CardTitle>
-          </CardHeader>
-          <CardContent className="px-5 pb-4 space-y-1.5 text-sm">
-            {[
-              ["Nama Kapal", ship.name],
-              ["Tongkang", ship.barge],
-              ["Tipe", ship.type],
-              ["Kapasitas", `${ship.capacityTon.toLocaleString()} ton`],
-              ["Status", shipStatusLabel(ship.status)],
-            ].map(([label, value]) => (
-              <div key={label} className="flex justify-between">
-                <span className="text-muted-foreground">{label}</span>
-                <span className="font-medium">{value}</span>
+          <div className="my-4 border-t" />
+
+          {/* Detail Unit rows */}
+          <p className="mb-2.5 text-sm font-semibold text-foreground">Detail Unit</p>
+          <div className="space-y-2 text-sm">
+            {(
+              [
+                ["Nama Kapal", ship.name],
+                ["Tongkang", ship.barge],
+                ["Tipe", ship.type],
+                ["Kapasitas", `${ship.capacityTon.toLocaleString()} ton`],
+                ["Status", shipStatusLabel(ship.status)],
+              ] as [string, string][]
+            ).map(([label, value]) => (
+              <div key={label} className="flex items-baseline justify-between gap-3">
+                <span className="shrink-0 text-muted-foreground">{label}</span>
+                <span className="font-semibold text-right">{value}</span>
               </div>
             ))}
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Component risk table */}
+      {/* Component risk — card-per-row, avoids horizontal scroll */}
       <Card className="rounded-xl shadow-none">
         <CardHeader className="px-5 pb-3 pt-4">
           <CardTitle>Analisis Komponen</CardTitle>
           <CardDescription>Status sensor dan kondisi sistem kritis kapal</CardDescription>
         </CardHeader>
-        <CardContent className="px-5 pb-5">
-          <div className="overflow-hidden rounded-xl border">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Komponen</TableHead>
-                  <TableHead>Nilai</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Keterangan</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {components.map((c) => {
-                  const t = riskTone(c.level);
-                  return (
-                    <TableRow key={c.name}>
-                      <TableCell className="font-medium">{c.name}</TableCell>
-                      <TableCell className={`tabular-nums font-semibold ${t.text}`}>
-                        {c.value}{c.unit ? ` ${c.unit}` : ""}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline" className={t.badge}>{c.level}</Badge>
-                      </TableCell>
-                      <TableCell className="text-sm text-muted-foreground">{c.note}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </div>
+        <CardContent className="px-5 pb-5 space-y-2">
+          {components.map((c) => {
+            const t = riskTone(c.level);
+            return (
+              <div key={c.name} className="rounded-lg border p-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-sm font-medium">{c.name}</span>
+                  <div className="flex shrink-0 items-center gap-2">
+                    <span className={`text-sm font-semibold tabular-nums ${t.text}`}>
+                      {c.value}
+                      {c.unit ? <span className="font-normal text-muted-foreground"> {c.unit}</span> : null}
+                    </span>
+                    <Badge variant="outline" className={`${t.badge} shrink-0`}>
+                      {c.level}
+                    </Badge>
+                  </div>
+                </div>
+                <p className="mt-1 text-[11px] text-muted-foreground">{c.note}</p>
+              </div>
+            );
+          })}
         </CardContent>
       </Card>
 
@@ -254,11 +257,17 @@ function ShipDetailContent({ ship }: { ship: ShipRow }) {
           <CardContent className="px-5 pb-5 space-y-3">
             {activityFeed.map((ev) => (
               <div key={ev.id} className="flex items-start gap-3">
-                <span className={`mt-1.5 size-2 shrink-0 rounded-full ${
-                  ev.type === "danger" ? "bg-red-500" :
-                  ev.type === "success" ? "bg-emerald-500" :
-                  ev.type === "warning" ? "bg-amber-500" : "bg-sky-500"
-                }`} />
+                <span
+                  className={`mt-1.5 size-2 shrink-0 rounded-full ${
+                    ev.type === "danger"
+                      ? "bg-red-500"
+                      : ev.type === "success"
+                        ? "bg-emerald-500"
+                        : ev.type === "warning"
+                          ? "bg-amber-500"
+                          : "bg-sky-500"
+                  }`}
+                />
                 <div>
                   <p className="text-sm leading-snug">{ev.message}</p>
                   <p className="text-xs text-muted-foreground">{ev.time}</p>
