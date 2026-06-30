@@ -37,6 +37,11 @@ export type SearchResult = {
   sectionLabel?: string;
 };
 
+export type SearchResultGroup = {
+  label: string;
+  results: SearchResult[];
+};
+
 import { createPortal } from "react-dom";
 
 import { Button } from "@/components/ui/button";
@@ -343,6 +348,7 @@ export function AppFrame({
   searchQuery = "",
   onSearchChange,
   searchResults = [],
+  searchGroups,
   onSearchSelect,
 }: {
   title: string;
@@ -360,6 +366,7 @@ export function AppFrame({
   searchQuery?: string;
   onSearchChange?: (q: string) => void;
   searchResults?: SearchResult[];
+  searchGroups?: SearchResultGroup[];
   onSearchSelect?: (id: string) => void;
 }) {
   const darkMode = useSyncExternalStore(
@@ -370,10 +377,13 @@ export function AppFrame({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
   const searchBlurTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { unreadCount } = useNotifications();
 
-  const showDropdown = searchFocused && searchResults.length > 0;
+  const isEmptyQuery = !searchQuery.trim();
+  const showGroupTabs = isEmptyQuery && !!searchGroups?.length;
+  const showDropdown = searchFocused && (showGroupTabs || searchResults.length > 0);
 
   function handleSearchBlur() {
     searchBlurTimer.current = setTimeout(() => setSearchFocused(false), 150);
@@ -466,57 +476,117 @@ export function AppFrame({
                   onBlur={handleSearchBlur}
                 />
                 {showDropdown && (
-                  <div className="absolute left-0 right-0 top-full mt-1.5 z-[1900] overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-lg)]">
-                    {!searchQuery.trim() && (
-                      <div className="border-b border-border/60 px-3 py-2">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                          Akses Cepat
-                        </span>
-                      </div>
-                    )}
-                    {searchResults.map((result, idx) => {
-                      const Icon = result.icon;
-                      const showSectionLabel = !!result.sectionLabel;
-                      return (
-                        <div key={result.id}>
-                          {showSectionLabel && (
-                            <div className={cn("px-3 py-1.5", idx > 0 && "border-t border-border/60 mt-0.5")}>
-                              <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                                {result.sectionLabel}
+                  <div className="absolute right-0 top-full mt-1.5 z-[1900] w-[340px] overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-lg)]">
+                    {showGroupTabs && searchGroups ? (
+                      <>
+                        {/* Tab bar */}
+                        <div className="flex items-center gap-0.5 border-b border-border/60 px-2 pt-2">
+                          {searchGroups.map((group, i) => (
+                            <button
+                              key={group.label}
+                              type="button"
+                              className={cn(
+                                "px-3 py-1.5 text-[11px] font-semibold rounded-t-md transition border-b-2 -mb-px",
+                                activeTab === i
+                                  ? "border-primary text-primary"
+                                  : "border-transparent text-muted-foreground hover:text-foreground",
+                              )}
+                              onMouseDown={(e) => e.preventDefault()}
+                              onClick={() => setActiveTab(i)}
+                            >
+                              {group.label}
+                              <span className="ml-1.5 rounded-full bg-muted px-1.5 py-0.5 text-[9px] font-bold text-muted-foreground">
+                                {group.results.length}
                               </span>
-                            </div>
-                          )}
-                          <button
-                            type="button"
-                            className={cn(
-                              "flex w-full items-center gap-3 px-3 py-2.5 text-left transition hover:bg-muted/60",
-                              !showSectionLabel && idx > 0 && "border-t border-border/60",
-                            )}
-                            onMouseDown={(e) => e.preventDefault()}
-                            onClick={() => handleResultClick(result.id)}
-                          >
-                            <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-muted text-text-subtle">
-                              <Icon className="size-3.5" />
-                            </span>
-                            <span className="min-w-0 flex-1">
-                              <span className="block truncate text-[13px] font-medium text-foreground">
-                                {result.label}
+                            </button>
+                          ))}
+                        </div>
+                        {/* Tab content */}
+                        <div className="max-h-[320px] overflow-y-auto">
+                          {(searchGroups[activeTab]?.results ?? []).map((result, idx) => {
+                            const Icon = result.icon;
+                            const showSectionLabel = !!result.sectionLabel;
+                            return (
+                              <div key={result.id}>
+                                {showSectionLabel && (
+                                  <div className={cn("px-3 py-1.5", idx > 0 && "border-t border-border/60 mt-0.5")}>
+                                    <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                                      {result.sectionLabel}
+                                    </span>
+                                  </div>
+                                )}
+                                <button
+                                  type="button"
+                                  className={cn(
+                                    "flex w-full items-center gap-3 px-3 py-2.5 text-left transition hover:bg-muted/60",
+                                    !showSectionLabel && idx > 0 && "border-t border-border/60",
+                                  )}
+                                  onMouseDown={(e) => e.preventDefault()}
+                                  onClick={() => handleResultClick(result.id)}
+                                >
+                                  <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-muted text-text-subtle">
+                                    <Icon className="size-3.5" />
+                                  </span>
+                                  <span className="min-w-0 flex-1">
+                                    <span className="block truncate text-[13px] font-medium text-foreground">
+                                      {result.label}
+                                    </span>
+                                    {result.sublabel && (
+                                      <span className="block truncate text-[11px] text-muted-foreground">
+                                        {result.sublabel}
+                                      </span>
+                                    )}
+                                  </span>
+                                  {result.badge && (
+                                    <span className={cn("shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-semibold", result.badgeClass ?? "bg-muted text-muted-foreground")}>
+                                      {result.badge}
+                                    </span>
+                                  )}
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </>
+                    ) : (
+                      /* Typed query: flat filtered results */
+                      <div className="max-h-[320px] overflow-y-auto">
+                        {searchResults.map((result, idx) => {
+                          const Icon = result.icon;
+                          return (
+                            <button
+                              key={result.id}
+                              type="button"
+                              className={cn(
+                                "flex w-full items-center gap-3 px-3 py-2.5 text-left transition hover:bg-muted/60",
+                                idx > 0 && "border-t border-border/60",
+                              )}
+                              onMouseDown={(e) => e.preventDefault()}
+                              onClick={() => handleResultClick(result.id)}
+                            >
+                              <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-muted text-text-subtle">
+                                <Icon className="size-3.5" />
                               </span>
-                              {result.sublabel && (
-                                <span className="block truncate text-[11px] text-muted-foreground">
-                                  {result.sublabel}
+                              <span className="min-w-0 flex-1">
+                                <span className="block truncate text-[13px] font-medium text-foreground">
+                                  {result.label}
+                                </span>
+                                {result.sublabel && (
+                                  <span className="block truncate text-[11px] text-muted-foreground">
+                                    {result.sublabel}
+                                  </span>
+                                )}
+                              </span>
+                              {result.badge && (
+                                <span className={cn("shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-semibold", result.badgeClass ?? "bg-muted text-muted-foreground")}>
+                                  {result.badge}
                                 </span>
                               )}
-                            </span>
-                            {result.badge && (
-                              <span className={cn("shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-semibold", result.badgeClass ?? "bg-muted text-muted-foreground")}>
-                                {result.badge}
-                              </span>
-                            )}
-                          </button>
-                        </div>
-                      );
-                    })}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
