@@ -6,6 +6,7 @@ import {
   BarChart3,
   ChevronRight,
   Clock,
+  Info,
   Play,
   Ship,
   Sun,
@@ -412,6 +413,20 @@ export function ShipCommandCenterScreen({
 
         <div className="flex flex-1 min-h-0">
           <div className="relative flex-1 min-w-0 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] shadow-[var(--shadow-sm)] overflow-hidden">
+            {/* Route simulation notice */}
+            <div className="group absolute left-3 top-3 z-[500]">
+              <div className="flex cursor-help items-center gap-1.5 rounded-lg border border-amber-200 bg-amber-50/95 px-2.5 py-1.5 shadow-sm backdrop-blur-sm">
+                <Info className="size-3.5 shrink-0 text-amber-500" />
+                <span className="text-[11px] font-semibold text-amber-700">Rute Simulasi</span>
+              </div>
+              <div className="pointer-events-none absolute left-0 top-full mt-2 hidden w-[260px] group-hover:block">
+                <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 shadow-lg text-[11px] leading-snug text-amber-900">
+                  <p className="font-bold mb-1">Rute & Lokasi Dianonimkan</p>
+                  <p>Jalur rute dan posisi kapal merupakan simulasi berbasis pola operasional nyata. Tidak mencerminkan rute atau posisi aktual di lapangan.</p>
+                </div>
+              </div>
+            </div>
+
             <ShipMapShell
               ships={ships}
               selectedShipId={selectedId}
