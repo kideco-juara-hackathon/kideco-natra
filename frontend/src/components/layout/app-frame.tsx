@@ -464,7 +464,7 @@ export function AppFrame({
                 <div className="flex min-w-0 items-center gap-2">{actions}</div>
               ) : null}
 
-              <div className="relative hidden w-[260px] md:block">
+              <div className="relative hidden w-[340px] md:block">
                 <Search className="absolute left-3 top-2.5 size-4 text-muted-foreground pointer-events-none z-10" />
                 <input
                   className="h-10 w-full rounded-xl border border-border bg-muted/50 pl-9 pr-3 text-[14px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
@@ -476,7 +476,7 @@ export function AppFrame({
                   onBlur={handleSearchBlur}
                 />
                 {showDropdown && (
-                  <div className="absolute right-0 top-full mt-1.5 z-[1900] w-[340px] overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-lg)]">
+                  <div className="absolute left-0 right-0 top-full mt-1.5 z-[1900] overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-lg)]">
                     {showGroupTabs && searchGroups ? (
                       <>
                         {/* Tab bar */}
