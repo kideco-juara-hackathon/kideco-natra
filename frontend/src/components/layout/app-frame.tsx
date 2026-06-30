@@ -15,7 +15,10 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  CirclePlay,
+  ExternalLink,
   Gauge,
+  GitBranch,
   Info,
   LogOut,
   Moon,
@@ -45,9 +48,94 @@ export type SearchResultGroup = {
 import { createPortal } from "react-dom";
 
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { NotificationFeed } from "@/components/hauling/command-center/notification-feed";
 import { useNotifications } from "@/lib/command-center/notifications-context";
 import { cn } from "@/lib/utils";
+
+const TEAM_MEMBERS = [
+  { name: "Mahardika Arka",       role: "PM / Frontend" },
+  { name: "Dicha Wijaya Kusuma",  role: "Backend" },
+  { name: "Raditya Yusma Nata",   role: "Machine Learning" },
+  { name: "Marsa Naufal",         role: "IoT" },
+];
+
+function CreditsDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+  return (
+    <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
+      <DialogContent className="max-w-[440px] p-0 overflow-hidden">
+        {/* Header band */}
+        <div className="bg-gradient-to-br from-[var(--kideco-red-500)] to-[var(--kideco-red-700)] px-6 py-5 text-white">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold tracking-tight text-white">NATRA</DialogTitle>
+          </DialogHeader>
+          <p className="mt-0.5 text-[13px] font-medium text-red-100">
+            Navigation, Asset, Transport, Routing &amp; Analytics
+          </p>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {["KIC 2026", "Kideco Innovation Challenge", "Institut Teknologi Kalimantan"].map((tag) => (
+              <span key={tag} className="rounded-full bg-white/15 px-2.5 py-0.5 text-[11px] font-semibold text-white/90">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className="px-6 py-5 space-y-5">
+          {/* Team */}
+          <div>
+            <p className="mb-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+              Tim Ex Machina
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {TEAM_MEMBERS.map((m) => (
+                <div key={m.name} className="flex items-center gap-2.5 rounded-xl border border-border bg-muted/30 px-3 py-2.5">
+                  <div className="grid size-8 shrink-0 place-items-center rounded-full bg-[var(--bg-inverse)] text-[11px] font-bold text-[var(--text-inverse)]">
+                    {m.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate text-[12px] font-semibold text-foreground">{m.name}</p>
+                    <p className="text-[11px] text-muted-foreground">{m.role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Links */}
+          <div className="flex gap-2">
+            <a
+              href="https://github.com/kideco-juara-hackathon/kideco-natra"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-border bg-card py-2.5 text-[13px] font-semibold text-foreground transition hover:bg-muted/60"
+            >
+              <GitBranch className="size-4" />
+              GitHub Repo
+              <ExternalLink className="size-3 text-muted-foreground" />
+            </a>
+            <a
+              href="https://www.youtube.com/watch?v=M1GgSwF6Syk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 py-2.5 text-[13px] font-semibold text-red-700 transition hover:bg-red-100"
+            >
+              <CirclePlay className="size-4" />
+              Video Demo
+              <ExternalLink className="size-3 text-red-400" />
+            </a>
+          </div>
+
+          <p className="text-center text-[11px] text-muted-foreground leading-relaxed">
+            Dibangun sebagai prototipe untuk kompetisi KIC 2026.<br />
+            Semua data bersifat simulasi dan tidak mencerminkan operasional aktual.
+          </p>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 type NavChild = {
   key: string;
@@ -159,6 +247,8 @@ function Sidebar({
   onNavigate?: (key: string) => void;
   onToggleCollapsed: () => void;
 }) {
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [creditsOpen, setCreditsOpen] = useState(false);
   return (
     <aside
       className={cn(
@@ -290,44 +380,69 @@ function Sidebar({
         </div>
       )}
 
-      <div
-        className={cn(
-          "mt-3 shrink-0 rounded-xl border border-border bg-card shadow-sm",
-          collapsed ? "grid place-items-center p-2" : "p-3",
+      {/* Profile card + popover */}
+      <div className="relative mt-3 shrink-0">
+        {/* Popover */}
+        {profileOpen && (
+          <>
+            <div className="fixed inset-0 z-[1800]" onClick={() => setProfileOpen(false)} />
+            <div className={cn(
+              "absolute bottom-full z-[1850] mb-2 overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-lg)]",
+              collapsed ? "left-full ml-2 w-[200px]" : "left-0 right-0 w-auto",
+            )}>
+              <button
+                type="button"
+                className="flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-muted/60"
+                onClick={() => { setProfileOpen(false); setCreditsOpen(true); }}
+              >
+                <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-muted text-muted-foreground">
+                  <Info className="size-4" />
+                </span>
+                <span>
+                  <span className="block text-[13px] font-semibold text-foreground">Credits &amp; Info</span>
+                  <span className="block text-[11px] text-muted-foreground">Tim, repo, dan demo</span>
+                </span>
+              </button>
+              <div className="border-t border-border/60" />
+              <button
+                type="button"
+                className="flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-red-50 text-red-600"
+                onClick={() => { setProfileOpen(false); onLogout?.(); }}
+              >
+                <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-red-50 text-red-500">
+                  <LogOut className="size-4" />
+                </span>
+                <span className="text-[13px] font-semibold">Keluar</span>
+              </button>
+            </div>
+          </>
         )}
-      >
-        <div
+
+        {/* Profile card (clickable) */}
+        <button
+          type="button"
+          onClick={() => setProfileOpen((v) => !v)}
           className={cn(
-            "flex items-center",
-            collapsed ? "justify-center" : "gap-3",
+            "w-full rounded-xl border border-border bg-card shadow-sm transition hover:bg-muted/40",
+            collapsed ? "grid place-items-center p-2" : "p-3",
+            profileOpen && "ring-2 ring-primary/30",
           )}
         >
-          <div className="grid size-9 shrink-0 place-items-center rounded-full bg-bg-inverse text-[12px] font-semibold text-text-inverse">
-            D1
-          </div>
-          {!collapsed ? (
-            <>
-              <div className="min-w-0 flex-1">
-                <div className="truncate text-[14px] font-semibold text-foreground">
-                  Dispatcher 01
-                </div>
-                <div className="truncate text-[12px] text-text-muted">
-                  Fleet Dispatcher
-                </div>
+          <div className={cn("flex items-center", collapsed ? "justify-center" : "gap-3")}>
+            <div className="grid size-9 shrink-0 place-items-center rounded-full bg-bg-inverse text-[12px] font-semibold text-text-inverse">
+              D1
+            </div>
+            {!collapsed ? (
+              <div className="min-w-0 flex-1 text-left">
+                <div className="truncate text-[14px] font-semibold text-foreground">Dispatcher 01</div>
+                <div className="truncate text-[12px] text-text-muted">Fleet Dispatcher</div>
               </div>
-              <Button
-                aria-label="Keluar dari dashboard"
-                onClick={onLogout}
-                size="icon-sm"
-                title="Keluar"
-                variant="ghost"
-              >
-                <LogOut className="size-4" />
-              </Button>
-            </>
-          ) : null}
-        </div>
+            ) : null}
+          </div>
+        </button>
       </div>
+
+      <CreditsDialog open={creditsOpen} onClose={() => setCreditsOpen(false)} />
     </aside>
   );
 }
