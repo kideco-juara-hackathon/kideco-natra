@@ -178,6 +178,21 @@ HTTP API  →  future MQTT  →  AMQP/RabbitMQ pipeline
 
 ---
 
+## Repositori Model Machine Learning
+
+Seluruh model AI/ML yang menggerakkan prediksi NATRA telah dilatih dalam repositori terpisah di bawah organisasi yang sama. Setiap repositori berisi notebook workflow lengkap, model terlatih, dan dokumentasi fitur NATRA yang didukungnya.
+
+| Repositori | Model | Digunakan pada Fitur NATRA |
+|---|---|---|
+| [kideco-ml-eta](https://github.com/kideco-juara-hackathon/kideco-ml-eta) | Random Forest Regressor | Route Intelligence · Route Monitor (ETA hauling truck) |
+| [kideco-ml-fuel](https://github.com/kideco-juara-hackathon/kideco-ml-fuel) | XGBoost + Physics Engine | Route Intelligence · Route Monitor (fuel hauling truck) |
+| [kideco-ml-maintenance](https://github.com/kideco-juara-hackathon/kideco-ml-maintenance) | Isolation Forest + Physics Rules | Maintenance Intelligence (health score hauling truck) |
+| [kideco-ml-eta-kapal](https://github.com/kideco-juara-hackathon/kideco-ml-eta-kapal) | Random Forest — 3 model spesialis | Route Monitor (ETA Crewboat · LCT · Tugboat) |
+| [kideco-ml-fuel-kapal](https://github.com/kideco-juara-hackathon/kideco-ml-fuel-kapal) | XGBoost — 3 model spesialis | Fuel Monitor (bunker planning Crewboat · LCT · Tugboat) |
+| [kideco-ml-maintenance-kapal](https://github.com/kideco-juara-hackathon/kideco-ml-maintenance-kapal) | Isolation Forest — 3 model spesialis | Maintenance Intelligence (health score mesin kapal) |
+
+---
+
 ## Tech Stack
 
 | Layer | Teknologi |
