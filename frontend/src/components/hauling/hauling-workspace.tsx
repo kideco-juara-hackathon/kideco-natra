@@ -2,9 +2,10 @@
 
 import { Suspense, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Gauge, Route, Truck, Wrench } from "lucide-react";
+import { Anchor, Gauge, Route, Ship, Truck, Wrench } from "lucide-react";
 
-import { AppFrame, type SearchResult } from "@/components/layout/app-frame";
+import { AppFrame, type SearchResult, type SearchResultGroup } from "@/components/layout/app-frame";
+import { SHIP_DATA, shipStatusLabel, shipHealthLevel } from "@/data/ship-data";
 import { BrandedLoader } from "@/components/layout/branded-loader";
 import {
   CommandCenterProvider,
@@ -112,15 +113,66 @@ function HaulingWorkspaceFrame({
 
   const [searchQuery, setSearchQuery] = useState("");
 
+  const allScreens: SearchResult[] = useMemo(() => [
+    { id: "screen:hauling-overview",        icon: Gauge,  label: "Overview",              sublabel: "Hauling Darat",                      sectionLabel: "Hauling Darat" },
+    { id: "screen:hauling-command-center",  icon: Truck,  label: "Command Center",        sublabel: "Hauling Darat · Route Intelligence" },
+    { id: "screen:hauling-route-monitor",   icon: Route,  label: "Route Monitor",         sublabel: "Hauling Darat · Route Intelligence" },
+    { id: "screen:hauling-maintenance",     icon: Wrench, label: "Maintenance Truck",     sublabel: "Hauling Darat" },
+    { id: "screen:marine-overview",         icon: Ship,   label: "Overview Kapal",        sublabel: "Operasi Kapal",                      sectionLabel: "Operasi Kapal" },
+    { id: "screen:marine-command-center",   icon: Anchor, label: "Command Center Kapal",  sublabel: "Operasi Kapal · Route Intelligence" },
+    { id: "screen:marine-route-monitor",    icon: Route,  label: "Route Monitor Kapal",   sublabel: "Operasi Kapal · Route Intelligence" },
+    { id: "screen:marine-maintenance",      icon: Wrench, label: "Maintenance Kapal",     sublabel: "Operasi Kapal" },
+  ], []);
+
+  const searchGroups = useMemo((): SearchResultGroup[] => {
+    // Tab: Navigasi — all 8 screens with section labels
+    const navGroup: SearchResultGroup = { label: "Navigasi", results: allScreens };
+
+    // Tab: Armada — ships + trucks
+    const shipResults: SearchResult[] = SHIP_DATA.map((ship, i) => {
+      const level = shipHealthLevel(ship.healthScore);
+      const badgeClass =
+        level === "Aman" ? "bg-[var(--success-50)] text-[var(--success-700)]"
+        : level === "Monitoring" ? "bg-sky-50 text-sky-700"
+        : level === "Risiko Sedang" ? "bg-[var(--warning-50)] text-[var(--warning-700)]"
+        : "bg-[var(--danger-50)] text-[var(--danger-700)]";
+      return {
+        id: `ship:${ship.id}`,
+        icon: ship.status === "perawatan" ? Wrench : ship.status === "sandar" ? Anchor : Ship,
+        label: ship.id,
+        sublabel: `${shipStatusLabel(ship.status)} · ${ship.route ?? (ship.status === "sandar" ? "Dermaga" : "Dockyard")}`,
+        badge: `Health ${ship.healthScore}`,
+        badgeClass,
+        sectionLabel: i === 0 ? "Armada Kapal" : undefined,
+      };
+    });
+    const truckResults: SearchResult[] = cc.trucks.map((truck, i) => ({
+      id: `truck:${truck.id}`,
+      icon: Truck,
+      label: truck.id,
+      sublabel: truck.status === "active" ? "Sedang beroperasi" : "Standby",
+      badge: `Health ${truck.healthScore}`,
+      badgeClass:
+        truck.healthScore >= 85 ? "bg-[var(--success-50)] text-[var(--success-700)]"
+        : truck.healthScore >= 70 ? "bg-[var(--warning-50)] text-[var(--warning-700)]"
+        : "bg-[var(--danger-50)] text-[var(--danger-700)]",
+      sectionLabel: i === 0 ? "Dump Truck" : undefined,
+    }));
+    const fleetGroup: SearchResultGroup = { label: "Armada", results: [...shipResults, ...truckResults] };
+
+    return [navGroup, fleetGroup];
+  }, [allScreens, cc.trucks]);
+
   const searchResults = useMemo((): SearchResult[] => {
     const q = searchQuery.trim().toLowerCase();
     if (!q) return [];
 
+    // ── Typed query: filter everything ──────────────────────
     const results: SearchResult[] = [];
 
     // Trucks
     for (const truck of cc.trucks) {
-      if (truck.id.toLowerCase().includes(q) || truck.code.toLowerCase().includes(q)) {
+      if (truck.id.toLowerCase().includes(q) || truck.code.toLowerCase().includes(q) || "dump truck".includes(q) || "hauling".includes(q)) {
         const isActive = truck.status === "active";
         results.push({
           id: `truck:${truck.id}`,
@@ -143,8 +195,8 @@ function HaulingWorkspaceFrame({
       if (
         a.truckId.toLowerCase().includes(q) ||
         a.routeLabel.toLowerCase().includes(q) ||
-        "trip".includes(q) ||
-        "aktif".includes(q)
+        "trip aktif".includes(q) ||
+        "rute".includes(q)
       ) {
         results.push({
           id: `trip:${a.tripId}`,
@@ -157,14 +209,34 @@ function HaulingWorkspaceFrame({
       }
     }
 
+    // Ships
+    for (const ship of SHIP_DATA) {
+      const keywords = [
+        ship.id, ship.name, ship.barge, ship.type,
+        shipStatusLabel(ship.status),
+        ship.route ?? "",
+        "kapal", "tongkang", "berlayar", "sandar", "perawatan", "marine",
+      ];
+      if (keywords.some((k) => k.toLowerCase().includes(q))) {
+        const level = shipHealthLevel(ship.healthScore);
+        const badgeClass =
+          level === "Aman" ? "bg-[var(--success-50)] text-[var(--success-700)]"
+          : level === "Monitoring" ? "bg-sky-50 text-sky-700"
+          : level === "Risiko Sedang" ? "bg-[var(--warning-50)] text-[var(--warning-700)]"
+          : "bg-[var(--danger-50)] text-[var(--danger-700)]";
+        results.push({
+          id: `ship:${ship.id}`,
+          icon: ship.status === "perawatan" ? Wrench : ship.status === "sandar" ? Anchor : Ship,
+          label: ship.id,
+          sublabel: `${shipStatusLabel(ship.status)} · ${ship.route ?? (ship.status === "sandar" ? "Dermaga" : "Dockyard")}`,
+          badge: `Health ${ship.healthScore}`,
+          badgeClass,
+        });
+      }
+    }
+
     // Screens
-    const screens: SearchResult[] = [
-      { id: "screen:hauling-overview",       icon: Gauge,  label: "Overview",        sublabel: "Hauling Darat" },
-      { id: "screen:hauling-command-center", icon: Truck,  label: "Command Center",  sublabel: "Route Intelligence" },
-      { id: "screen:hauling-route-monitor",  icon: Route,  label: "Route Monitor",   sublabel: "Route Intelligence" },
-      { id: "screen:hauling-maintenance",    icon: Wrench, label: "Maintenance",     sublabel: "Hauling Darat" },
-    ];
-    for (const s of screens) {
+    for (const s of allScreens) {
       if (
         s.label.toLowerCase().includes(q) ||
         (s.sublabel ?? "").toLowerCase().includes(q) ||
@@ -174,8 +246,8 @@ function HaulingWorkspaceFrame({
       }
     }
 
-    return results.slice(0, 7);
-  }, [searchQuery, cc.trucks, cc.assignments]);
+    return results.slice(0, 8);
+  }, [searchQuery, cc.trucks, cc.assignments, allScreens]);
 
   function handleSearchSelect(id: string) {
     if (id.startsWith("truck:")) {
@@ -183,6 +255,8 @@ function HaulingWorkspaceFrame({
       onOpenMaintenance(truckId);
     } else if (id.startsWith("trip:")) {
       onNavigate("hauling-route-monitor");
+    } else if (id.startsWith("ship:")) {
+      onNavigate("marine-command-center");
     } else if (id.startsWith("screen:")) {
       onNavigate(id.slice("screen:".length));
     }
@@ -209,6 +283,7 @@ function HaulingWorkspaceFrame({
       searchQuery={searchQuery}
       onSearchChange={setSearchQuery}
       searchResults={searchResults}
+      searchGroups={searchGroups}
       onSearchSelect={handleSearchSelect}
       title={title}
     >

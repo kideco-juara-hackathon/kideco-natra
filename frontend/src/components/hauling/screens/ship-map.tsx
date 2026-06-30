@@ -266,3 +266,4 @@ function LegendDot({ label }: { label: string }) {
     </div>
   );
 }
+

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { MapPinned, Play, SlidersHorizontal, Target, Truck } from "lucide-react";
+import { Info, MapPinned, Play, SlidersHorizontal, Target, Truck } from "lucide-react";
 
 import { RebasedRouteMapShell } from "@/components/route/rebased-route-map-shell";
 import { Button } from "@/components/ui/button";
@@ -124,6 +124,19 @@ export function CommandCenterScreen({ onOpenOverview }: { onOpenOverview?: () =>
         <div className="flex flex-1 min-h-0 gap-4">
           {/* Map — never covered by the panel */}
           <div className="relative flex-1 min-w-0 rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] shadow-[var(--shadow-sm)] overflow-hidden">
+            {/* Route simulation notice */}
+            <div className="group absolute left-3 top-3 z-[500]">
+              <div className="flex cursor-help items-center gap-1.5 rounded-lg border border-amber-200 bg-amber-50/95 px-2.5 py-1.5 shadow-sm backdrop-blur-sm">
+                <Info className="size-3.5 shrink-0 text-amber-500" />
+                <span className="text-[11px] font-semibold text-amber-700">Rute Simulasi</span>
+              </div>
+              <div className="pointer-events-none absolute left-0 top-full mt-2 hidden w-[260px] group-hover:block">
+                <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 shadow-lg text-[11px] leading-snug text-amber-900">
+                  <p className="font-bold mb-1">Rute & Lokasi Dianonimkan</p>
+                  <p>Jalur rute dan titik lokasi dump truck merupakan simulasi berbasis pola operasional nyata. Tidak mencerminkan rute atau posisi aktual di lapangan.</p>
+                </div>
+              </div>
+            </div>
             <RebasedRouteMapShell
               assignments={mapAssignments}
               mode="operational"
