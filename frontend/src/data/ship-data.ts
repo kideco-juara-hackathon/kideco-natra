@@ -14,6 +14,9 @@ export type ShipRow = {
   progress?: number;
   etaHour?: number;
   route?: string;
+  routeId?: string;
+  berth?: number;
+  estimasiJam?: number;
   cargoTon: number;
   speedKnot: number;
   engineTempC: number;
@@ -28,22 +31,54 @@ export type ShipNode = {
   label: string;
   lat: number;
   lng: number;
-  type: "dermaga" | "muara" | "pelabuhan";
+  type: "dermaga" | "muara" | "pelabuhan" | "dockyard";
 };
 
 export const SHIP_NODES: ShipNode[] = [
-  { id: "DERMAGA-01", label: "Dermaga Muat Kideco", lat: -0.502, lng: 117.163, type: "dermaga" },
-  { id: "MUARA",      label: "Muara Sungai Mahakam", lat: -0.948, lng: 117.498, type: "muara" },
+  // Pelabuhan Semayang — Balikpapan main port (east coast of the bay)
+  { id: "DERMAGA-01",   label: "Dermaga Muat Kideco",        lat: -1.282, lng: 116.852, type: "dermaga"   },
+  // Pelabuhan Tarahan — Lampung (coal unloading terminal)
   { id: "PLBN-TARAHAN", label: "Pelabuhan Tarahan, Lampung", lat: -5.481, lng: 105.283, type: "pelabuhan" },
+  // Dok & Perkapalan — north Balikpapan industrial / Kariangau area (on land)
+  { id: "DOCKYARD",     label: "Dockyard Balikpapan",        lat: -1.148, lng: 116.895, type: "dockyard"  },
 ];
+
+// Full lat/lng waypoint paths for route polylines
+export const SHIP_ROUTE_WAYPOINTS: Record<string, [number, number][]> = {
+  // Balikpapan → EAST into Selat Makassar → south along strait → round tip of
+  // South Kalimantan → west across Laut Jawa → Selat Sunda → Tarahan, Lampung
+  "R-TARAHAN": [
+    [-1.282, 116.852], // Dermaga Muat (Balikpapan port)
+    [-1.600, 117.150], // Exit Teluk Balikpapan eastward into Selat Makassar
+    [-2.200, 117.400], // Selat Makassar (open water, east of Paser coast)
+    [-3.000, 117.200], // Selat Makassar (south section)
+    [-3.800, 116.800], // Selat Makassar (east of Tanah Bumbu/Kotabaru, clear water)
+    [-4.500, 116.500], // East of Pulau Laut, still in Selat Makassar
+    [-5.000, 115.200], // Rounding tip of South Kalimantan → entering Laut Jawa
+    [-5.500, 113.000], // Laut Jawa
+    [-5.800, 111.000], // Laut Jawa (center-west)
+    [-6.000, 109.000], // Near Karimunjawa
+    [-6.000, 107.000], // Approaching Selat Sunda
+    [-5.700, 106.000], // Selat Sunda
+    [-5.481, 105.283], // Pelabuhan Tarahan, Lampung
+  ],
+  // Short haul north along Balikpapan coast to dockyard
+  "R-DOCKYARD": [
+    [-1.282, 116.852], // Dermaga Muat
+    [-1.148, 116.895], // Dockyard (north Balikpapan, Kariangau — on land)
+  ],
+};
 
 export const SHIP_ROUTES = [
   { id: "R-TARAHAN", label: "Kideco → Tarahan", from: "DERMAGA-01", to: "PLBN-TARAHAN", distanceNm: 820, etaHour: 48 },
-  { id: "R-BUATAN",  label: "Kideco → Buatan",  from: "DERMAGA-01", to: "MUARA",        distanceNm: 120, etaHour: 10 },
+  { id: "R-BUATAN",  label: "Kideco → Buatan",  from: "DERMAGA-01", to: "DOCKYARD",     distanceNm: 12,  etaHour: 1  },
 ];
 
 export const SHIP_DATA: ShipRow[] = [
   {
+    // Berlayar: 62% along R-TARAHAN (12 segments)
+    // 62%×12=7.44 → between WP[7](-5.500,113.000) and WP[8](-5.800,111.000), t=0.44
+    // lat: -5.500+0.44×(-0.300)=-5.632, lng: 113.000+0.44×(-2.000)=112.12
     id: "TB-01/BG-01",
     name: "TB-01",
     barge: "BG-01",
@@ -52,11 +87,12 @@ export const SHIP_DATA: ShipRow[] = [
     status: "berlayar",
     healthScore: 88,
     currentNodeId: "MUARA",
-    lat: -0.948,
-    lng: 117.498,
+    lat: -5.632,
+    lng: 112.12,
     progress: 62,
     etaHour: 18,
-    route: "DERMAGA-01 → MUARA → PLBN-TARAHAN",
+    route: "Dermaga Muat → Tarahan",
+    routeId: "R-TARAHAN",
     cargoTon: 7850,
     speedKnot: 7.2,
     engineTempC: 82,
@@ -66,6 +102,7 @@ export const SHIP_DATA: ShipRow[] = [
     bunkerLph: 45.5,
   },
   {
+    // Sandar: at Dermaga-01 (Pelabuhan Semayang, Balikpapan)
     id: "TB-02/BG-02",
     name: "TB-02",
     barge: "BG-02",
@@ -74,8 +111,9 @@ export const SHIP_DATA: ShipRow[] = [
     status: "sandar",
     healthScore: 92,
     currentNodeId: "DERMAGA-01",
-    lat: -0.502,
-    lng: 117.163,
+    lat: -1.282,
+    lng: 116.852,
+    berth: 45,
     cargoTon: 0,
     speedKnot: 0,
     engineTempC: 45,
@@ -85,6 +123,7 @@ export const SHIP_DATA: ShipRow[] = [
     bunkerLph: 0,
   },
   {
+    // Perawatan: at Dockyard (north Balikpapan, Kariangau area — on land)
     id: "TB-03/BG-03",
     name: "TB-03",
     barge: "BG-03",
@@ -92,9 +131,11 @@ export const SHIP_DATA: ShipRow[] = [
     capacityTon: 8000,
     status: "perawatan",
     healthScore: 43,
-    currentNodeId: "DERMAGA-01",
-    lat: -0.510,
-    lng: 117.160,
+    currentNodeId: "DOCKYARD",
+    lat: -1.148,
+    lng: 116.895,
+    routeId: "R-DOCKYARD",
+    estimasiJam: 6,
     cargoTon: 0,
     speedKnot: 0,
     engineTempC: 96,
