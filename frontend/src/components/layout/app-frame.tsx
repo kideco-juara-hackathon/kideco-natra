@@ -34,6 +34,7 @@ export type SearchResult = {
   sublabel?: string;
   badge?: string;
   badgeClass?: string;
+  sectionLabel?: string;
 };
 
 import { createPortal } from "react-dom";
@@ -372,7 +373,7 @@ export function AppFrame({
   const searchBlurTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { unreadCount } = useNotifications();
 
-  const showDropdown = searchFocused && searchQuery.trim().length > 0 && searchResults.length > 0;
+  const showDropdown = searchFocused && searchResults.length > 0;
 
   function handleSearchBlur() {
     searchBlurTimer.current = setTimeout(() => setSearchFocused(false), 150);
@@ -466,38 +467,54 @@ export function AppFrame({
                 />
                 {showDropdown && (
                   <div className="absolute left-0 right-0 top-full mt-1.5 z-[1900] overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-lg)]">
+                    {!searchQuery.trim() && (
+                      <div className="border-b border-border/60 px-3 py-2">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                          Akses Cepat
+                        </span>
+                      </div>
+                    )}
                     {searchResults.map((result, idx) => {
                       const Icon = result.icon;
+                      const showSectionLabel = !!result.sectionLabel;
                       return (
-                        <button
-                          key={result.id}
-                          type="button"
-                          className={cn(
-                            "flex w-full items-center gap-3 px-3 py-2.5 text-left transition hover:bg-muted/60",
-                            idx > 0 && "border-t border-border/60",
+                        <div key={result.id}>
+                          {showSectionLabel && (
+                            <div className={cn("px-3 py-1.5", idx > 0 && "border-t border-border/60 mt-0.5")}>
+                              <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                                {result.sectionLabel}
+                              </span>
+                            </div>
                           )}
-                          onMouseDown={(e) => e.preventDefault()}
-                          onClick={() => handleResultClick(result.id)}
-                        >
-                          <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-muted text-text-subtle">
-                            <Icon className="size-3.5" />
-                          </span>
-                          <span className="min-w-0 flex-1">
-                            <span className="block truncate text-[13px] font-medium text-foreground">
-                              {result.label}
+                          <button
+                            type="button"
+                            className={cn(
+                              "flex w-full items-center gap-3 px-3 py-2.5 text-left transition hover:bg-muted/60",
+                              !showSectionLabel && idx > 0 && "border-t border-border/60",
+                            )}
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={() => handleResultClick(result.id)}
+                          >
+                            <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-muted text-text-subtle">
+                              <Icon className="size-3.5" />
                             </span>
-                            {result.sublabel && (
-                              <span className="block truncate text-[11px] text-muted-foreground">
-                                {result.sublabel}
+                            <span className="min-w-0 flex-1">
+                              <span className="block truncate text-[13px] font-medium text-foreground">
+                                {result.label}
+                              </span>
+                              {result.sublabel && (
+                                <span className="block truncate text-[11px] text-muted-foreground">
+                                  {result.sublabel}
+                                </span>
+                              )}
+                            </span>
+                            {result.badge && (
+                              <span className={cn("shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-semibold", result.badgeClass ?? "bg-muted text-muted-foreground")}>
+                                {result.badge}
                               </span>
                             )}
-                          </span>
-                          {result.badge && (
-                            <span className={cn("shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-semibold", result.badgeClass ?? "bg-muted text-muted-foreground")}>
-                              {result.badge}
-                            </span>
-                          )}
-                        </button>
+                          </button>
+                        </div>
                       );
                     })}
                   </div>
