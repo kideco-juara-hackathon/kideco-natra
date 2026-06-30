@@ -63,7 +63,7 @@ const TEAM_MEMBERS = [
 function CreditsDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="max-w-[560px] p-0 overflow-hidden">
+      <DialogContent className="max-w-[640px] p-0 overflow-hidden">
         {/* Header band */}
         <div className="bg-gradient-to-br from-[var(--kideco-red-500)] to-[var(--kideco-red-700)] px-6 py-5 text-white">
           <DialogHeader>
@@ -419,35 +419,39 @@ function Sidebar({
         )}
 
         {/* Profile card */}
-        <div className={cn(
-          "w-full rounded-xl border border-border bg-card shadow-sm",
-          profileOpen && "ring-2 ring-primary/30",
-        )}>
+        <div className="w-full rounded-xl border border-border bg-card p-2 shadow-sm">
           {collapsed ? (
             <button
               type="button"
               onClick={() => setProfileOpen((v) => !v)}
-              className="grid w-full place-items-center rounded-xl p-2 transition hover:bg-muted/40"
+              title="Opsi akun"
+              className={cn(
+                "grid size-9 place-items-center rounded-full bg-bg-inverse text-[12px] font-semibold text-text-inverse transition hover:ring-2 hover:ring-primary/40",
+                profileOpen && "ring-2 ring-primary/50",
+              )}
             >
-              <div className="grid size-9 place-items-center rounded-full bg-bg-inverse text-[12px] font-semibold text-text-inverse">
-                D1
-              </div>
+              D1
             </button>
           ) : (
-            <div className="flex items-center gap-2 p-3">
+            <div className="flex items-center gap-2">
+              {/* Avatar — dedicated popover trigger */}
               <button
                 type="button"
                 onClick={() => setProfileOpen((v) => !v)}
-                className="flex min-w-0 flex-1 items-center gap-3 rounded-lg px-1 py-0.5 text-left transition hover:bg-muted/40"
+                title="Opsi akun"
+                className={cn(
+                  "grid size-9 shrink-0 place-items-center rounded-full bg-bg-inverse text-[12px] font-semibold text-text-inverse transition hover:ring-2 hover:ring-primary/40",
+                  profileOpen && "ring-2 ring-primary/50",
+                )}
               >
-                <div className="grid size-9 shrink-0 place-items-center rounded-full bg-bg-inverse text-[12px] font-semibold text-text-inverse">
-                  D1
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-[14px] font-semibold text-foreground">Dispatcher 01</div>
-                  <div className="truncate text-[12px] text-text-muted">Fleet Dispatcher</div>
-                </div>
+                D1
               </button>
+              {/* Name / role — static, not a button */}
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-[14px] font-semibold text-foreground">Dispatcher 01</div>
+                <div className="truncate text-[12px] text-text-muted">Fleet Dispatcher</div>
+              </div>
+              {/* Quick logout */}
               <Button
                 aria-label="Keluar dari dashboard"
                 onClick={onLogout}
